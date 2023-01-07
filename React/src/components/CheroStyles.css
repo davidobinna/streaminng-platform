@@ -1,15 +1,15 @@
 
 
-.heroo-img {
+.chero-img {
     background: rgba(0, 0, 0, .3);
     height: 50vh;
     width: 100%;
     position: relative;
 }
 
-.heroo-img:before {
+.chero-img:before {
     content: '';
-    background: url('../assets/HeroImage.jpeg') no-repeat center center/cover;
+    background: url('../assets/Notice.jpeg') no-repeat center center/cover;
     height: 100%;
     width: 100%;
     position: absolute;
@@ -18,7 +18,7 @@
     z-index: -1;
 }
 
-.heroo-img .heading {
+.chero-img .heading {
     width: 100%;
     height: 100%;
     display: flex;
@@ -27,17 +27,17 @@
     align-items: center;
 }
 
-.heroo-img h1 {
+.chero-img h1 {
     font-size:  2.1rem;
 }
 
-.heroo-img p {
+.chero-img p {
     font-size: 1.2rem;
 }
 
 
 @media screen and (max-width:640px) {
-    .heroo-img h1 {
+    .chero-img h1 {
         font-size: 1.2rem;
     }
 

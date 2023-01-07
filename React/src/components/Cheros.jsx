@@ -1,9 +1,9 @@
 import { Component } from 'react';
-import './Heroimage.css';
+import './CheroStyles.css';
 
-const Heroimage = (props) => {
+const Chero = (props) => {
     return (
-    <div className='heroo-img'>
+    <div className='chero-img'>
         <div className='heading'>
         <h1>{props.heading} </h1>
             <p>{props.text}</p>
@@ -13,4 +13,4 @@ const Heroimage = (props) => {
 }
 
 
-export default Heroimage;
+export default Chero;

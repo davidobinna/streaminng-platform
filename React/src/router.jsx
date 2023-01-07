@@ -9,7 +9,10 @@ import Notfound from "./views/Notfound";
 import Signup from "./views/Signup";
 import Membership from "./views/Membership";
 import Anouncement from "./views/Anouncement";
-
+import Contact from "./views/Contact";
+import Dashoard from "./Layouts/Dashboard";
+import Users from "./views/Users";
+import Usersform from "./views/Usersform";
 
 const router = createBrowserRouter([
      {
@@ -31,6 +34,10 @@ const router = createBrowserRouter([
             {
                 path: '/anouncement',
                 element: <Anouncement/>
+            },
+            {
+                path: '/contact',
+                element: <Contact/>
             }
         ],
      },
@@ -54,11 +61,33 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/explore',
-                element: <Navigate to="/writers"/>
+                element: <Navigate to="/featured"/>
             },
             {
-                path: '/writers',
+                path: '/featured',
                 element: <Writers/>
+            }
+        ]
+     },
+     {
+        path:'/',
+        element: <Dashoard/>,
+        children: [
+            {
+                path: '/dashboard',
+                element: <Navigate to="users"/>
+            },
+            {
+                path: '/dashboard/users',
+                element: <Users/>
+            },
+            {
+                path: '/dashboard/users/new',
+                element: <Usersform key="create"/>
+            },
+            {
+                path: '/dashboard/users/:id',
+                element: <Usersform key="update"/>
             }
         ]
      },
