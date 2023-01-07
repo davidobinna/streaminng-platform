@@ -10,6 +10,11 @@
     z-index: 10;
 }
 
+.header-bg {
+    background-color: rgba(0, 0, 0, .85);
+    transition: .5s;
+}
+
 .header h1 {
    font-size: 1.1rem;
 }

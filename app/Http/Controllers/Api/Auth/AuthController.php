@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rules\Password;
 
 class AuthController extends Controller
 {
@@ -16,10 +17,17 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(),[
             'name'     => 'required|string|max:255',
             'email'    => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => [
+                'required',
+                'confirmed',
+                Password::min(8)
+                ->letters()
+                ->symbols()
+            ]
         ]);
         if ($validator->fails()) {
             return response()->json([
+                'success'   => false,
                 'errors'    => $validator->errors(),
                 'status'    =>  422
             ]);
@@ -34,7 +42,8 @@ class AuthController extends Controller
 
         $token = $user->createToken(Str::random(5))->accessToken;
         return response()->json([
-            'message'     => 'Account Created!',
+            'user'        => $user,
+            'success'     => true,
             'token'       => $token,
             'status'      => 200,
         ]);
@@ -44,11 +53,17 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'email'    =>  'required|string|email|max:255',
-            'password' =>  'required|string|min:6 ',
+            'password' =>  [
+                'required',
+                Password::min(8)
+                ->letters()
+                ->symbols()
+            ]
         ]);
 
         if ($validator->fails()) {
             return response()->json([
+                'success'     => false,
                 'errors'   => $validator->errors(),
                 'status'   =>  422
             ]);
@@ -61,12 +76,14 @@ class AuthController extends Controller
                 # code...
                  $token = $user->createToken(Str::random(5))->accessToken;
                  return response()->json([
-                    'message'     => 'Welcome Back!',
+                    'user'        => $user,
+                    'success'     => true,
                     'token'       => $token,
                     'status'      => 200
                  ]);
              } else {
                 return response()->json([
+                    'success'     => false,
                     'errors'  => 'Incorrect Password',
                     'status'  => 422
                 ]);
@@ -74,6 +91,7 @@ class AuthController extends Controller
 
         } else {
             return response()->json([
+                'success'     => false,
                 'errors' => 'Incorrect Email Address',
                 'status' => 422
             ]);
@@ -87,6 +105,7 @@ class AuthController extends Controller
          $token->revoke();
 
          return response()->json([
+            'success'     => true,
             'message'  => 'You\'re Logged Out!',
             'status'   => 200,
          ]);

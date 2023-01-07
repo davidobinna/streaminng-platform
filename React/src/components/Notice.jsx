@@ -9,9 +9,9 @@ const Notice = () => {
           <div className='left'>
             <h1>Ownership Of Funds</h1>
             <p>To all writers and premium users, this is to notify you that access to funds generated
-                 from streaming, will be granted to you if and only if you are the rightful author/owner
-                 of a written content or book that that was publiched on our channel, please contact support to confirm
-                 ownership and get access to your funds. Please be aware that there's a 10-30 % commission from users resource which will
+                 from streaming, will be granted to you if and only if you are the rightful owner & author
+                 of a written content or story that was rendered on our channel, please contact our support team to confirm
+                 ownership and get access to your funds. Please be aware that there is a 10% to 30 % commission from user's resource which will
                  be negotiated during the interview. Goodluck!</p>
                  <Link to='/contact'><button className='btn'>Contact</button></Link>
           </div>

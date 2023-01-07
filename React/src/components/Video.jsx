@@ -11,10 +11,10 @@ const Video = () => {
             </video>
             <div className='content'>
                 <h1>nas AIS</h1>
-                <p>Artificial Immagination Studio</p>
+                <p>Artificial Imagination Studio</p>
             <div>
                 <Link to='/explore' className='btn'>Not Now</Link>
-                <Link to='/membership' className='btn btn-light'>Sign Up</Link>
+                <Link to='/signup' className='btn btn-light'>Sign Up</Link>
             </div>
            </div>
         </div>

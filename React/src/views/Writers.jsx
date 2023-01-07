@@ -3,7 +3,7 @@
 function Writers() {
     return (
         <div>
-            <h1>Writers View</h1>
+            <h1> Featured Writers View</h1>
         </div>
     )
 }

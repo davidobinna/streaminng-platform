@@ -22,8 +22,9 @@ const Footer = () => {
               <div className='right'>
                 <h4>About Company</h4>
                 <p>"nas AIS is a softawre company based in nigeria,
-                     our mission is to transform the mind of readers & writers accross the globe.
-                     Streaming Artificial Immaginations will make you embrace the future of Art, Culture, History and Mindset"
+                     our mission is to transform the mind of creators, readers & writers around the world.
+                     Streaming Artificial Imaginations will make you embrace the future of Art,
+                     Culture, History, Mindset and Presentation. With our powerful AI models & APIs, we're able transform writer's Imagination to 4k Video Streaming."
                      </p>
                      <div className='social'>
                        <FaFacebook size={30} style={{color: '#ffffff', marginRight: '1rem'}}/>
