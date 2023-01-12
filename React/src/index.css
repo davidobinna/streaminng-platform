@@ -46,11 +46,25 @@ ul {
   cursor: pointer;
 }
 
+
+
 .btn-light {
     background: rgb(255,255,255, .2);
 }
 
 .btn:hover {
     background: rgb(255,255,255, .2);
+}
+
+.notification {
+    position: center;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 100;
+    padding: 1rem 1.5rem;
+    background-color: rgb(255,255,255, .2);;
+    color: rgb(255, 255, 255);
+    border-radius: 0.5rem;
+    font-size: 1rem;
 }
 

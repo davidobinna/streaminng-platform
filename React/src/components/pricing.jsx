@@ -8,42 +8,42 @@ const Pricing = () => {
            <div className='card'>
             <h3>- Visitor -</h3>
             <span className='bar'></span>
-            <p className='btc'>$0.00</p>
-            <p>- unlimited -</p>
-            <p>- free Sign up -</p>
-            <p>- streaming access -</p>
-            <p>- free newsletter -</p>
+            <p className='btc'>$0</p>
+            <p>- /regular  -</p>
+            <p>- Free Sign up -</p>
+            <p>- Free newsletter -</p>
             <p>- Featured Channels -</p>
-            <p>- checkout access -</p>
+            <p>- Checkout access -</p>
+            <p>- Blog access -</p>
             <Link to='/signup' className='btn'>Proceed</Link>
            </div>
            <div className='card'>
-            <h3>- Writer -</h3>
+            <h3>- Creators & Writers -</h3>
             <span className='bar'></span>
-            <p className='btc'>$5.00</p>
-            <p>- monthly -</p>
-            <p>- 4k Video Rendering -</p>
+            <p className='btc'>$10</p>
+            <p>- /monthly -</p>
+            <p>- 4k HD Video Rendering -</p>
             <p>- Speech Recognition -</p>
-            <p>- Funds Ownership -</p>
-            <p>- AI Words Prediction -</p>
+            <p>- Withdraw Funds -</p>
+            <p>- GPT3.5 Assistant -</p>
             <p>- Free Facebook Ads -</p>
             <p>- Realtime Analytics -</p>
             <p>- Free Drive Storage -</p>
             <Link to='/signup' className='btn'>Proceed</Link>
            </div>
            <div className='card'>
-            <h3>- Premium -</h3>
+            <h3>- Creators & Writers -</h3>
             <span className='bar'></span>
-            <p className='btc'>$10.00</p>
-            <p>- monthly -</p>
-            <p>- 4k Video Rendering -</p>
+            <p className='btc'>$100</p>
+            <p>- /yearly -</p>
+            <p>- 4k HD Video Rendering -</p>
             <p>- Speech Recognition -</p>
-            <p>- Administrator's Role -</p>
-            <p>- Funds Ownership -</p>
-            <p>- AI Words Prediction -</p>
+            <p>- Withdraw Funds -</p>
+            <p>- GPT3.5 Assistant -</p>
             <p>- Free Facebook Ads -</p>
             <p>- Realtime Analytics -</p>
             <p>- Free Drive Storage -</p>
+            <p>- Admin Role's & Policy -</p>
             <Link to='/signup' className='btn'>Proceed</Link>
            </div>
         </div>

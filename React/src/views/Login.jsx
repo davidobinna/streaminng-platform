@@ -1,17 +1,64 @@
+import { createRef } from "react";
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axiosClient from "../axios-client";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import "../components/SignupStyles.css";
+import { useStateContext } from "../contexts/ContextProvider";
 
 function Login() {
-const {id} = useParams()
+    const { setToken, setNotification, notification} = useStateContext();
+    const [errors, setErrors] = useState({
+        email:null,
+        password:null
+    });
+
+    const emailRef = createRef()
+    const passwordRef = createRef()
+    const [loading, setLoading]  = useState(false)
+    const navigate = useNavigate();
+
+    const styles = {
+        errorStyle: {
+            color:'red',
+            size: '4rem',
+        }
+    }
+
+const onSubmit = (e) => {
+    e.preventDefault()
+    setErrors({})
+    setLoading(true)
+    const payload = {
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
+    }
+    LogIn(payload)
+}
+
+const LogIn = async (payload) => {
+    try {
+        const res = await axiosClient.post('/login',payload)
+        if (res.data.success) {
+             setToken(res.data.token)
+             setNotification(`${'Welcome Back ' + res.data.name + '!'}`)
+        } else {
+            setErrors(res.data.errors)
+            setLoading(false)
+        }
+    } catch (error) {
+        setLoading(false)
+        setNotification(error)
+    }
+}
+
     return (
         <div>
         <Navbar/>
         <div className="l-app" data-theme='dark'>
         <div className='l-login'>
-          <h2> welcome!</h2>
+          <h2> Hello!</h2>
           <div className='l-container'>
             <div className='l-top'>
               <i className='fab fa-google'></i>
@@ -20,20 +67,39 @@ const {id} = useParams()
               <i className='fab fa-twitter-square'></i>
               <i className='fab fa-apple'></i>
             </div>
-            <p className='l-divider'><span>Login</span></p>
-            <form>
+            <p className='l-divider'><span>sign up</span></p>
+            {notification &&
+                <div className="notification">
+            {notification}
+          </div>}
+            {loading && (
+          <div className="text-center">
+            Loading...
+          </div>
+        )}
+          {
+            typeof(errors) === 'string' && setNotification(errors)
+          }
+            <form onSubmit={onSubmit}>
+
               <label>E-mail </label>
-              <input type='email' placeholder='enter your email' />
+              <p style={styles.errorStyle}>{errors.email ? errors.email : null }</p>
+              <input ref={emailRef}   type='email' placeholder='enter your email' />
+
               <label>Password</label>
-              <input type='password' placeholder='enter your password' />
-             
+              <p style={styles.errorStyle}>{errors.password ? errors.password : null }</p>
+              <input ref={passwordRef} type='password' placeholder='enter your password' />
+
               <button>Login</button>
             </form>
             <div className='l-bottom'>
-              <p>Forget your password?</p>
-              <a href='/'>Reset Password</a>
+            <p>Forget your password?</p>
+            <a href='/'>Reset Password</a>
             </div>
-            <Link to="/signup"><p className='l-create'>Create Account</p></Link>
+            <div className='l-bottom'>
+              <p>Not Signed?</p>
+            </div>
+            <Link to="/signup/new"><p className='l-create'>Sign Up </p></Link>
           </div>
         </div>
       </div>
@@ -44,6 +110,4 @@ const {id} = useParams()
 
 
 export default Login;
-
-
 

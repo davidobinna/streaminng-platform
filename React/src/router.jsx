@@ -13,6 +13,8 @@ import Contact from "./views/Contact";
 import Dashoard from "./Layouts/Dashboard";
 import Users from "./views/Users";
 import Usersform from "./views/Usersform";
+import Index from "./views/dashboard";
+import ForgotPassword from "./views/ForgotPassword";
 
 const router = createBrowserRouter([
      {
@@ -46,13 +48,22 @@ const router = createBrowserRouter([
         element: <Guest/>,
         children: [
             {
-                path: '/signup',
+                path: '/signup/new',
+                element: <Signup/>
+            },
+
+            {
+                path: '/signup/plan/:id',
                 element: <Signup/>
             },
             {
                 path: '/login',
                 element: <Login/>
-            }
+            },
+            {
+                path: '/forgot',
+                element: <ForgotPassword/>
+            },
         ],
      },
      {
@@ -75,7 +86,11 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/dashboard',
-                element: <Navigate to="users"/>
+                element: <Navigate to="index"/>
+            },
+            {
+                path: '/dashboard/index',
+                element: <Index/>
             },
             {
                 path: '/dashboard/users',
