@@ -1,29 +1,39 @@
 import { createRef } from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axiosClient from "../axios-client";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import "../components/SignupStyles.css";
 import { useStateContext } from "../contexts/ContextProvider";
-import { Alert } from "bootstrap";
+
 
 function Signup() {
-const { setUser, setToken, setNotification} = useStateContext();
+const { setToken, setNotification, notification} = useStateContext();
 const [errors, setErrors] = useState({
     name:null,
     email:null,
     password:null
 });
+
 const nameRef = createRef()
 const emailRef = createRef()
 const passwordRef = createRef()
 const passwordConfirmationRef = createRef()
+const [loading, setLoading]  = useState(false)
+const navigate = useNavigate();
+const styles = {
+    errorStyle: {
+        color:'red',
+        size: '4rem',
+    }
+}
+
 
 const onSubmit = (e) => {
     e.preventDefault()
     setErrors({})
-
+    setLoading(true)
     const payload = {
         name: nameRef.current.value,
         email: emailRef.current.value,
@@ -37,21 +47,19 @@ const signUp = async (payload) => {
      try {
           const res = await axiosClient.post('/signup',payload)
           if (res.data.success) {
-              setUser(res.data.user)
-              setToken(res.data.Token)
-              setNotification('Sign up was Successful!')
-              console.log(res.data)
+              setToken(res.data.token);
+              setNotification('Sign up was Successful!');
           } else {
             setErrors({
                 name:res.data.errors.name,
                 email:res.data.errors.email,
                 password:res.data.errors.password,
             })
-            console.log(errors)
+            setLoading(false)
           }
      } catch (error) {
-        console.log(error)
         setNotification(error)
+        setLoading(false)
      }
 }
 
@@ -70,16 +78,28 @@ const signUp = async (payload) => {
               <i className='fab fa-apple'></i>
             </div>
             <p className='l-divider'><span>sign up</span></p>
+            {notification &&
+                <div className="notification">
+            {notification}
+          </div>}
+            {loading && (
+          <div className="text-center">
+            Loading...
+          </div>
+        )}
             <form onSubmit={onSubmit}>
               <label>Full Name</label>
+              <p style={styles.errorStyle}>{errors.name ? errors.name : null }</p>
               <input ref={nameRef}   type='text' placeholder='enter your full name' />
-               <p>{errors.name ? errors.name : null }</p>
+
               <label>E-mail </label>
+              <p style={styles.errorStyle}>{errors.email ? errors.email : null }</p>
               <input ref={emailRef}   type='email' placeholder='enter your email' />
-              <p>{errors.email ? errors.email : null }</p>
+
               <label>Password</label>
+              <p style={styles.errorStyle}>{errors.password ? errors.password : null }</p>
               <input ref={passwordRef} type='password' placeholder='enter your password' />
-              <p>{errors.password ? errors.password : null }</p>
+
               <label>Confirm Password</label>
               <input ref={passwordConfirmationRef} type='password' placeholder='re-type password' />
               <button>Submit</button>

@@ -31,7 +31,7 @@ Route::group(['middleware' => ['cors', 'json.response','auth:api']], function(){
 
 });
 
-//......Api Resource Endpoint Goes Here.......//
-Route::apiResource('users', Api\UserController::class)->only([
+//......Api User Resource Endpoint Goes Here.......//
+Route::apiResource('users', Api\User\ResourceController::class)->only([
     'index','store','show','update','destroy'
 ])->middleware(['auth:api','cors']);

@@ -42,7 +42,6 @@ class AuthController extends Controller
 
         $token = $user->createToken(Str::random(5))->accessToken;
         return response()->json([
-            'user'        => $user,
             'success'     => true,
             'token'       => $token,
             'status'      => 200,
@@ -76,10 +75,10 @@ class AuthController extends Controller
                 # code...
                  $token = $user->createToken(Str::random(5))->accessToken;
                  return response()->json([
-                    'user'        => $user,
+                    'name'        => $user->name,
                     'success'     => true,
                     'token'       => $token,
-                    'status'      => 200
+                    'status'      => 200,
                  ]);
              } else {
                 return response()->json([
@@ -106,7 +105,6 @@ class AuthController extends Controller
 
          return response()->json([
             'success'     => true,
-            'message'  => 'You\'re Logged Out!',
             'status'   => 200,
          ]);
     }

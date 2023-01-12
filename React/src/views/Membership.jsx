@@ -7,12 +7,13 @@ import { Navigate } from "react-router-dom";
 
 
 function Membership() {
+    const link = '/signup/plan/'+'p';
     const {token} = useStateContext()
     return (
         <div>
         <Navbar/>
-        <Heroimage heading='PRICING' text='Choose a plan'/>
-        {token ? (<Pricing/>):(<Navigate to="/login"/>) }
+        <Heroimage heading='PRICING' text='- Choose a plan -'/>
+        {token ? (<Pricing/>):(<Navigate to={link}/>) }
         <Footer/>
         </div>
     )
