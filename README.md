@@ -1,4 +1,5 @@
 ------------------------- THE STAGES OF STREAMING APP PROJECT FRONTEND / BACKEND ----------------------
+#REACT FRONTEND STAGE 3: Context API, Layouts, error handling, file system, authorization middleware
 
 #REACT FRONTEND STAGE 1:
  -Home, Anouncement, Membership, Support, Explore/Dashboard, Authentication 
