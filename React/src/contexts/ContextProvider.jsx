@@ -4,9 +4,11 @@ const StateContext = createContext({
     user:null,
     token: null,
     notification: '',
+    plan:null,
     setUser: () => {},
     setToken: () => {},
-    setNotification: () => {}
+    setNotification: () => {},
+    setPlan: () => {},
 })
 
 export const ContextProvider = ({children}) => {
@@ -16,6 +18,11 @@ const [user, setUser] = useState({
 });
 const [token, _setToken] = useState(localStorage.getItem('ACCESS_TOKEN'));
 const [notification, _setNotification]  = useState('');
+const [plan, _setPlan] = useState('');
+
+  function setPlan(plan){
+     _setPlan(plan)
+  }
 
   function setToken(token) {
          _setToken(token)
@@ -38,9 +45,11 @@ const [notification, _setNotification]  = useState('');
             user,
             setUser,
             token,
+            plan,
             setToken,
             notification,
             setNotification,
+            setPlan,
         }}>
             {children}
         </StateContext.Provider>

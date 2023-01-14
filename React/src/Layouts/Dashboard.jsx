@@ -9,7 +9,6 @@ if (!token) {
     return <Navigate to='/login'/>
   }
 
-
 useEffect(()=> {
      getUser();
 },[])
