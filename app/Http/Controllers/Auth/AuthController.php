@@ -1,6 +1,5 @@
 <?php
-
-namespace App\Http\Controllers\Api\Auth;
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -39,7 +38,7 @@ class AuthController extends Controller
             'email'    => $request->get('email'),
             'password' => $password['password']
         ]);
-
+         
         $token = $user->createToken(Str::random(5))->accessToken;
         return response()->json([
             'success'     => true,

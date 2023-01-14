@@ -1,11 +1,36 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axiosClient from '../axios-client';
+import { useStateContext } from '../contexts/ContextProvider';
 import './PricingStyles.css';
 
 const Pricing = () => {
+const {plan,setPlan,setNotification} = useStateContext()
+    useEffect(() => {
+        getPlan()
+        setNotification('fetching data...') 
+    },[])
+
+ const getPlan = async () => {
+         try {
+            const res = await axiosClient.get('/membership')
+             if (res.data.success) {
+                setPlan(res.data.plans)
+             } else {
+                setNotification(res.data.errors)
+                setPlan({})
+             }
+         } catch (error) {
+            setNotification(error)
+         }
+    }
+
     return (
-        <div className='pricing'>
+        <div>
+           {!plan ? (""):(
+            <div className='pricing'>
             <div className='card-container'>
-           <div className='card'>
+            <div className='card'>
             <h3>- Visitor -</h3>
             <span className='bar'></span>
             <p className='btc'>$0</p>
@@ -17,7 +42,7 @@ const Pricing = () => {
             <p>- Blog access -</p>
             <Link to='/signup' className='btn'>Proceed</Link>
            </div>
-           <div className='card'>
+            <div className='card'>
             <h3>- Creators & Writers -</h3>
             <span className='bar'></span>
             <p className='btc'>$10</p>
@@ -46,7 +71,10 @@ const Pricing = () => {
             <p>- Admin Role's & Policy -</p>
             <Link to='/signup' className='btn'>Proceed</Link>
            </div>
-        </div>
+           </div>
+        </div>)}
+          
+
         </div>
     )
 }
