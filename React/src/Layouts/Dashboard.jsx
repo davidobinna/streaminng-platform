@@ -32,6 +32,8 @@ const getUser = async () => {
            setUser(res.data)
    } catch (error) {
     setNotification(error);
+    setToken(null);
+             setUser({});
    }
 }
 
@@ -41,6 +43,7 @@ const getUser = async () => {
       <div className="content">
         <header>
           <div>
+            <p><Link to="/home">Home</Link></p>
            <p>UserName: {user && user.name} &nbsp; &nbsp; </p>
             <br />
            <p><a onClick={onLogout} className="btn-logout" href="#">Logout</a></p>

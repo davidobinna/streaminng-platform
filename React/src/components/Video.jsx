@@ -19,7 +19,7 @@ const Video = () => {
                 <Link to='/explore' className='btn'>Not Now</Link>
                 }
                 {!token &&
-                <Link to='/signup/new' className='btn btn-light'>Sign Up</Link>
+                <Link to='/login' className='btn btn-light'>Sign In</Link>
                 }
              {
                 token &&

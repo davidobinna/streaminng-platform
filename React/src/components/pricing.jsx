@@ -5,76 +5,61 @@ import { useStateContext } from '../contexts/ContextProvider';
 import './PricingStyles.css';
 
 const Pricing = () => {
-const {plan,setPlan,setNotification} = useStateContext()
+const {plan,setPlan,setNotification,setUser} = useStateContext()
     useEffect(() => {
         getPlan()
-        setNotification('fetching data...') 
+        setNotification('fetching data...')
     },[])
 
  const getPlan = async () => {
          try {
             const res = await axiosClient.get('/membership')
              if (res.data.success) {
-                setPlan(res.data.plans)
+                setPlan(res.data.record)
              } else {
                 setNotification(res.data.errors)
                 setPlan({})
              }
          } catch (error) {
+            setPlan({})
             setNotification(error)
          }
     }
 
     return (
         <div>
-           {!plan ? (""):(
             <div className='pricing'>
             <div className='card-container'>
             <div className='card'>
             <h3>- Visitor -</h3>
             <span className='bar'></span>
             <p className='btc'>$0</p>
-            <p>- /regular  -</p>
+            <p>- /free  -</p>
             <p>- Free Sign up -</p>
             <p>- Free newsletter -</p>
             <p>- Featured Channels -</p>
             <p>- Checkout access -</p>
             <p>- Blog access -</p>
-            <Link to='/signup' className='btn'>Proceed</Link>
+            <Link to='/signup/new' className='btn'>Proceed</Link>
            </div>
-            <div className='card'>
-            <h3>- Creators & Writers -</h3>
+            {plan && plan.map(item =>
+            <div key={item.id} className='card'>
+            <h3>- {item.name} -</h3>
             <span className='bar'></span>
-            <p className='btc'>$10</p>
-            <p>- /monthly -</p>
+            <p className='btc'>{item.price}</p>
+            <p>-{item.abbreviation} -</p>
             <p>- 4k HD Video Rendering -</p>
             <p>- Speech Recognition -</p>
-            <p>- Withdraw Funds -</p>
+            <p>- Funds Withdrawal -</p>
             <p>- GPT3.5 Assistant -</p>
             <p>- Free Facebook Ads -</p>
             <p>- Realtime Analytics -</p>
             <p>- Free Drive Storage -</p>
-            <Link to='/signup' className='btn'>Proceed</Link>
+            <Link to={'/billing/'+item.plan} className='btn'>Proceed</Link>
            </div>
-           <div className='card'>
-            <h3>- Creators & Writers -</h3>
-            <span className='bar'></span>
-            <p className='btc'>$100</p>
-            <p>- /yearly -</p>
-            <p>- 4k HD Video Rendering -</p>
-            <p>- Speech Recognition -</p>
-            <p>- Withdraw Funds -</p>
-            <p>- GPT3.5 Assistant -</p>
-            <p>- Free Facebook Ads -</p>
-            <p>- Realtime Analytics -</p>
-            <p>- Free Drive Storage -</p>
-            <p>- Admin Role's & Policy -</p>
-            <Link to='/signup' className='btn'>Proceed</Link>
-           </div>
-           </div>
-        </div>)}
-          
-
+           )}
+        </div>
+        </div>
         </div>
     )
 }

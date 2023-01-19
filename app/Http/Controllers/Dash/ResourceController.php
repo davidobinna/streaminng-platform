@@ -7,6 +7,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Policies\UserPolicy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,8 +20,9 @@ class ResourceController extends Controller
      */
     public function index()
     {
+        $this->authorize(UserPolicy::SUPERADMIN, User::class);
          return UserResource::collection(
-            User::query()->orderBy('id','desc')->paginate()
+            User::query()->orderBy('id','desc')->paginate(10)
          );
     }
 

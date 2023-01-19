@@ -15,6 +15,7 @@ import Users from "./views/Users";
 import Usersform from "./views/Usersform";
 import Index from "./views/dashboard";
 import ForgotPassword from "./views/ForgotPassword";
+import Billing from "./views/Billing";
 
 const router = createBrowserRouter([
      {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
             {
                 path: '/contact',
                 element: <Contact/>
+            },
+            {
+                path:'/billing/:id',
+                element: <Billing/>
             }
         ],
      },
@@ -74,10 +79,6 @@ const router = createBrowserRouter([
                 path: '/explore',
                 element: <Navigate to="/featured"/>
             },
-            {
-                path: '/featured',
-                element: <Writers/>
-            }
         ]
      },
      {
@@ -103,7 +104,7 @@ const router = createBrowserRouter([
             {
                 path: '/dashboard/users/:id',
                 element: <Usersform key="update"/>
-            }
+            },
         ]
      },
      {

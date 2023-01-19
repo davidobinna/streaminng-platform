@@ -27,8 +27,8 @@
     justify-content: center;
     font-size: .8rem;
     transition: all .5s;
-    padding-top: 8rem;
-    margin-bottom: 10rem;
+    padding-top: 15rem;
+    margin-bottom: 15rem;
   }
 
   .l-login h1 {
@@ -57,7 +57,7 @@
     justify-content: center;
     align-items: center;
     padding: 1.5rem;
-    width: 300px;
+    width: 500px;
     margin: auto;
     box-shadow: 0px 0px 12px var(--border);
     border-radius: 8px;
@@ -149,7 +149,7 @@
   @media screen and (max-width:640px) {
 
     .l-app {
-        padding-top: 3rem;
+        padding-top: 5rem;
         margin-bottom: 2rem;
       }
 
@@ -159,4 +159,16 @@
       width: 95%;
 
     }
+    .l-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1.5rem;
+        width: 300px;
+        margin: auto;
+        box-shadow: 0px 0px 12px var(--border);
+        border-radius: 8px;
+        background-color: var(--form-bg);
+      }
   }

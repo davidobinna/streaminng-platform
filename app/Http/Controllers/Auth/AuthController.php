@@ -38,7 +38,9 @@ class AuthController extends Controller
             'email'    => $request->get('email'),
             'password' => $password['password']
         ]);
-         
+
+         $user->createAsStripeCustomer();
+
         $token = $user->createToken(Str::random(5))->accessToken;
         return response()->json([
             'success'     => true,
@@ -51,12 +53,7 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'email'    =>  'required|string|email|max:255',
-            'password' =>  [
-                'required',
-                Password::min(8)
-                ->letters()
-                ->symbols()
-            ]
+            'password' =>  'required',
         ]);
 
         if ($validator->fails()) {
