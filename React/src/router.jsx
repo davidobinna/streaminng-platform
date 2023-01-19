@@ -13,7 +13,8 @@ import Contact from "./views/Contact";
 import Dashoard from "./Layouts/Dashboard";
 import Users from "./views/Users";
 import Usersform from "./views/Usersform";
-import Index from "./views/dashboard";
+import AdminIndex from "./views/dashboard/admin/Index";
+import DefaultIndex from "./views/dashboard/default/Index";
 import ForgotPassword from "./views/ForgotPassword";
 import Billing from "./views/Billing";
 
@@ -77,7 +78,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/explore',
-                element: <Navigate to="/featured"/>
+                element: <Writers />
             },
         ]
      },
@@ -87,11 +88,15 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/dashboard',
-                element: <Navigate to="index"/>
+                element: <Navigate to="admin"/>
             },
             {
-                path: '/dashboard/index',
-                element: <Index/>
+                path: '/dashboard/admin',
+                element: <AdminIndex/>
+            },
+            {
+                path: '/dashboard/default',
+                element: <DefaultIndex/>
             },
             {
                 path: '/dashboard/users',
@@ -106,6 +111,9 @@ const router = createBrowserRouter([
                 element: <Usersform key="update"/>
             },
         ]
+     },
+     {
+
      },
      {
         path: "*",

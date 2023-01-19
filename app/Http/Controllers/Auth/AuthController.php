@@ -45,6 +45,7 @@ class AuthController extends Controller
         return response()->json([
             'success'     => true,
             'token'       => $token,
+            'type'        => $user->type(),
             'status'      => 200,
         ]);
     }
@@ -74,6 +75,7 @@ class AuthController extends Controller
                     'name'        => $user->name,
                     'success'     => true,
                     'token'       => $token,
+                    'type'        => $user->type(),
                     'status'      => 200,
                  ]);
              } else {

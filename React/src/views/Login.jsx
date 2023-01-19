@@ -8,7 +8,7 @@ import "../components/SignupStyles.css";
 import { useStateContext } from "../contexts/ContextProvider";
 
 function Login() {
-    const { setToken, setNotification, notification} = useStateContext();
+    const { setToken, setNotification, notification, setType} = useStateContext();
     const [errors, setErrors] = useState({
         email:null,
         password:null
@@ -41,6 +41,7 @@ const LogIn = async (payload) => {
     try {
         const res = await axiosClient.post('/login',payload)
         if (res.data.success) {
+             setType(res.data.type)
              setToken(res.data.token)
              setNotification(`${'Welcome Back ' + res.data.name + '!'}`)
         } else {
