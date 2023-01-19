@@ -1,13 +1,31 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { Link, Navigate, Outlet } from "react-router-dom";
 import axiosClient from "../axios-client";
 import { useStateContext } from "../contexts/ContextProvider";
 
 function Dashoard() {
-const {user, token, setUser, setToken, notification, setNotification} = useStateContext();
+const {user, token, setUser, setToken, type, notification, setNotification} = useStateContext();
 if (!token) {
-    return <Navigate to='/login'/>
+    return <Navigate to='/login'/>   
+} else {
+    checkRoles()
+}
+function checkRoles() {
+ switch (type) {
+    case 1:
+        return <Navigate to='/dashboard/default'/>
+    case 2:
+        return <Navigate to='/dashboard/moderator'/>
+    case 3:
+        return <Navigate to='/dashboard/writer'/>
+    case 4:
+        return <Navigate to='/dashboard/admin'/>
+    case 4:
+        return <Navigate to='/dashboard/superadmin'/>
+    default:
+        return <Navigate to='/home'/>
   }
+}
 
 useEffect(()=> {
      getUser();

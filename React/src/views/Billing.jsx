@@ -200,7 +200,7 @@ const Billing = () => {
           </div>
         </div>
       </div>):(<Navigate to={link}/>) }
-
+    <Footer />
     </div>
     )
 }
