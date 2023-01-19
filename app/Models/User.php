@@ -40,8 +40,17 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'joined'.
         'type',
+        'line1',
+        'line2',
+        'city',
+        'state',
+        'country',
+        'postal_code',
+    ];
+
+    protected $with = [
+        'subscriptions',
     ];
 
     /**
@@ -54,6 +63,7 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+
     /**
      * The attributes that should be cast.
      *
@@ -61,7 +71,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'joined'  =>'datetime',
     ];
 
      /**
@@ -94,6 +103,41 @@ class User extends Authenticatable
         return (int) $this->type;
      }
 
+     public function lineOne(): ?string
+     {
+         return $this->line1;
+     }
+
+     public function lineTwo(): ?string
+     {
+         return $this->line2;
+     }
+
+     public function city(): ?string
+     {
+         return $this->city;
+     }
+
+     public function state(): ?string
+     {
+         return $this->state;
+     }
+
+     public function country(): ?string
+     {
+         return $this->country;
+     }
+
+     public function postalCode(): ?string
+     {
+         return $this->postal_code;
+     }
+
+     // Type
+    public function isDefault(): bool
+    {
+        return $this->type() === self::DEFAULT;
+    }
 
     public function isModerator():bool
     {
@@ -115,9 +159,15 @@ class User extends Authenticatable
     {
         return $this->type() === self::ADMIN;
     }
+
     public function profile(): HasOne
     {
         return $this->hasOne(Profile::class);
+    }
+
+    public function joinedDate()
+    {
+        return $this->created_at->format('d/m/Y');
     }
 
     public function posts()
@@ -131,4 +181,23 @@ class User extends Authenticatable
         # code..
         return $this->hasMany(Post::class, 'author_id');
     }
+
+  /*  protected static function booted()
+    {
+        static::updated(queueable(function ($customer) {
+            $customer->syncStripeCustomerDetails();
+        }));
+    } */
+
+ /*    public function stripeAddress()
+    {
+          return [
+            'line1'         => $this->lineOne(),
+            'line2'         => $this->lineTwo(),
+            'city'          => $this->city(),
+            'state'         => $this->state(),
+            'country'       => $this->country(),
+            'postal_code'   => $this->postalCode(),
+          ];
+    } */
 }

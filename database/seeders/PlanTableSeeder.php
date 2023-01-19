@@ -20,7 +20,7 @@ class PlanTableSeeder extends Seeder
             'slug'               => 'monthly-plan',
             'stripe_name'        => 'monthly',
             'stripe_product_id'  => 'prod_copystripeidforymonthlyplan', //paste stripe id
-            'stripe_price_id'    => 'price_copystripeidforymonthlyplan',
+            'stripe_price_id'    => 'price_1MP5RjHV3oSwznu14X1TLLgP',
             'price'              => 2,
             'abbreviation'       => '/month',
          ]);
@@ -30,7 +30,7 @@ class PlanTableSeeder extends Seeder
             'slug'               => 'yearly-plan',
             'stripe_name'        => 'yearly',
             'stripe_product_id'  => 'prod_copystripeidforymonthlyplan',
-            'stripe_price_id'    => 'price_copystripeidforymonthlyplan',
+            'stripe_price_id'    => 'price_1MP5RjHV3oSwznu14X1TLLgP',
             'price'              => 20,
             'abbreviation'       => '/yearly',
          ]);

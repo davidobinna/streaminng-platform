@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Pages\MembershipController;
+use App\Http\Controllers\Stripe\PaymentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 /*
@@ -30,14 +31,18 @@ Route::group(['middleware' => ['cors', 'json.response','auth:api']], function(){
 });
 
 
-//......Users Api Resource Endpoint Goes Here.......//
-
-Route::group(['middleware' => ['cors', 'json.response','auth:api']], function(){
-    Route::apiResource('/users', Dash\ResourceController::class)->only([
-        'index','store','show','update','destroy']);        
-});
-
-//-----Public Membership Route Goes here -------??
+//-----Public Membership Point Goes here -------??
 Route::group(['middleware' => ['cors', 'json.response']], function(){
     Route::get('/membership',[MembershipController::class, 'index'])->name('membership.api');
 });
+
+//-----Public Stripe Endpoint Goes here -------??
+Route::group(['middleware' => ['cors', 'json.response','auth:api']], function(){
+    Route::get('/payments', [PaymentController::class, 'index'])->name('payments');
+    Route::post('/payments', [PaymentController::class, 'store'])->name('payments.store');
+});
+
+
+//......All User Resource Endpoint Goes Here.......//
+Route::apiResource('/users', Dash\ResourceController::class)->only([
+    'index','store','show','update','destroy'])->middleware(['cors', 'json.response','auth:api','isAdmin']);

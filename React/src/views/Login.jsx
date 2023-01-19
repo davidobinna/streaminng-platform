@@ -67,7 +67,7 @@ const LogIn = async (payload) => {
               <i className='fab fa-twitter-square'></i>
               <i className='fab fa-apple'></i>
             </div>
-            <p className='l-divider'><span>sign up</span></p>
+            <p className='l-divider'><span>sign in</span></p>
             {notification &&
                 <div className="notification">
             {notification}

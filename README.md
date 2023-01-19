@@ -26,6 +26,15 @@
 #LARAVEL BACKEND STAGE 21:
 #LARAVEL BACKEND STAGE 22:
 #LARAVEL BACKEND STAGE 23:
+#LARAVEL BACKEND STAGE 24:
+#LARAVEL BACKEND STAGE 25:
+#LARAVEL BACKEND STAGE 26:
+#LARAVEL BACKEND STAGE 27:
+#LARAVEL BACKEND STAGE 28:
+#LARAVEL BACKEND STAGE 29:
+#LARAVEL BACKEND STAGE 30: sync stripe customer even setup not complete
+#LARAVEL BACKEND STAGE 31: Check subscription status trait not complete
+
 
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
