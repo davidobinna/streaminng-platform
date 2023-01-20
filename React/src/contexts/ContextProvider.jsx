@@ -18,7 +18,7 @@ const [user, setUser] = useState({
     name: '',
     email: ''
 });
-const [token, _setToken] = useState(localStorage.getItem('ACCESS_TOKEN'));
+const [token, _setToken] = useState(localStorage.getItem('ACCESS_TOKEN'));//localStorage.getItem('ACCESS_TOKEN')
 const [notification, _setNotification]  = useState('');
 const [plan, _setPlan] = useState('');
 const [type, _setType] = useState(localStorage.getItem('ACCESS_TYPE'));

@@ -47,8 +47,8 @@ const signUp = async (payload) => {
      try {
           const res = await axiosClient.post('/signup',payload)
           if (res.data.success) {
-              setType(res.data.type)
               setToken(res.data.token);
+              setType(res.data.type);
               setNotification('Sign up was Successful!');
           } else {
             setErrors({

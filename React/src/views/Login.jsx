@@ -41,8 +41,8 @@ const LogIn = async (payload) => {
     try {
         const res = await axiosClient.post('/login',payload)
         if (res.data.success) {
-             setType(res.data.type)
              setToken(res.data.token)
+             setType(res.data.type)
              setNotification(`${'Welcome Back ' + res.data.name + '!'}`)
         } else {
             setErrors(res.data.errors)
