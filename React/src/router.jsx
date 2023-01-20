@@ -17,6 +17,7 @@ import AdminIndex from "./views/dashboard/admin/Index";
 import DefaultIndex from "./views/dashboard/default/Index";
 import ForgotPassword from "./views/ForgotPassword";
 import Billing from "./views/Billing";
+import Index from "./views/dashboard/Index";
 
 const router = createBrowserRouter([
      {
@@ -88,7 +89,11 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/dashboard',
-                element: <Navigate to="admin"/>
+                element: <Navigate to="index"/>
+            },
+            {
+                path: '/dashboard/index',
+                element: <Index/>
             },
             {
                 path: '/dashboard/admin',
