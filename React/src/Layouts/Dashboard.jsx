@@ -4,9 +4,9 @@ import axiosClient from "../axios-client";
 import { useStateContext } from "../contexts/ContextProvider";
 
 function Dashoard() {
-const {user, token, setUser, setToken, setType, notification, setNotification} = useStateContext();
+const {user, token, setUser, setToken, setDefaultUser, setAdmin, notification, setNotification} = useStateContext();
 if (!token) {
-    return <Navigate to='/login'/> 
+    return <Navigate to='/login'/>
 }
 
 useEffect(()=> {
@@ -18,8 +18,9 @@ const onLogout= async () => {
           const res = await axiosClient.post('/logout')
           if (res.data.success) {
              setToken(null);
+             setAdmin(null)
+             setDefaultUser(null)
              setUser({});
-             setType(null)
              setNotification('You\'re Logged out!');
           }
      } catch (error) {

@@ -9,7 +9,7 @@ import { useStateContext } from "../contexts/ContextProvider";
 
 
 function Signup() {
-const { setToken, setNotification, notification, setType} = useStateContext();
+const { setToken, setNotification, notification, setDefaultUser, setAdmin} = useStateContext();
 const [errors, setErrors] = useState({
     name:null,
     email:null,
@@ -47,9 +47,10 @@ const signUp = async (payload) => {
      try {
           const res = await axiosClient.post('/signup',payload)
           if (res.data.success) {
-              setToken(res.data.token);
-              setType(res.data.type);
-              setNotification('Sign up was Successful!');
+                setDefaultUser(res.data.default);
+                setAdmin(res.data.admin);
+                setToken(res.data.token);
+                setNotification('Sign up was Successful!');
           } else {
             setErrors({
                 name:res.data.errors.name,
