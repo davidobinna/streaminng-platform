@@ -1,11 +1,13 @@
+import { Box } from "@mui/material";
 import { Outlet } from "react-router-dom";
+import { Navbar } from "./components";
 
 function Default() {
     return (
-        <div>
-            <h1>Default Layout</h1>
-            <div><Outlet/></div>
-        </div>
+        <Box sx={{ backgroundColor: '#000' }}>
+        <Navbar/>
+        <Outlet/>
+        </Box>
     )
 }
 

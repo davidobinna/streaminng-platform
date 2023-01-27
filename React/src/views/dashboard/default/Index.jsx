@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
+import axiosClient from "../../../axios-client";
 import { useStateContext } from "../../../contexts/ContextProvider";
 
 const DefaultIndex = () => {
@@ -6,6 +8,7 @@ const DefaultIndex = () => {
   if (!defaultUser) {
         return <Navigate to="/home"/>
 }
+
     return (
         <div>
             <h4>Default Index</h4>

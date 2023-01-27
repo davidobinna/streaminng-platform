@@ -9,6 +9,17 @@ import { useStateContext } from "../contexts/ContextProvider";
 
 
 function Signup() {
+    const fstyles = {
+        form: {
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+       },
+       span: {
+            padding: "0 10px",
+            backgroundColor: "var(--form-bg)",
+       }
+    }
 const { setToken, setNotification, notification, setDefaultUser, setAdmin} = useStateContext();
 const [errors, setErrors] = useState({
     name:null,
@@ -79,7 +90,7 @@ const signUp = async (payload) => {
               <i className='fab fa-twitter-square'></i>
               <i className='fab fa-apple'></i>
             </div>
-            <p className='l-divider'><span>sign up</span></p>
+            <p className='l-divider'><span style={fstyles.span}>sign up</span></p>
             {notification &&
                 <div className="notification">
             {notification}
@@ -89,7 +100,7 @@ const signUp = async (payload) => {
             Loading...
           </div>
         )}
-            <form onSubmit={onSubmit}>
+            <form onSubmit={onSubmit} style={fstyles.form}>
               <label>Full Name</label>
               <p style={styles.errorStyle}>{errors.name ? errors.name : null }</p>
               <input ref={nameRef}   type='text' placeholder='enter your full name' />

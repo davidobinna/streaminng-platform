@@ -12,7 +12,7 @@
     --background: #000;
     --text-primary: #fff;
     --text-secondary: #8e05c2;
-    --accent: #8e05c2;
+    --accent: #c20505;
     --border: #808080;
     --form-bg: #191919;
   }
@@ -82,16 +82,6 @@
     margin: 2rem 0;
   }
 
-  span {
-    padding: 0 10px;
-    background-color: var(--form-bg);
-  }
-
-  form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-  }
 
   label {
     margin: 8px 0;

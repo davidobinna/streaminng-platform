@@ -1,7 +1,9 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { Link, Navigate, Outlet } from "react-router-dom";
 import axiosClient from "../axios-client";
 import { useStateContext } from "../contexts/ContextProvider";
+import { Navbar } from "./components";
+import { Box } from "@mui/material";
 
 function Dashoard() {
 const {user, token, setUser, setToken, setDefaultUser, setAdmin, notification, setNotification} = useStateContext();
@@ -40,10 +42,11 @@ const getUser = async () => {
 }
 
     return (
-        <div>
-    <h1>Dashoard Layout</h1>
-      <div className="content">
-        <header>
+        <Box sx={{ backgroundColor: '#000' }}>
+       <Navbar/>
+       <h1>Dashoard Layout</h1>
+        <div className="content">
+         <header>
           <div>
             <p><Link to="/home">Home</Link></p>
            <p>UserName: {user && user.name} &nbsp; &nbsp; </p>
@@ -60,7 +63,7 @@ const getUser = async () => {
           </div>
         }
       </div>
-    </div>
+      </Box>
     )
 }
 

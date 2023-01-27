@@ -45,4 +45,4 @@ Route::group(['middleware' => ['cors', 'json.response','auth:api']], function(){
 
 //......All User Resource Endpoint Goes Here.......//
 Route::apiResource('/users', Dash\ResourceController::class)->only([
-    'index','store','show','update','destroy'])->middleware(['cors', 'json.response','auth:api','isAdmin']);
+    'index','store','show','update','destroy'])->middleware(['cors', 'json.response','auth:api']);

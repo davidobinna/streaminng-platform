@@ -25,6 +25,6 @@ class UserResource extends JsonResource
             'isWriter'     => $this->isWriter(),
             'isDefault'    => $this->isDefault(),
             'joinedDate'   => $this->joinedDate(),
-        ];
+        ]; 
     }
 }

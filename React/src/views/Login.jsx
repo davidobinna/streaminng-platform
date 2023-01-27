@@ -8,6 +8,17 @@ import "../components/SignupStyles.css";
 import { useStateContext } from "../contexts/ContextProvider";
 
 function Login() {
+    const fstyles = {
+        form: {
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+       },
+       span: {
+            padding: "0 10px",
+            backgroundColor: "var(--form-bg)",
+       }
+    }
     const { setToken, setNotification, notification, setDefaultUser, setAdmin} = useStateContext();
     const [errors, setErrors] = useState({
         email:null,
@@ -69,7 +80,7 @@ const LogIn = async (payload) => {
               <i className='fab fa-twitter-square'></i>
               <i className='fab fa-apple'></i>
             </div>
-            <p className='l-divider'><span>sign in</span></p>
+            <p className='l-divider'><span style={fstyles.span}>sign in</span></p>
             {notification &&
                 <div className="notification">
             {notification}
@@ -82,7 +93,7 @@ const LogIn = async (payload) => {
           {
             typeof(errors) === 'string' && setNotification(errors)
           }
-            <form onSubmit={onSubmit}>
+            <form onSubmit={onSubmit} style={fstyles.form}>
 
               <label>E-mail </label>
               <p style={styles.errorStyle}>{errors.email ? errors.email : null }</p>
