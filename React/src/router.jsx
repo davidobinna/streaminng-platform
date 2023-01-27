@@ -2,7 +2,6 @@ import { createBrowserRouter, Navigate } from "react-router-dom";
 import Default from "./Layouts/Default";
 import Guest from "./Layouts/Guest";
 import Home from "./Layouts/Home";
-import Writers from "./views/Writers";
 import Homepage from "./views/Homepage";
 import Login from "./views/Login";
 import Notfound from "./views/Notfound";
@@ -18,6 +17,7 @@ import DefaultIndex from "./views/dashboard/default/Index";
 import ForgotPassword from "./views/ForgotPassword";
 import Billing from "./views/Billing";
 import Index from "./views/dashboard/Index";
+import { Feed, VideoDetail, ChannelDetail, SearchFeed } from "./Layouts/components";
 
 const router = createBrowserRouter([
      {
@@ -78,8 +78,21 @@ const router = createBrowserRouter([
         element: <Default/>,
         children: [
             {
-                path: '/explore',
-                element: <Writers />
+                
+                path: '/feed',
+                element: <Feed />
+            },
+            {
+                path: '/video/:id',
+                element: <VideoDetail />
+            },
+            {
+                path: '/channel/:id',
+                element: <ChannelDetail />
+            },
+            {
+                path: '/search/:searchTerm',
+                element: <SearchFeed />
             },
         ]
      },

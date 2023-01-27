@@ -39,13 +39,19 @@ class AuthController extends Controller
             'password' => $password['password']
         ]);
 
-         $user->createAsStripeCustomer();
+        // $user->createAsStripeCustomer();
+
+        $getUser = User::where('email',$request->email)->first();
 
         $token = $user->createToken(Str::random(5))->accessToken;
         return response()->json([
+            'default'     => $getUser->isDefault(),
+            'moderator'   => $getUser->isModerator(),
+            'writer'      => $getUser->isWriter(),
+            'admin'       => $getUser->isAdmin(),
+            'superadmin'  => $getUser->isSuperAdmin(),
             'success'     => true,
             'token'       => $token,
-            'type'        => $user->type(),
             'status'      => 200,
         ]);
     }
@@ -72,10 +78,14 @@ class AuthController extends Controller
                 # code...
                  $token = $user->createToken(Str::random(5))->accessToken;
                  return response()->json([
+                    'default'     => $user->isDefault(),
+                    'moderator'   => $user->isModerator(),
+                    'writer'      => $user->isWriter(),
+                    'admin'       => $user->isAdmin(),
+                    'superadmin'  => $user->isSuperAdmin(),
                     'name'        => $user->name,
                     'success'     => true,
                     'token'       => $token,
-                    'type'        => $user->type(),
                     'status'      => 200,
                  ]);
              } else {

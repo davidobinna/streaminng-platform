@@ -16,7 +16,7 @@ const Video = () => {
                 <p>Artificial Imagination Studio</p>
             <div>
                 {!token &&
-                <Link to='/explore' className='btn'>Not Now</Link>
+                <Link to='/feed' className='btn'>Not Now</Link>
                 }
                 {!token &&
                 <Link to='/login' className='btn btn-light'>Sign In</Link>

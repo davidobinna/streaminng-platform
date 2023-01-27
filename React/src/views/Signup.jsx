@@ -9,7 +9,18 @@ import { useStateContext } from "../contexts/ContextProvider";
 
 
 function Signup() {
-const { setToken, setNotification, notification, setType} = useStateContext();
+    const fstyles = {
+        form: {
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+       },
+       span: {
+            padding: "0 10px",
+            backgroundColor: "var(--form-bg)",
+       }
+    }
+const { setToken, setNotification, notification, setDefaultUser, setAdmin} = useStateContext();
 const [errors, setErrors] = useState({
     name:null,
     email:null,
@@ -47,9 +58,10 @@ const signUp = async (payload) => {
      try {
           const res = await axiosClient.post('/signup',payload)
           if (res.data.success) {
-              setToken(res.data.token);
-              setType(res.data.type);
-              setNotification('Sign up was Successful!');
+                setDefaultUser(res.data.default);
+                setAdmin(res.data.admin);
+                setToken(res.data.token);
+                setNotification('Sign up was Successful!');
           } else {
             setErrors({
                 name:res.data.errors.name,
@@ -78,7 +90,7 @@ const signUp = async (payload) => {
               <i className='fab fa-twitter-square'></i>
               <i className='fab fa-apple'></i>
             </div>
-            <p className='l-divider'><span>sign up</span></p>
+            <p className='l-divider'><span style={fstyles.span}>sign up</span></p>
             {notification &&
                 <div className="notification">
             {notification}
@@ -88,7 +100,7 @@ const signUp = async (payload) => {
             Loading...
           </div>
         )}
-            <form onSubmit={onSubmit}>
+            <form onSubmit={onSubmit} style={fstyles.form}>
               <label>Full Name</label>
               <p style={styles.errorStyle}>{errors.name ? errors.name : null }</p>
               <input ref={nameRef}   type='text' placeholder='enter your full name' />

@@ -8,7 +8,18 @@ import "../components/SignupStyles.css";
 import { useStateContext } from "../contexts/ContextProvider";
 
 function Login() {
-    const { setToken, setNotification, notification, setType} = useStateContext();
+    const fstyles = {
+        form: {
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+       },
+       span: {
+            padding: "0 10px",
+            backgroundColor: "var(--form-bg)",
+       }
+    }
+    const { setToken, setNotification, notification, setDefaultUser, setAdmin} = useStateContext();
     const [errors, setErrors] = useState({
         email:null,
         password:null
@@ -41,8 +52,9 @@ const LogIn = async (payload) => {
     try {
         const res = await axiosClient.post('/login',payload)
         if (res.data.success) {
+             setDefaultUser(res.data.default);
+             setAdmin(res.data.admin);
              setToken(res.data.token)
-             setType(res.data.type)
              setNotification(`${'Welcome Back ' + res.data.name + '!'}`)
         } else {
             setErrors(res.data.errors)
@@ -68,7 +80,7 @@ const LogIn = async (payload) => {
               <i className='fab fa-twitter-square'></i>
               <i className='fab fa-apple'></i>
             </div>
-            <p className='l-divider'><span>sign in</span></p>
+            <p className='l-divider'><span style={fstyles.span}>sign in</span></p>
             {notification &&
                 <div className="notification">
             {notification}
@@ -81,7 +93,7 @@ const LogIn = async (payload) => {
           {
             typeof(errors) === 'string' && setNotification(errors)
           }
-            <form onSubmit={onSubmit}>
+            <form onSubmit={onSubmit} style={fstyles.form}>
 
               <label>E-mail </label>
               <p style={styles.errorStyle}>{errors.email ? errors.email : null }</p>

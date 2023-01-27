@@ -17,7 +17,6 @@ a:hover {
 
 body {
   margin: 0;
-
   font-family: 'Russo One', Inter, Avenir, Helvetica, Arial, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -31,6 +30,58 @@ h1,h4, p,a {
     color: #fff;
 }
 
+::-webkit-scrollbar {
+    width: 0px;
+    height: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: rgb(114, 113, 113);
+    border-radius: 10px;
+    height: 200px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  .category-btn:hover {
+    background-color: #FC1503 !important;
+    color: white !important;
+  }
+
+  .category-btn:hover span{
+    color: white !important;
+  }
+
+  .react-player {
+    height: 77vh !important;
+    width: 100% !important;
+  }
+
+  .search-bar{
+    border:none;
+    outline:none;
+    width:350px;
+  }
+
+  .category-btn{
+    font-weight: bold !important;
+    text-transform: capitalize;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    cursor:pointer;
+    background: transparent;
+    outline: none;
+    border: none;
+
+    padding: 7px 15px;
+    margin: 10px 0px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+  }
+
 ul {
     list-style-type: none;
   }
@@ -41,19 +92,20 @@ ul {
   font-size: 1.2rem;
   text-transform: uppercase;
   background: transparent;
-  color: #fff;
-  border: 1px solid #fff;
+  color: rgb(254, 238, 238);
+  border: 1px solid rgb(255, 19, 19);
   cursor: pointer;
 }
 
 
 
 .btn-light {
-    background: rgb(255,255,255, .2);
+    background: rgba(219, 99, 99, 0.2);
 }
 
 .btn:hover {
-    background: rgb(255,255,255, .2);
+    background: rgba(236, 24, 24, 0.922);
+    color: rgb(255, 255, 255);
 }
 
 .notification {
@@ -68,3 +120,27 @@ ul {
     font-size: 1rem;
 }
 
+@media screen and (max-width: 900px) {
+    .category-btn{
+      margin: 10px;
+    }
+  }
+
+  @media screen and (max-width:800px){
+    .copyright{
+      display:none !important;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .scroll-horizontal {
+      overflow: auto !important;
+    }
+
+    .react-player {
+      height: 45vh !important;
+    }
+    .search-bar{
+      width:200px;
+    }
+  }

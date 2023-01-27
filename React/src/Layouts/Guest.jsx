@@ -10,6 +10,7 @@ function Guest() {
         if (routeId) {
             return <Navigate to="/membership"/>
         }
+
         return <Navigate to="/dashboard"/>
     }
 

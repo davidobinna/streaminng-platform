@@ -5,12 +5,14 @@ const StateContext = createContext({
     token: null,
     notification: '',
     plan:null,
-    type:null,
+    admin:null,
+    defaultUser:null,
+    setAdmin: () => {},
     setUser: () => {},
     setToken: () => {},
     setNotification: () => {},
     setPlan: () => {},
-    setType: () => {},
+    setDefaultUser: () => {},
 })
 
 export const ContextProvider = ({children}) => {
@@ -21,20 +23,31 @@ const [user, setUser] = useState({
 const [token, _setToken] = useState(localStorage.getItem('ACCESS_TOKEN'));//localStorage.getItem('ACCESS_TOKEN')
 const [notification, _setNotification]  = useState('');
 const [plan, _setPlan] = useState('');
-const [type, _setType] = useState(localStorage.getItem('ACCESS_TYPE'));
+const [defaultUser, _setDefaultUser] = useState(localStorage.getItem('ACCESS_DEFAULT'));
+const [admin, _setAdmin] = useState(localStorage.getItem('ACCESS_ADMIN'));
+
 
   function setPlan(plan){
      _setPlan(plan)
   }
 
-  function setType(type){
-   _setType(type)
-   if (type) {
-    localStorage.setItem('ACCESS_TYPE',type)
+  function setDefaultUser(value){
+   _setDefaultUser(value)
+   if (value) {
+    localStorage.setItem('ACCESS_DEFAULT',value)
    } else {
-    localStorage.removeItem('ACCESS_TYPE')
+    localStorage.removeItem('ACCESS_DEFAULT')
    }
   }
+
+  function setAdmin(admin){
+    _setAdmin(admin)
+    if (admin) {
+     localStorage.setItem('ACCESS_ADMIN',admin)
+    } else {
+     localStorage.removeItem('ACCESS_ADMIN')
+    }
+   }
 
   function setToken(token) {
          _setToken(token)
@@ -54,11 +67,12 @@ const [type, _setType] = useState(localStorage.getItem('ACCESS_TYPE'));
 
     return (
         <StateContext.Provider value={{
-            user,             setUser,
-            token,            plan,
-            type,            setToken,
-            notification,            setNotification,
-            setPlan,            setType,
+            user,               setUser,
+            token,              plan,
+            admin,              setAdmin,
+            defaultUser,        setToken,
+            notification,       setNotification,
+            setPlan,            setDefaultUser,
         }}>
             {children}
         </StateContext.Provider>

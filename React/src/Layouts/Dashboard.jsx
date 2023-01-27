@@ -1,12 +1,14 @@
-import { useCallback, useEffect } from "react";
+import { useEffect } from "react";
 import { Link, Navigate, Outlet } from "react-router-dom";
 import axiosClient from "../axios-client";
 import { useStateContext } from "../contexts/ContextProvider";
+import { Navbar } from "./components";
+import { Box } from "@mui/material";
 
 function Dashoard() {
-const {user, token, setUser, setToken, setType, notification, setNotification} = useStateContext();
+const {user, token, setUser, setToken, setDefaultUser, setAdmin, notification, setNotification} = useStateContext();
 if (!token) {
-    return <Navigate to='/login'/> 
+    return <Navigate to='/login'/>
 }
 
 useEffect(()=> {
@@ -18,8 +20,9 @@ const onLogout= async () => {
           const res = await axiosClient.post('/logout')
           if (res.data.success) {
              setToken(null);
+             setAdmin(null)
+             setDefaultUser(null)
              setUser({});
-             setType(null)
              setNotification('You\'re Logged out!');
           }
      } catch (error) {
@@ -39,10 +42,11 @@ const getUser = async () => {
 }
 
     return (
-        <div>
-    <h1>Dashoard Layout</h1>
-      <div className="content">
-        <header>
+        <Box sx={{ backgroundColor: '#000' }}>
+       <Navbar/>
+       <h1>Dashoard Layout</h1>
+        <div className="content">
+         <header>
           <div>
             <p><Link to="/home">Home</Link></p>
            <p>UserName: {user && user.name} &nbsp; &nbsp; </p>
@@ -59,7 +63,7 @@ const getUser = async () => {
           </div>
         }
       </div>
-    </div>
+      </Box>
     )
 }
 
