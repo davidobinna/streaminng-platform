@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { useStateContext } from "../../contexts/ContextProvider";
 
@@ -6,10 +5,10 @@ import { useStateContext } from "../../contexts/ContextProvider";
 const Index = () => {
 const {admin,defaultUser} = useStateContext()
 if (admin) {
-    return <Navigate to="/dashboard/admin"/>
+    return <Navigate to="/adminroutes"/>
 }
 if (defaultUser) {
-    return <Navigate to="/dashboard/default"/>
+    return <Navigate to="/defaultroutes"/>
 }
 
     return (

@@ -34,6 +34,34 @@ export const categories = [
   { name: 'Crypto', icon: <DeveloperModeIcon />, },
 ];
 
+export const admincategories = [
+    { name: 'Home', link:'/home', icon: <HomeIcon />, },
+    { name: 'Profile',link:'/', icon: <MusicNoteIcon /> },
+    { name: 'Users', link:'/dashboard/admin/users', icon: <SchoolIcon />, },
+    { name: 'Create User', link:'/dashboard/admin/users/new',  icon: <GraphicEqIcon />, },
+    { name: 'Posts', link:'/', icon: <OndemandVideoIcon />, },
+    { name: 'Create Post', link:'/', icon: <SportsEsportsIcon />, },
+    { name: 'Writers', link:'/', icon: <LiveTvIcon />, },
+    { name: 'Create Writer', link:'/', icon: <FitnessCenterIcon />, },
+    { name: 'Tags', link:'/', icon: <CheckroomIcon />, },
+    { name: 'Create Tag', link:'/', icon: <FaceRetouchingNaturalIcon />, },
+    { name: 'Logout', link:'/', icon: <TheaterComedyIcon />, },
+  ];
+
+  export const writercategories = [
+    { name: 'Home', icon: <HomeIcon />, },
+    { name: 'Podcast', icon: <GraphicEqIcon />, },
+    { name: 'Movie', icon: <OndemandVideoIcon />, },
+    { name: 'Gaming', icon: <SportsEsportsIcon />, },
+    { name: 'Live', icon: <LiveTvIcon />, },
+    { name: 'Sport', icon: <FitnessCenterIcon />, },
+    { name: 'Fashion', icon: <CheckroomIcon />, },
+    { name: 'Beauty', icon: <FaceRetouchingNaturalIcon />, },
+    { name: 'Comedy', icon: <TheaterComedyIcon />, },
+    { name: 'Gym', icon: <FitnessCenterIcon />, },
+    { name: 'Crypto', icon: <DeveloperModeIcon />, },
+  ];
+
 
 
 export const demoThumbnailUrl = 'https://i.ibb.co/G2L2Gwp/API-Course.png';

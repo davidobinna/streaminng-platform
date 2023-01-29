@@ -44,25 +44,12 @@ const getUser = async () => {
     return (
         <Box sx={{ backgroundColor: '#000' }}>
        <Navbar/>
-       <h1>Dashoard Layout</h1>
-        <div className="content">
-         <header>
-          <div>
-            <p><Link to="/home">Home</Link></p>
-           <p>UserName: {user && user.name} &nbsp; &nbsp; </p>
-            <br />
-           <p><a onClick={onLogout} className="btn-logout" href="#">Logout</a></p>
-          </div>
-        </header>
-        <main>
-          <Outlet/>
-        </main>
-        {notification &&
+       {notification &&
           <div className="notification" >
           {notification}
           </div>
         }
-      </div>
+          <Outlet/>
       </Box>
     )
 }

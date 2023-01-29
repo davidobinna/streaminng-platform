@@ -10,9 +10,9 @@ import Membership from "./views/Membership";
 import Anouncement from "./views/Anouncement";
 import Contact from "./views/Contact";
 import Dashoard from "./Layouts/Dashboard";
-import Users from "./views/Users";
-import Usersform from "./views/Usersform";
-import AdminIndex from "./views/dashboard/admin/Index";
+import Users from "./views/dashboard/admin/users/Index";
+import CreateUsers from "./views/dashboard/admin/users/Create";
+import AdminIndex from "./views/dashboard/admin/index";
 import DefaultIndex from "./views/dashboard/default/Index";
 import ForgotPassword from "./views/ForgotPassword";
 import Billing from "./views/Billing";
@@ -78,7 +78,6 @@ const router = createBrowserRouter([
         element: <Default/>,
         children: [
             {
-                
                 path: '/feed',
                 element: <Feed />
             },
@@ -109,24 +108,52 @@ const router = createBrowserRouter([
                 element: <Index/>
             },
             {
-                path: '/dashboard/admin',
-                element: <AdminIndex/>
+                path: '/',
+                element: <AdminIndex/>,
+                children: [
+                    {
+                        path: '/adminroutes',
+                        element: <Navigate to="/dashboard/admin/users"/>
+                    },
+                    {
+                        path: '/dashboard/admin/users',
+                        element: <Users/>
+                    },
+                    {
+                        path: '/dashboard/admin/users/new',
+                        element: <CreateUsers key="create"/>
+                    },
+                    {
+                        path: '/dashboard/admin/users/:id',
+                        element: <CreateUsers key="update"/>
+                    },
+                ]
             },
             {
-                path: '/dashboard/default',
-                element: <DefaultIndex/>
-            },
-            {
-                path: '/dashboard/users',
-                element: <Users/>
-            },
-            {
-                path: '/dashboard/users/new',
-                element: <Usersform key="create"/>
-            },
-            {
-                path: '/dashboard/users/:id',
-                element: <Usersform key="update"/>
+                path: '/',
+                element: <DefaultIndex/>,
+                children: [
+                    {
+                        path: '/defaultroutes',
+                        element: <Navigate to="/dashboard/default/feed"/>
+                    },
+                    {
+                        path: '/dashboard/default/feed',
+                        element: <Feed />
+                    },
+                    {
+                        path: '/dashboard/default/video/:id',
+                        element: <VideoDetail />
+                    },
+                    {
+                        path: '/dashboard/default/channel/:id',
+                        element: <ChannelDetail />
+                    },
+                    {
+                        path: '/dashboard/default/search/:searchTerm',
+                        element: <SearchFeed />
+                    },
+                ]
             },
         ]
      },
