@@ -16,7 +16,7 @@ class UserPolicy
 
    public function superAdmin(User $user): bool
    {
-      return $user->isAdmin();
+      return $user->isAdmin() || $user->isSuperAdmin();
    }
 
    public function admin(User $user): bool

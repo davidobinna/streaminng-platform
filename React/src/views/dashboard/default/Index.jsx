@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import axiosClient from "../../../axios-client";
 import { useStateContext } from "../../../contexts/ContextProvider";
 
@@ -11,7 +11,7 @@ const DefaultIndex = () => {
 
     return (
         <div>
-            <h4>Default Index</h4>
+            <Outlet/>
         </div>
     )
 }

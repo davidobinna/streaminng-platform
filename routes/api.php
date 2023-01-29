@@ -46,3 +46,16 @@ Route::group(['middleware' => ['cors', 'json.response','auth:api']], function(){
 //......All User Resource Endpoint Goes Here.......//
 Route::apiResource('/users', Dash\ResourceController::class)->only([
     'index','store','show','update','destroy'])->middleware(['cors', 'json.response','auth:api']);
+
+
+//......All Post Resource Endpoint Goes Here.......//
+Route::apiResource('/posts', Dash\PostController::class)->only([
+    'index','store','show','update','destroy'])->middleware(['cors', 'json.response','auth:api']);
+
+//......All Tags Resource Endpoint Goes Here.......//
+Route::apiResource('/tags', Dash\TagController::class)->only([
+    'index','store','show','update','destroy'])->middleware(['cors', 'json.response','auth:api']);
+
+//......All Writers Resource Endpoint Goes Here.......//
+Route::apiResource('/writers', Dash\WriterController::class)->only([
+    'index'])->middleware(['cors', 'json.response','auth:api']);

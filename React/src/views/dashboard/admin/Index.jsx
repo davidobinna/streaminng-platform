@@ -1,30 +1,35 @@
-import { useEffect } from "react";
-import { Navigate } from "react-router-dom";
-import axiosClient from "../../../axios-client";
+import { Box, Stack, Typography } from "@mui/material";
+import { useState } from "react";
+import { Navigate, Outlet } from "react-router-dom";
 import { useStateContext } from "../../../contexts/ContextProvider";
+import { Sidebar } from "../../../Layouts/components";
+
 
 const AdminIndex = () => {
+    const [selectedCategory, setSelectedCategory] = useState("New");
     const {admin} = useStateContext()
   if (!admin) {
         return <Navigate to="/home"/>
 }
 
-useEffect(()=> {
-    getUsers()
-});
-
-const getUsers = async () => {
-    try {
-         const res = axiosClient.get('/users')
-         console.log(res.data)
-    } catch (error) {
-       console.log(error)
-    }
-}
-
     return (
         <div>
-            <h4>ADMIN Index</h4>
+            <Stack sx={{ flexDirection: { sx: "column", md: "row" } }}>
+           <Box sx={{ height: { sx: "auto", md: "92vh" }, borderRight: "1px solid #3d3d3d", px: { sx: 0, md: 2 } }}>
+           <Sidebar selectedCategory={selectedCategory}
+           setSelectedCategory={setSelectedCategory}
+           admin={true} default={false} writer={false}/>
+               <Typography className="copyright" variant="body2" sx={{ mt: 1.5, color: "#fff", }}>
+                Copyright © 2023 AIS .net
+               </Typography>
+           </Box>
+           <Box p={2} sx={{ overflowY: "auto", height: "90vh", flex: 2 }}>
+              <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}> Admin
+                 <span style={{ color: "#FC1503" }}> {selectedCategory}</span>
+               </Typography>
+               <Outlet/>
+           </Box>
+         </Stack>
         </div>
     )
 }
