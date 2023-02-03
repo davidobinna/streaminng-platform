@@ -7,10 +7,13 @@ use App\Http\Resources\PostResource;
 use App\Models\Post;
 use App\Models\User;
 use App\Policies\UserPolicy;
+use App\Traits\GetApiUser;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+
+    use GetApiUser;
     /**
      * Display a listing of the resource.
      *
@@ -18,10 +21,16 @@ class PostController extends Controller
      */
     public function index()
     {
-         $this->authorize(UserPolicy::SUPERADMIN, User::class);
-         return PostResource::collection(
-            Post::query()->orderBy('id','desc')->paginate(10)
-         );
+        if ($this->isWriter()) {
+             return PostResource::collection(
+                Post::where('author_id', $this->getAuthUser()->id())->paginate(5)
+             );
+        } else {
+            $this->authorize(UserPolicy::SUPERADMIN, User::class);
+            return PostResource::collection(
+               Post::query()->orderBy('id','desc')->paginate(10)
+            );
+        }
     }
 
     /**

@@ -34,8 +34,14 @@
 #LARAVEL BACKEND STAGE 29:
 #LARAVEL BACKEND STAGE 30: sync stripe customer even setup not complete
 #LARAVEL BACKEND STAGE 31: Check subscription status trait not complete
-
-
+#LARAVEL BACKEND STAGE 32:
+#LARAVEL BACKEND STAGE 33:
+#LARAVEL BACKEND STAGE 34:
+#LARAVEL BACKEND STAGE 35:
+#LARAVEL BACKEND STAGE 36:
+#LARAVEL BACKEND STAGE 37:
+#LARAVEL BACKEND STAGE 38: not complete, use the same post index for writers 'post' => Post::where('author_id', auth()->id())->paginate(5);
+#LARAVEL BACKEND STAGE 39:
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
