@@ -32,7 +32,6 @@ const getUsers = async () => {
          console.log(res.data)
     } catch (error) {
         setLoading(false)
-       console.log(error)
     }
 }
 
@@ -82,7 +81,7 @@ const getUsers = async () => {
               {users[item].type === 4 ? ("Admin"):('')}
               {users[item].type === 5 ? ("SuperAdmin"):('') }
               {users[item].type === 2 ? ("Moderator"):('') }
-              {users[item].type === 3 ? ("<p>Writer"):('') }
+              {users[item].type === 3 ? ("Writer"):('') }
               {users[item].type === 1 ? ("Default"):('') }
               </TableCell>
               <TableCell >{users[item].joinedDate}</TableCell>
