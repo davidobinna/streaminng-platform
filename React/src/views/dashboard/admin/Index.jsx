@@ -24,7 +24,7 @@ const AdminIndex = () => {
                </Typography>
            </Box>
            <Box p={2} sx={{ overflowY: "auto", height: "90vh", flex: 2 }}>
-              <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}> Admin
+              <Typography variant="h5" fontWeight="bold" mb={2} sx={{ color: "white" }}> Admin
                  <span style={{ color: "#FC1503" }}> {selectedCategory}</span>
                </Typography>
                <Outlet/>

@@ -18,6 +18,8 @@ import ForgotPassword from "./views/ForgotPassword";
 import Billing from "./views/Billing";
 import Index from "./views/dashboard/Index";
 import { Feed, VideoDetail, ChannelDetail, SearchFeed } from "./Layouts/components";
+import Posts from "./views/dashboard/admin/post/Index";
+import Tags from "./views/dashboard/admin/tag/Index";
 
 const router = createBrowserRouter([
      {
@@ -115,6 +117,7 @@ const router = createBrowserRouter([
                         path: '/adminroutes',
                         element: <Navigate to="/dashboard/admin/users"/>
                     },
+                    //Route for Users
                     {
                         path: '/dashboard/admin/users',
                         element: <Users/>
@@ -126,6 +129,16 @@ const router = createBrowserRouter([
                     {
                         path: '/dashboard/admin/users/:id',
                         element: <CreateUsers key="update"/>
+                    },
+                    //Route for Posts
+                    {
+                        path: '/dashboard/admin/posts',
+                        element:  <Posts/>
+                    },
+                    //Route for Tags
+                    {
+                        path: '/dashboard/admin/tags',
+                        element:  <Tags/>
                     },
                 ]
             },
