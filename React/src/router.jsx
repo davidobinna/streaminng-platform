@@ -20,6 +20,7 @@ import Index from "./views/dashboard/Index";
 import { Feed, VideoDetail, ChannelDetail, SearchFeed } from "./Layouts/components";
 import Posts from "./views/dashboard/admin/post/Index";
 import Tags from "./views/dashboard/admin/tag/Index";
+import Writers from "./views/dashboard/admin/writers/Index";
 
 const router = createBrowserRouter([
      {
@@ -139,6 +140,10 @@ const router = createBrowserRouter([
                     {
                         path: '/dashboard/admin/tags',
                         element:  <Tags/>
+                    },
+                    {
+                        path: '/dashboard/admin/writers',
+                        element: <Writers/>
                     },
                 ]
             },

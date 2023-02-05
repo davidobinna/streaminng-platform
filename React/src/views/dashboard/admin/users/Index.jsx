@@ -29,9 +29,9 @@ const getUsers = async () => {
          const res = await axiosClient.get('/users')
          setLoading(false)
          setUsers(res.data.data)
-         console.log(res.data)
     } catch (error) {
         setLoading(false)
+        console.log(error)
     }
 }
 

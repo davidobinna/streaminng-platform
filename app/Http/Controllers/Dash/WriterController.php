@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 class WriterController extends Controller
 {
     public function index() {
-        
+
         $this->authorize(UserPolicy::SUPERADMIN, User::class);
         return WriterResource::collection(
           User::where('type',User::WRITER)->orderBy('created_at','desc')->paginate(5)

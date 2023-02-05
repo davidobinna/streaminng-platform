@@ -41,7 +41,7 @@ export const admincategories = [
     { name: 'Create User', link:'/dashboard/admin/users/new',  icon: <GraphicEqIcon />, },
     { name: 'Posts', link:'/dashboard/admin/posts', icon: <OndemandVideoIcon />, },
     { name: 'Create Post', link:'/', icon: <SportsEsportsIcon />, },
-    { name: 'Writers', link:'/', icon: <LiveTvIcon />, },
+    { name: 'Writers', link:'/dashboard/admin/writers', icon: <LiveTvIcon />, },
     { name: 'Create Writer', link:'/', icon: <FitnessCenterIcon />, },
     { name: 'Tags', link:'/dashboard/admin/tags', icon: <CheckroomIcon />, },
     { name: 'Create Tag', link:'/', icon: <FaceRetouchingNaturalIcon />, },
