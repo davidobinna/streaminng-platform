@@ -13,28 +13,43 @@ import { Link } from "react-router-dom";
 
 
 const Users = () => {
+const {setNotification} = useStateContext()
 const [users, setUsers] = useState([])
 const [loading, setLoading] = useState(false)
-const {notification,setNotification} = useStateContext()
+const [meta,setMeta] = useState([])
+const count ={
+    value: 0,
+}
 
 useEffect(()=> {
     setLoading(true)
     getUsers()
 },[]);
 
-
-
 const getUsers = async () => {
     try {
          const res = await axiosClient.get('/users')
          setLoading(false)
          setUsers(res.data.data)
+         setMeta(res.data.meta.links)
     } catch (error) {
         setLoading(false)
-        console.log(error)
+        setNotification(error)
     }
 }
 
+const nextLink = async (link) => {
+    const url = link.substring(25)
+    setLoading(true)
+      try {
+          const res = await axiosClient.get(url)
+          setLoading(false)
+          setUsers(res.data.data)
+      } catch (error) {
+        setLoading(false)
+        setNotification(error)
+      }
+}
 
     return (
 <div>
@@ -85,13 +100,18 @@ const getUsers = async () => {
               {users[item].type === 1 ? ("Default"):('') }
               </TableCell>
               <TableCell >{users[item].joinedDate}</TableCell>
-              <TableCell >Action</TableCell>
+              <TableCell>Action</TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
       </div>
+      <div style={{display: 'flex', alignItems: "center"}}>
+       { meta.length > 0  && meta.map( items => (
+            <button key={items.toString()} onClick={() => nextLink(items.url)} className="category-btn">{count.value++}</button>
+            ))}
+            </div>
     </div>
     )
 }

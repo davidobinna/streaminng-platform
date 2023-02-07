@@ -9,10 +9,18 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
+    //User ACTION Policy Constant 
    const SUPERADMIN = 'superAdmin';
    const ADMIN = 'admin';
    const BAN = 'ban';
    const DELETE = 'delete';
+
+   //User TAG Policy Constant
+   const INDEXTAGS = 'indexTags';
+   const SHOWTAGS  = 'showTags';
+   const CREATETAGS = 'createTags';
+   const UPDATETAGS = 'updateTags';
+   const DELTETAGS = 'deleteTags';
 
    public function superAdmin(User $user): bool
    {
@@ -33,5 +41,12 @@ class UserPolicy
    public function delete(User $user, User $subject): bool
    {
     return ($user->isAdmin() || $user->matches($subject)) && !$subject->isAdmin();
+   }
+
+
+   //User Tag Policy Set up
+   public function indexTags(User $user)
+   {
+     return $user->isAdmin() || $user->superAdmin();
    }
 }

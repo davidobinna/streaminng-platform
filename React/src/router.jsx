@@ -21,6 +21,7 @@ import { Feed, VideoDetail, ChannelDetail, SearchFeed } from "./Layouts/componen
 import Posts from "./views/dashboard/admin/post/Index";
 import Tags from "./views/dashboard/admin/tag/Index";
 import Writers from "./views/dashboard/admin/writers/Index";
+import CreatePosts from "./views/dashboard/admin/post/Create";
 
 const router = createBrowserRouter([
      {
@@ -135,6 +136,14 @@ const router = createBrowserRouter([
                     {
                         path: '/dashboard/admin/posts',
                         element:  <Posts/>
+                    },
+                    {
+                        path: '/dashboard/admin/posts/new',
+                        element:  <CreatePosts key="create"/>
+                    },
+                    {
+                        path: '/dashboard/admin/posts/:id',
+                        element:  <CreatePosts key="update"/>
                     },
                     //Route for Tags
                     {
