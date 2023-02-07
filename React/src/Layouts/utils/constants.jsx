@@ -40,7 +40,7 @@ export const admincategories = [
     { name: 'Users', link:'/dashboard/admin/users', icon: <SchoolIcon />, },
     { name: 'Create User', link:'/dashboard/admin/users/new',  icon: <GraphicEqIcon />, },
     { name: 'Posts', link:'/dashboard/admin/posts', icon: <OndemandVideoIcon />, },
-    { name: 'Create Post', link:'/', icon: <SportsEsportsIcon />, },
+    { name: 'Create Post', link:'/dashboard/admin/posts/new', icon: <SportsEsportsIcon />, },
     { name: 'Writers', link:'/dashboard/admin/writers', icon: <LiveTvIcon />, },
     { name: 'Create Writer', link:'/', icon: <FitnessCenterIcon />, },
     { name: 'Tags', link:'/dashboard/admin/tags', icon: <CheckroomIcon />, },

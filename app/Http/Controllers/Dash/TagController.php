@@ -11,10 +11,6 @@ use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
-    public function __construct()
-    {
-        $this->authorizeResource(Tag::class,'tag');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -22,6 +18,7 @@ class TagController extends Controller
      */
     public function index()
     {
+        $this->authorize(UserPolicy::INDEXTAGS, User::class);
         return TagResource::collection(
            Tag::query()->orderBy('id','desc')->paginate(10)
         );

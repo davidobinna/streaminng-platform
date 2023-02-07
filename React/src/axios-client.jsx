@@ -3,7 +3,7 @@ import axios from "axios";
 const serverUrl = 'http://localhost:8000'
 const axiosClient = axios.create({
   baseURL: `${serverUrl}/api`
-}) 
+})
 axiosClient.defaults.headers['Content-Type'] = 'application/json';
 axiosClient.defaults.headers['Accept'] = 'application/json';
 axiosClient.withCredentials = true;
@@ -25,6 +25,9 @@ axiosClient.interceptors.response.use((response) => {
         throw error.response.statusText;
     }
     if(error.response.status === 500){
+        throw error.response.statusText;
+    }
+    if(error.response.status === 403){
         throw error.response.statusText;
     }
 })
