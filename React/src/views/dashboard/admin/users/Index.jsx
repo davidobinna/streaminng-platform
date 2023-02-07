@@ -109,7 +109,7 @@ const nextLink = async (link) => {
       </div>
       <div style={{display: 'flex', alignItems: "center"}}>
        { meta.length > 0  && meta.map( items => (
-            <button key={items.toString()} onClick={() => nextLink(items.url)} className="category-btn">{count.value++}</button>
+            <button onClick={() => nextLink(items.url)} className="category-btn">{count.value++}</button>
             ))}
             </div>
     </div>
