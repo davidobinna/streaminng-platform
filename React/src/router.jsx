@@ -23,6 +23,7 @@ import Tags from "./views/dashboard/admin/tag/Index";
 import Writers from "./views/dashboard/admin/writers/Index";
 import CreatePosts from "./views/dashboard/admin/post/Create";
 import CreateWriters from "./views/dashboard/admin/writers/Create";
+import CreateTags from "./views/dashboard/admin/tag/Create";
 
 const router = createBrowserRouter([
      {
@@ -151,6 +152,15 @@ const router = createBrowserRouter([
                         path: '/dashboard/admin/tags',
                         element:  <Tags/>
                     },
+                    {
+                        path: '/dashboard/admin/tags/new',
+                        element:    <CreateTags key="create"/>                 
+                    },
+                    {
+                        path: '/dashboard/admin/tags/:id',
+                        element:  <CreateTags key="update"/>
+                    },
+                    //Route for Writers
                     {
                         path: '/dashboard/admin/writers',
                         element: <Writers/>

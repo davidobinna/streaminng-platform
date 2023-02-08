@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 
 const Users = () => {
 const {setNotification} = useStateContext()
-const [users, setUsers] = useState([])
+const [tags, setTags] = useState([])
 const [loading, setLoading] = useState(false)
 const [meta,setMeta] = useState([])
 const count ={
@@ -23,14 +23,14 @@ const count ={
 
 useEffect(()=> {
     setLoading(true)
-    getUsers()
+    getTags()
 },[]);
 
-const getUsers = async () => {
+const getTags = async () => {
     try {
-         const res = await axiosClient.get('/users')
+         const res = await axiosClient.get('/tags')
          setLoading(false)
-         setUsers(res.data.data)
+         setTags(res.data.data)
          setMeta(res.data.meta.links)
     } catch (error) {
         setLoading(false)
@@ -44,7 +44,7 @@ const nextLink = async (link) => {
       try {
           const res = await axiosClient.get(url)
           setLoading(false)
-          setUsers(res.data.data)
+          setTags(res.data.data)
       } catch (error) {
         setLoading(false)
         setNotification(error)
@@ -54,22 +54,20 @@ const nextLink = async (link) => {
     return (
 <div>
       <div style={{display: 'flex', justifyContent: "space-between", alignItems: "center"}}>
-        <h4>All Users</h4>
-        <Link to="/dashboard/admin/users/new" className="category-btn" style={{
+        <h4>All Tags</h4>
+        <Link to="/dashboard/admin/tags/new" className="category-btn" style={{
           background: "#FC1503",
-          color: "white"}} >Add new User</Link>
+          color: "white"}} >Add a new tag</Link>
       </div>
       <div className="card animated fadeInDown">
       <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>User ID </TableCell>
+            <TableCell> ID </TableCell>
             <TableCell>Name</TableCell>
-            <TableCell>Email address</TableCell>
-            <TableCell>Subscription</TableCell>
-            <TableCell>Roles</TableCell>
-            <TableCell>Joined Date</TableCell>
+            <TableCell>Slug</TableCell>
+            <TableCell>Date Created</TableCell>
             <TableCell>Actions</TableCell>
           </TableRow>
         </TableHead>
@@ -81,25 +79,17 @@ const nextLink = async (link) => {
             </TableRow>
         </TableBody> }
         <TableBody>
-            {!loading && Object.keys(users).map(item => (
+            {!loading && Object.keys(tags).map(item => (
             <TableRow
               key={item.toString()}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-              {users[item].id}
+              {tags[item].id}
               </TableCell>
-              <TableCell >{users[item].name}</TableCell>
-              <TableCell >{users[item].email}</TableCell>
-              <TableCell >{users[item].subcription.length > 0 ? (users[item].subcription[name]+`<br/>`+users[item].subcription[stripe_status]):('Not Subscribed')}</TableCell>
-              <TableCell>
-              {users[item].type === 4 ? ("Admin"):('')}
-              {users[item].type === 5 ? ("SuperAdmin"):('') }
-              {users[item].type === 2 ? ("Moderator"):('') }
-              {users[item].type === 3 ? ("Writer"):('') }
-              {users[item].type === 1 ? ("Default"):('') }
-              </TableCell>
-              <TableCell >{users[item].joinedDate}</TableCell>
+              <TableCell >{tags[item].name}</TableCell>
+              <TableCell >{tags[item].slug}</TableCell>
+              <TableCell >{tags[item].created_at}</TableCell>
               <TableCell>Action</TableCell>
             </TableRow>
           ))}
@@ -118,8 +108,3 @@ const nextLink = async (link) => {
 
 
 export default Users;
-
-
-/** {Object.keys(errors).map(key => (
-              <p key={key}>{errors[key][0]}</p>
-            ))} **/

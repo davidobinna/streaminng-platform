@@ -44,8 +44,7 @@ export const admincategories = [
     { name: 'Writers', link:'/dashboard/admin/writers', icon: <LiveTvIcon />, },
     { name: 'Create Writer', link:'/dashboard/admin/writers/new', icon: <FitnessCenterIcon />, },
     { name: 'Tags', link:'/dashboard/admin/tags', icon: <CheckroomIcon />, },
-    { name: 'Create Tag', link:'/', icon: <FaceRetouchingNaturalIcon />, },
-    { name: 'Logout', link:'/', icon: <TheaterComedyIcon />, },
+    { name: 'Create Tag', link:'/dashboard/admin/tags/new', icon: <FaceRetouchingNaturalIcon />, },
   ];
 
   export const writercategories = [

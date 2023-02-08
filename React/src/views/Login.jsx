@@ -103,7 +103,7 @@ const LogIn = async (payload) => {
               <p style={styles.errorStyle}>{errors.password ? errors.password : null }</p>
               <input ref={passwordRef} type='password' placeholder='enter your password' />
 
-              <button>Login</button>
+              <button>Login</button> 
             </form>
             <div className='l-bottom'>
             <p>Forget your password?</p>
