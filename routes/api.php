@@ -54,7 +54,7 @@ Route::apiResource('/posts', Dash\PostController::class)->only([
 
 //......All Tags Resource Endpoint Goes Here.......//
 Route::apiResource('/tags', Dash\TagController::class)->only([
-    'index'])->middleware(['cors', 'json.response','auth:api']);
+    'index','store','show','update','destroy'])->middleware(['cors', 'json.response','auth:api']);
 
 //......All Writers Resource Endpoint Goes Here.......//
 Route::apiResource('/writers', Dash\WriterController::class)->only([

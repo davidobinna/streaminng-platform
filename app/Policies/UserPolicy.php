@@ -49,4 +49,8 @@ class UserPolicy
    {
      return $user->isAdmin() || $user->superAdmin();
    }
+   public function createTags(User $user)
+   {
+    return $user->isAdmin() || $user->isSuperAdmin();
+   }
 }

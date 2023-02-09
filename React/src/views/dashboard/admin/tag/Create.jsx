@@ -1,36 +1,92 @@
-import { Paper } from "@mui/material";
+import * as React from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { useState } from 'react';
+import { useStateContext } from '../../../../contexts/ContextProvider';
+import { Loader } from '../../../../Layouts/components';
 
-const CreateTags = () => {
-    const fstyles = {
-        form: {
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-       },
-       span: {
-            padding: "0 10px",
-            backgroundColor: "var(--form-bg)",
-       }
-    }
+
+
+  export default function CreateTags() {
+    const navigate = useNavigate()
+    const [errors, setErrors] = useState(null)
+    const [loading, setLoading] = useState(false)
+    const {setNotification} = useStateContext()
+    let {id}  = useParams();
+    const [tag, setTag] =useState({
+      id: null,
+    })
+
 
 
     return (
-        <div>
-            <div style={{ justifyContent: "space-between", alignItems: "center"}}>          
-                <h4>Create Tag</h4>
-                <div className="card animated fadeInDown">
-                  <form action="" style={fstyles.form}>
-                    <input type="text" name="" id="" />
-                     <button className="category-btn" style={{
-          background: "#FC1503",
-          color: "white"}}> Submit </button>
-                  </form>
-                </div>
+        <Container component="main" maxWidth="100%">
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 8,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+                {loading && <div colSpan="10" className="text-center">
+                   <Loader />
+                </div> }
+            <Typography component="h1" variant="h5">
+              {tag.id ? ('Update Tag'):('Create a new Tag')}
+            </Typography>
+            <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <form
+        style={{
+          backgroundColor: "black",
+          padding: "2rem",
+          borderRadius: "10px",
+          border: "2px solid purple",
+        }}
+      >
+        <input type="file"
+        style={{
+            width: "800px",
+            height: "50px",
+            borderRadius: "5px",
+            color: "white",
+            backgroundColor: "black",
+            padding: "1rem",
+            border: "2px solid purple",
+          }}/>
+        <br />
+        <br />
+        <input
+          type="text"
+          style={{
+            width: "800px",
+            height: "50px",
+            borderRadius: "5px",
+            color: "white",
+            backgroundColor: "black",
+            padding: "1rem",
+            border: "2px solid purple",
+          }}
+        />
+        <br />
+        <br />
+        <button type="submit" style={{ padding: "1rem", backgroundColor: "purple", color: "white" }}>
+          Submit
+        </button>
+      </form>
+    </div>
 
-            </div>
-        </div>
-    )
-}
-
-
-export default CreateTags;
+          </Box>
+        </Container>
+    );
+  }

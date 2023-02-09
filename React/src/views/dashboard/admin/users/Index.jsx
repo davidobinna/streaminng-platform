@@ -10,6 +10,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Link } from "react-router-dom";
+import { DeleteButton, EditButton } from '../../../../Layouts/components/Icons';
 
 
 const Users = () => {
@@ -100,7 +101,13 @@ const nextLink = async (link) => {
               {users[item].type === 1 ? ("Default"):('') }
               </TableCell>
               <TableCell >{users[item].joinedDate}</TableCell>
-              <TableCell>Action</TableCell>
+              <TableCell>
+              <div>
+                
+             <EditButton  to={`/dashboard/admin/users/${users[item].id}`} />
+             <DeleteButton/>
+              </div>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
