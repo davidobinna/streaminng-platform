@@ -10,6 +10,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Link } from "react-router-dom";
+import { DeleteButton, EditButton } from '../../../../Layouts/components/Icons';
 
 
 const Users = () => {
@@ -90,7 +91,12 @@ const nextLink = async (link) => {
               <TableCell >{tags[item].name}</TableCell>
               <TableCell >{tags[item].slug}</TableCell>
               <TableCell >{tags[item].created_at}</TableCell>
-              <TableCell>Action</TableCell>
+              <TableCell>
+                <div>
+                <EditButton  to={`/dashboard/admin/tags/${tags[item].id}`} />
+                <DeleteButton/>
+                 </div>
+                 </TableCell>
             </TableRow>
           ))}
         </TableBody>

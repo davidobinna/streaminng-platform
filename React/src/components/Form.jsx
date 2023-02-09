@@ -8,7 +8,7 @@ const Form = () => {
             padding: "1rem",
             margin: "auto",
             maxWidth: "600px",
-       }
+       } 
     }
     const inputStyle = {
        input: {

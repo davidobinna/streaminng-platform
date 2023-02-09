@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Dash;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreTagRequest;
 use App\Http\Resources\TagResource;
 use App\Models\Tag;
 use App\Models\User;
 use App\Policies\UserPolicy;
 use Illuminate\Http\Request;
+use App\Services\SaveImageService;
 
 class TagController extends Controller
 {
@@ -30,9 +32,18 @@ class TagController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTagRequest $request)
     {
-        //
+        $this->authorize(UserPolicy::CREATETAGS, User::class);
+        $data = $request->validated();
+        $tag = new Tag([
+            'name' => $request->name(),
+            'description' => $request->description(),
+        ]);
+        $image = $request->image();
+        SaveImageService::UploadImage($image, $tag, Tag::TABLE);
+        $tag->save();
+        return response(new TagResource($tag),201);
     }
 
     /**
