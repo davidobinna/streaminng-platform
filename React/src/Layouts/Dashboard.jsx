@@ -6,7 +6,7 @@ import { Navbar } from "./components";
 import { Box } from "@mui/material";
 
 function Dashoard() {
-const {user, token, setUser, setToken, setDefaultUser, setAdmin, notification, setNotification} = useStateContext();
+const {user, token, setUser, setToken, setDefaultUser, setAdmin, setNotification} = useStateContext();
 if (!token) {
     return <Navigate to='/login'/>
 }
@@ -44,11 +44,6 @@ const getUser = async () => {
     return (
         <Box sx={{ backgroundColor: '#000' }}>
        <Navbar/>
-       {notification &&
-          <div className="notification" >
-          {notification}
-          </div>
-        }
           <Outlet/>
       </Box>
     )

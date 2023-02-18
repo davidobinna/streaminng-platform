@@ -6,6 +6,7 @@ const axiosClient = axios.create({
 })
 axiosClient.defaults.headers['Content-Type'] = 'application/json';
 axiosClient.defaults.headers['Accept'] = 'application/json';
+axiosClient.defaults.headers['header'] = 'application/json';
 axiosClient.withCredentials = true;
 
 axiosClient.interceptors.request.use((config) => {
@@ -29,6 +30,9 @@ axiosClient.interceptors.response.use((response) => {
     }
     if(error.response.status === 403){
         throw error.response.statusText;
+    }
+    if(error.response.status === 422){
+        throw error.response.data;
     }
 })
 

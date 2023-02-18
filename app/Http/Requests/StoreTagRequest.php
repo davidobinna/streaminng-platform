@@ -25,7 +25,7 @@ class StoreTagRequest extends FormRequest
     {
         return [
             'name'          => ['required', 'max:100'],
-            'image'         => ['sometimes', 'image'],
+            'image'         => 'required|file|image|mimes:jpeg,png,gif,jpg|max:2048',
             'description'   => ['sometimes', 'max:200'],
         ];
     }

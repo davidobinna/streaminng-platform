@@ -103,7 +103,7 @@ const nextLink = async (link) => {
               <TableCell >{users[item].joinedDate}</TableCell>
               <TableCell>
               <div>
-                
+
              <EditButton  to={`/dashboard/admin/users/${users[item].id}`} />
              <DeleteButton/>
               </div>

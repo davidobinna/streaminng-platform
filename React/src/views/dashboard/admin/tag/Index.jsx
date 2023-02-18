@@ -61,6 +61,7 @@ const nextLink = async (link) => {
           color: "white"}} >Add a new tag</Link>
       </div>
       <div className="card animated fadeInDown">
+        
       <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>

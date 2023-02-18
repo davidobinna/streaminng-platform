@@ -34,6 +34,7 @@ class TagController extends Controller
      */
     public function store(StoreTagRequest $request)
     {
+
         $this->authorize(UserPolicy::CREATETAGS, User::class);
         $data = $request->validated();
         $tag = new Tag([
@@ -42,6 +43,7 @@ class TagController extends Controller
         ]);
         $image = $request->image();
         SaveImageService::UploadImage($image, $tag, Tag::TABLE);
+        
         $tag->save();
         return response(new TagResource($tag),201);
     }
@@ -52,9 +54,9 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Tag $id)
     {
-        //
+        return new TagResource($tag);
     }
 
     /**
