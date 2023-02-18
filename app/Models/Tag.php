@@ -20,7 +20,7 @@ class Tag extends Model
         'description',
     ];
 
-    public function id(): int 
+    public function id(): int
     {
         return $this->id;
     }
@@ -30,7 +30,7 @@ class Tag extends Model
         return $this->name;
     }
 
-    public function image(): string
+    public function image(): ?string
     {
         return $this->image;
     }

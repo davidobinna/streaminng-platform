@@ -7,13 +7,18 @@ import { Sidebar } from "../../../Layouts/components";
 
 const AdminIndex = () => {
     const [selectedCategory, setSelectedCategory] = useState("New");
-    const {admin} = useStateContext()
+    const {admin, notification} = useStateContext()
   if (!admin) {
         return <Navigate to="/home"/>
 }
 
     return (
         <div>
+         {notification &&
+          <div className="notification" >
+          {notification}
+          </div>
+        }
             <Stack sx={{ flexDirection: { sx: "column", md: "row" } }}>
            <Box sx={{ height: { sx: "auto", md: "92vh" }, borderRight: "1px solid #3d3d3d", px: { sx: 0, md: 2 } }}>
            <Sidebar selectedCategory={selectedCategory}

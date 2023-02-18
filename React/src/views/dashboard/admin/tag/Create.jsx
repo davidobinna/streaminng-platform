@@ -7,6 +7,7 @@ import Container from '@mui/material/Container';
 import { useState } from 'react';
 import { useStateContext } from '../../../../contexts/ContextProvider';
 import { Loader } from '../../../../Layouts/components';
+import axiosClient from "../../../../axios-client";
 
 
 
@@ -15,10 +16,61 @@ import { Loader } from '../../../../Layouts/components';
     const [errors, setErrors] = useState(null)
     const [loading, setLoading] = useState(false)
     const {setNotification} = useStateContext()
+    const [selectedFiles,setSelectedFiles] = useState([])
     let {id}  = useParams();
     const [tag, setTag] =useState({
       id: null,
+      name: '',
+      description: ''
     })
+
+if (id) {
+     setLoading(true)
+     getData(id)
+}
+    const handleImageChange = (e) => {
+          setSelectedFiles((e.target.files[0]))
+    }
+
+function uploadToServer(e){
+    e.preventDefault();
+    setLoading(true);
+    const formData = new FormData();
+    formData.append('image',selectedFiles)
+    formData.append('name', tag.name)
+    formData.append('description', tag.description)
+    sendData(formData)
+}
+
+    const sendData = async (data) => {
+        try {
+           const res = await axiosClient.post('/tags',data, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+           })
+           debugger
+           setLoading(false)
+           setNotification("Tag created successfully!")
+           setTimeout(() => {
+               navigate('/dashboard/admin/tags');
+           }, 600)
+        } catch (error) {
+            setLoading(false)
+            setErrors(error.errors)
+        }
+    }
+const getData = async (id) => {
+    try{
+         const res = await axiosClient.get(`/tags/${id}`)
+         setLoading(false)
+         debugger
+         setTag(res.data.data)
+    } catch(error) {
+        setLoading(false)
+        setErrors(error.errors)
+    }
+}
 
 
 
@@ -47,6 +99,7 @@ import { Loader } from '../../../../Layouts/components';
       }}
     >
       <form
+      onSubmit={(e) => uploadToServer(e)}
         style={{
           backgroundColor: "black",
           padding: "2rem",
@@ -54,7 +107,24 @@ import { Loader } from '../../../../Layouts/components';
           border: "2px solid purple",
         }}
       >
+        {errors &&
+            <div className="alert">
+              {Object.keys(errors).map(key => (
+                <ul>
+                <li key={key}> <p>{errors[key]} </p></li>
+                </ul>
+              ))}
+            </div>
+          }
+          <br />
+
+       <div>
+        <label>Upload a Photo </label>
+       </div>
         <input type="file"
+        id="image"
+        name="image"
+        onChange = {handleImageChange}
         style={{
             width: "800px",
             height: "50px",
@@ -66,7 +136,11 @@ import { Loader } from '../../../../Layouts/components';
           }}/>
         <br />
         <br />
+        <div>
+        <label>Name </label>
+       </div>
         <input
+        onChange={e  => setTag({...tag, name: e.target.value})}
           type="text"
           style={{
             width: "800px",
@@ -77,10 +151,32 @@ import { Loader } from '../../../../Layouts/components';
             padding: "1rem",
             border: "2px solid purple",
           }}
+          value={tag.name}
+          placeholder="enter tag name"
         />
         <br />
         <br />
-        <button type="submit" style={{ padding: "1rem", backgroundColor: "purple", color: "white" }}>
+        <div>
+        <label>Description</label>
+       </div>
+       <input
+        onChange={e  => setTag({...tag, description: e.target.value})}
+          type="text"
+          style={{
+            width: "800px",
+            height: "50px",
+            borderRadius: "5px",
+            color: "white",
+            backgroundColor: "black",
+            padding: "1rem",
+            border: "2px solid purple",
+          }}
+          value={tag.description}
+          placeholder="enter tag name"
+        />
+        <br />
+        <br />
+        <button type="submit" className='btn'>
           Submit
         </button>
       </form>
