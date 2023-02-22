@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-
     use GetApiUser;
     /**
      * Display a listing of the resource.
@@ -26,7 +25,7 @@ class PostController extends Controller
                 Post::where('author_id', $this->getAuthUser()->id())->paginate(5)
              );
         } else {
-            $this->authorize(UserPolicy::SUPERADMIN, User::class);
+            $this->authorize(UserPolicy::INDEXPOSTS, User::class);
             return PostResource::collection(
                Post::query()->orderBy('id','desc')->paginate(10)
             );

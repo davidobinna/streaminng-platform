@@ -5,10 +5,11 @@ import IconButton from '@mui/material/IconButton';
 
 
 const DeleteButton = () => (
-  <IconButton>
+  <IconButton >
     <DeleteIcon />
   </IconButton>
 );
+
 
 const EditButton = (props) => (
   <IconButton component={Link} to={props.to}>

@@ -35,7 +35,7 @@ class ResourceController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-          return dd($request);
+          return $request;
           $data = $request->validated();
           $data['password'] = Hash::make($data['password']);
           $user = User::create($data);
@@ -86,7 +86,7 @@ class ResourceController extends Controller
              $user->delete();
              return response([
                 'message' => 'user deleted sucessfully',
-                'status'  => 200
+                'status'  => true
              ]);
          } catch (\Throwable $e) {
             # code...
