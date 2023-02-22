@@ -154,11 +154,11 @@ const router = createBrowserRouter([
                     },
                     {
                         path: '/dashboard/admin/tags/new',
-                        element:    <CreateTags key="create"/>                 
+                        element:    <CreateTags value="create"/>                 
                     },
                     {
                         path: '/dashboard/admin/tags/:id',
-                        element:  <CreateTags key="update"/>
+                        element:  <CreateTags value="update"/>
                     },
                     //Route for Writers
                     {

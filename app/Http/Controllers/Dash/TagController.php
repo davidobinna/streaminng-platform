@@ -4,12 +4,16 @@ namespace App\Http\Controllers\Dash;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTagRequest;
+use App\Http\Requests\TagUpdateRequest;
 use App\Http\Resources\TagResource;
 use App\Models\Tag;
 use App\Models\User;
 use App\Policies\UserPolicy;
-use Illuminate\Http\Request;
 use App\Services\SaveImageService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class TagController extends Controller
 {
@@ -39,11 +43,11 @@ class TagController extends Controller
         $data = $request->validated();
         $tag = new Tag([
             'name' => $request->name(),
+            'slug'  => Str::slug($request->name.'-'.now()->format('d-M-Y')),
             'description' => $request->description(),
         ]);
         $image = $request->image();
         SaveImageService::UploadImage($image, $tag, Tag::TABLE);
-        
         $tag->save();
         return response(new TagResource($tag),201);
     }
@@ -54,8 +58,10 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Tag $id)
+    public function show($id)
     {
+        $this->authorize(UserPolicy::SHOWTAGS, User::class);
+        $tag = Tag::findOrfail($id);
         return new TagResource($tag);
     }
 
@@ -66,9 +72,18 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(TagUpdateRequest $request, $id)
     {
-        //
+        $this->authorize(UserPolicy::UPDATETAGS, User::class);
+        $tag = Tag::find($id);
+        $data = $request->validated();
+        $tag->update([
+            'name' => $request->name(),
+            'slug'  => Str::slug($request->name.'-'.now()->format('d-M-Y')),
+            'description' => $request->description(),
+        ]);
+
+          return response(new TagResource($tag),201);
     }
 
     /**
@@ -79,6 +94,22 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->authorize(UserPolicy::DELTETAGS, User::class);
+        $tag = Tag::findOrfail($id);
+        try {
+              if (!is_null($tag->image)) {
+                Storage::delete($tag->image);
+              }
+            $tag->delete();
+            return response([
+               'errors'  => false
+            ]);
+        } catch (\Throwable $e) {
+           # code...
+            return response([
+               'errors'  => true,
+               'message' => $e->getMessage()
+            ]);
+        }
     }
 }

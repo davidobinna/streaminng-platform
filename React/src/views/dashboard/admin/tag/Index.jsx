@@ -40,10 +40,9 @@ const getTags = async () => {
 }
 
 const nextLink = async (link) => {
-    const url = link.substring(25)
     setLoading(true)
       try {
-          const res = await axiosClient.get(url)
+          const res = await axiosClient.get(link.substring(25))
           setLoading(false)
           setTags(res.data.data)
       } catch (error) {
@@ -51,6 +50,32 @@ const nextLink = async (link) => {
         setNotification(error)
       }
 }
+
+ const deleteTag = (e, id) => {
+    e.preventDefault()
+if (!window.confirm("Are you sure you want to delete this Tag?")) {
+   return
+}
+    setLoading(true)
+     axiosClient.delete(`/tags/${id}`)
+        .then((res) => {
+            if (!res.data.errors) {
+                setNotification(
+                    "Tag deleted successfully!"
+                    );
+                     setInterval(() => {
+                          setLoading(false)
+                        getTags()
+                     }, 4000);
+            } else {
+                setLoading(false)
+                setNotification("Something went Wrong! "+res.data.message);
+            }
+        }).catch((error) => {
+            setLoading(false)
+            setNotification(error)
+        });
+ }
 
     return (
 <div>
@@ -61,7 +86,7 @@ const nextLink = async (link) => {
           color: "white"}} >Add a new tag</Link>
       </div>
       <div className="card animated fadeInDown">
-        
+
       <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
@@ -86,16 +111,18 @@ const nextLink = async (link) => {
               key={item.toString()}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
-              <TableCell component="th" scope="row">
+              <TableCell key={item.toString()} component="th" scope="row">
               {tags[item].id}
               </TableCell>
               <TableCell >{tags[item].name}</TableCell>
               <TableCell >{tags[item].slug}</TableCell>
               <TableCell >{tags[item].created_at}</TableCell>
               <TableCell>
-                <div>
-                <EditButton  to={`/dashboard/admin/tags/${tags[item].id}`} />
+                <div key={item.toString()} style={{display: 'flex', alignItems: "center"}}>
+                <EditButton to={`/dashboard/admin/tags/${tags[item].id}`} />
+                <button className="category-btn" onClick={(e) =>  deleteTag(e, tags[item].id)}>
                 <DeleteButton/>
+                </button>
                  </div>
                  </TableCell>
             </TableRow>

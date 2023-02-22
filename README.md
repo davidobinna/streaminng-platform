@@ -42,6 +42,17 @@
 #LARAVEL BACKEND STAGE 37:
 #LARAVEL BACKEND STAGE 38: not complete, use the same post index for writers 'post' => Post::where('author_id', auth()->id())->paginate(5);
 #LARAVEL BACKEND STAGE 39:
+#LARAVEL BACKEND STAGE 40:
+#LARAVEL BACKEND STAGE 41:
+#LARAVEL BACKEND STAGE 42:
+#LARAVEL BACKEND STAGE 43:
+#LARAVEL BACKEND STAGE 44:
+#LARAVEL BACKEND STAGE 45:
+#LARAVEL BACKEND STAGE 46:
+#LARAVEL BACKEND STAGE 47: not complete, Update Tag React front end and backend to update tag is return empty $request->all().
+#LARAVEL BACKEND STAGE 48:
+#LARAVEL BACKEND STAGE 49:
+#LARAVEL BACKEND STAGE 50:
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 

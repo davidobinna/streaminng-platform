@@ -1,18 +1,16 @@
-import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useStateContext } from '../../../../contexts/ContextProvider';
-import { Loader } from '../../../../Layouts/components';
 import axiosClient from "../../../../axios-client";
 
 
 
-  export default function CreateTags() {
-    const navigate = useNavigate()
+  export default function CreateTags(prop) {
+    const  navigate = useNavigate()
     const [errors, setErrors] = useState(null)
     const [loading, setLoading] = useState(false)
     const {setNotification} = useStateContext()
@@ -21,25 +19,60 @@ import axiosClient from "../../../../axios-client";
     const [tag, setTag] =useState({
       id: null,
       name: '',
+      image:'',
       description: ''
     })
 
-if (id) {
-     setLoading(true)
-     getData(id)
-}
+useEffect(() => {
+        if (id && prop.value === 'update' ) {
+           getTags(id)
+        }
+},[])
+
+    const getTags = async (id) => {
+        try {
+            const res = await axiosClient.get(`/tags/${id}`)
+            setLoading(false)
+             setTag(res.data.data)
+        } catch (error) {
+         setLoading(false)
+         setErrors(error.errors)
+        }
+     }
+
+
+
     const handleImageChange = (e) => {
           setSelectedFiles((e.target.files[0]))
     }
 
 function uploadToServer(e){
     e.preventDefault();
-    setLoading(true);
+    if (tag.id) {
+        setLoading(true);
+          axiosClient.put(`/tags/${tag.id}`, {
+            name:tag.name,
+            description: tag.description
+          }).then((res) => {
+            setNotification(
+                "Tag updated successfully!"
+                );
+                setLoading(false);
+                 setInterval(() => {
+                    navigate('/dashboard/admin/tags')
+                 }, 3000);
+          }).catch((error) => {
+            setLoading(false)
+            setErrors(error.errors)
+          })
+    } else {
     const formData = new FormData();
     formData.append('image',selectedFiles)
     formData.append('name', tag.name)
     formData.append('description', tag.description)
+    setLoading(true);
     sendData(formData)
+   }
 }
 
     const sendData = async (data) => {
@@ -49,28 +82,18 @@ function uploadToServer(e){
                 'Content-Type': 'multipart/form-data'
             }
            })
-           debugger
-           setLoading(false)
-           setNotification("Tag created successfully!")
-           setTimeout(() => {
-               navigate('/dashboard/admin/tags');
-           }, 600)
+           setNotification(
+            "Tag created successfully!"
+            );
+            setLoading(false);
+             setInterval(() => {
+                navigate('/dashboard/admin/tags')
+             }, 4000);
         } catch (error) {
             setLoading(false)
             setErrors(error.errors)
         }
     }
-const getData = async (id) => {
-    try{
-         const res = await axiosClient.get(`/tags/${id}`)
-         setLoading(false)
-         debugger
-         setTag(res.data.data)
-    } catch(error) {
-        setLoading(false)
-        setErrors(error.errors)
-    }
-}
 
 
 
@@ -85,11 +108,13 @@ const getData = async (id) => {
               alignItems: 'center',
             }}
           >
-                {loading && <div colSpan="10" className="text-center">
-                   <Loader />
-                </div> }
+            {loading && (
+          <div colSpan="10" className="text-center">
+           <p> Loading...</p>
+          </div>
+        )}
             <Typography component="h1" variant="h5">
-              {tag.id ? ('Update Tag'):('Create a new Tag')}
+              {id ? ('Update Tag'):('Create a new Tag')}
             </Typography>
             <div
       style={{
@@ -98,7 +123,9 @@ const getData = async (id) => {
         justifyContent: "center",
       }}
     >
-      <form
+
+
+    <form
       onSubmit={(e) => uploadToServer(e)}
         style={{
           backgroundColor: "black",
@@ -111,14 +138,14 @@ const getData = async (id) => {
             <div className="alert">
               {Object.keys(errors).map(key => (
                 <ul>
-                <li key={key}> <p>{errors[key]} </p></li>
+                <li key={key}> <p style={{color:"red"}}>{errors[key]} </p></li>
                 </ul>
               ))}
             </div>
           }
           <br />
-
-       <div>
+       {id ? (''):(   <div>
+          <div>
         <label>Upload a Photo </label>
        </div>
         <input type="file"
@@ -134,7 +161,8 @@ const getData = async (id) => {
             padding: "1rem",
             border: "2px solid purple",
           }}/>
-        <br />
+        <br /> </div>)}
+
         <br />
         <div>
         <label>Name </label>
@@ -171,7 +199,7 @@ const getData = async (id) => {
             padding: "1rem",
             border: "2px solid purple",
           }}
-          value={tag.description}
+          value={tag.description ? tag.description : ''}
           placeholder="enter tag name"
         />
         <br />
