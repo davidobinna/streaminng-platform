@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Dash\TagController;
 use App\Http\Controllers\Pages\MembershipController;
 use App\Http\Controllers\Stripe\PaymentController;
 use Illuminate\Http\Request;
@@ -59,3 +60,5 @@ Route::apiResource('/tags', Dash\TagController::class)->only([
 //......All Writers Resource Endpoint Goes Here.......//
 Route::apiResource('/writers', Dash\WriterController::class)->only([
     'index'])->middleware(['json.response','auth:api']);
+
+Route::get('taglist', [TagController::class,'taglist'])->middleware(['json.response','auth:api']);
