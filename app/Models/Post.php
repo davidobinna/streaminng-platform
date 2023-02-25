@@ -31,6 +31,7 @@ class Post extends Model implements CommentAble
         'type', // Standard Post For free Members & Subscription for Premium post
         'photo_credit_text',
         'photo_credit_link',
+        'is_commentable',
         'author_id',
     ];
 

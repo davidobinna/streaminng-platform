@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreTagRequest;
 use App\Http\Requests\TagUpdateRequest;
 use App\Http\Resources\TagResource;
+use App\Http\Resources\TaglistResource;
 use App\Models\Tag;
 use App\Models\User;
 use App\Policies\UserPolicy;
@@ -28,6 +29,14 @@ class TagController extends Controller
         return TagResource::collection(
            Tag::query()->orderBy('id','desc')->paginate(10)
         );
+    }
+
+    public function taglist()
+    {
+        $this->authorize(UserPolicy::INDEXTAGS, User::class);
+        return TaglistResource::collection(
+            Tag::query()->orderBy('id','desc')->get()
+        );               
     }
 
     /**
