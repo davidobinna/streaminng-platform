@@ -29,6 +29,7 @@ axiosClient.interceptors.response.use((response) => {
         throw error.response.statusText;
     }
     if(error.response.status === 403){
+        localStorage.removeItem('ACCESS_TOKEN')
         throw error.response.statusText;
     }
     if(error.response.status === 422){
