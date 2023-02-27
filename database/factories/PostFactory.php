@@ -28,7 +28,7 @@ class PostFactory extends Factory
             'slug'           => $this->faker->unique()->slug,
             'body'           => $this->faker->unique()->slug,
             'author_id'      => $attribute['author_id'] ?? User::factory(),
-            'cover_image'    => $this->faker->url(),
+            'image'          => $this->faker->url(),
             'published_at'   => now(),
             'type'           => $this->faker->randomElement(['standard','premium']),
             'is_commentable' => rand(0,1)

@@ -3,10 +3,12 @@
 namespace App\Http\Requests;
 
 use App\Models\User;
+use App\Traits\GetApiUser;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PostRequest extends FormRequest
 {
+    use GetApiUser;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -36,26 +38,26 @@ class PostRequest extends FormRequest
             'tags.*'              => ['exists:tags,id'],
         ];
     }
-   
+
    public function author(): User
    {
-     return $this->user();
+     return $this->getAuthUser();
    }
 
     public function title(): string
     {
         return $this->get('title');
     }
-    
+
     public function body(): string
     {
-        return $this->get('body'); 
+        return $this->get('body');
     }
 
     public function image(): ?string
     {
         return $this->cover_image;
-    } 
+    }
 
     public function type(): string
     {

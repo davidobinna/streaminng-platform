@@ -18,7 +18,7 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->text('body');
             $table->string('slug')->nullable();
-            $table->string('cover_image')->nullable();
+            $table->string('image')->nullable();
             $table->boolean('is_commentable')->default(1);
             $table->timestamp('published_at');
             $table->enum('type',['standard','premium'])->default('standard');

@@ -9,6 +9,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Policies\UserPolicy;
 use App\Traits\GetApiUser;
+use App\Services\SaveImageService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -55,10 +56,11 @@ class PostController extends Controller
         'is_commentable'       => $request->isCommentable() ? true : false,
         ]);
 
-        $post->isAuthoredBy($request->author());
+        $image = $request->image();
+        $post->authoredBy($request->author());
         $post->syncTags($request->tags());
         SaveImageService::UploadImage($image, $post, Post::TABLE);
-
+        $post->save();
         return response(new PostResource($post), 201);
     }
 
