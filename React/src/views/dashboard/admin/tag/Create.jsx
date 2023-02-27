@@ -47,6 +47,7 @@ useEffect(() => {
     }
 
 function uploadToServer(e){
+    setErrors(null)
     e.preventDefault();
     if (tag.id) {
         setLoading(true);

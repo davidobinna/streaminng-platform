@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useEffect, useState } from 'react';
+import { Loader } from "../../../../Layouts/components";
 import axiosClient from '../../../../axios-client';
 import { useStateContext } from '../../../../contexts/ContextProvider';
 
@@ -12,7 +13,9 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
   export default function CreatePosts() {
   let {id}  = useParams()
   const [tags,setTags] = useState({})
+  const [errors, setErrors] = useState(null)
   const [selectedTags, setSelectedTags] = useState([]);
+  const [loading, setLoading] = useState(false)
   const [selectImage,setSelectImage] = useState('')
   const {setNotification}  = useStateContext();
   const [isCommentable, setIsCommentable] = useState(true);
@@ -21,10 +24,10 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
     title: '',
     body: '',
     tags: [],
-    type: '',
+    type: 'standard',
     cover_image: '',
     published_at: '',
-    is_commentable: false,
+    comments: false,
     photo_credit_text: '',
     photo_credit_link: '',
   })
@@ -44,7 +47,7 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
 
   function toggleCommentable() {
     setIsCommentable(!isCommentable);
-    setPost({...post, is_commentable: isCommentable})
+    setPost({...post, comments: isCommentable})
   }
 
   function selectTags() {
@@ -62,10 +65,45 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
   {
        e.preventDefault();
        if(post.id){
-
        } else {
-       console.log(post)
+       setLoading(true)
+       const formData = new FormData();
+        formData.append('title',post.title)
+        formData.append('body', post.body)
+        selectedTags.forEach((tag) => {
+            formData.append('tags[]', tag);
+          })
+        formData.append('type',post.type)
+        formData.append('cover_image', selectImage )
+        formData.append('published_at', post.published_at)
+        formData.append('comments', post.comments)
+        formData.append('photo_credit_text', post.photo_credit_text )
+        formData.append('photo_credit_link', post.photo_credit_link)
+       sendData(formData)
        }
+  }
+
+  const sendData = async (data) => {
+
+    try {
+          const res = await axiosClient.post('/posts', data,{
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+          })
+          setNotification(
+            "Content has been created, Create a scene to finish up!"
+            );
+            setInterval(() => {
+                navigate('/dashboard/admin/posts')
+             }, 4000);
+    } catch (error) {
+        setLoading(false)
+        setErrors(error.errors)
+        setTimeout(() => {
+            setErrors(null);
+        }, 5000);
+    }
   }
 
 
@@ -82,7 +120,7 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
           >
 
             <Typography component="h1" variant="h5">
-              {id ? ('Update scene'):('Create a new scene')}
+              {id ? ('Update scene'):('Publish a new scene')}
             </Typography>
             <div
       style={{
@@ -92,8 +130,8 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
       }}
     >
 
-
-    <form
+         {!loading ? ( <div>
+            <form
       onSubmit={(e) => uploadToServer(e)}
         style={{
           backgroundColor: "black",
@@ -102,9 +140,24 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
           border: "2px solid purple",
         }}
       >
-
-
-       <div>
+         {errors &&
+            <div
+            style={{
+                width: "800px",
+                borderRadius: "5px",
+                color: "white",
+                backgroundColor: "black",
+                padding: "1rem",
+                border: "2px solid purple",
+              }} className="alert">
+              {Object.keys(errors).map(key => (
+                <ul>
+                <li key={key}> <p style={{color:"red"}}>{errors[key]} </p></li>
+                </ul>
+              ))}
+            </div>
+          }
+            <div>
         <label>Cover Image</label>
        </div>
        <input
@@ -307,14 +360,14 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
           checked={isCommentable}
         />
         <p> {isCommentable ? ('Comments are turned OFF'):('Comments are turned ON') } </p>
-         <br />
+        <br />
         <br />
         <button type="submit" className='btn'>
           Submit
         </button>
       </form>
-    </div>
-
+          </div>):(<div><Loader /></div>)}
+          </div>
           </Box>
         </Container>
     );

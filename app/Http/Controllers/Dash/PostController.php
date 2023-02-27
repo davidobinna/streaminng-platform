@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Dash;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use App\Models\User;
 use App\Policies\UserPolicy;
 use App\Traits\GetApiUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -38,9 +40,26 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        //
+        $this->authorize(UserPolicy::CREATEPOSTS, User::class);
+        $data = $request->validated();
+        $post = new Post([
+        'title'                => $request->title(),
+        'body'                 => $request->body(),
+        'slug'                 => Str::slug($request->title.'-'.now()->format('d-M-Y')),
+        'published_at'         => $request->publishedAt(),
+        'type'                 => $request->type(),
+        'photo_credit_text'    => $request->photoCreditText(),
+        'photo_credit_link'    => $request->photoCreditLink(),
+        'is_commentable'       => $request->isCommentable() ? true : false,
+        ]);
+
+        $post->isAuthoredBy($request->author());
+        $post->syncTags($request->tags());
+        SaveImageService::UploadImage($image, $post, Post::TABLE);
+
+        return response(new PostResource($post), 201);
     }
 
     /**
