@@ -1,5 +1,5 @@
 import CssBaseline from '@mui/material/CssBaseline';
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
@@ -12,6 +12,7 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
 
   export default function CreatePosts() {
   let {id}  = useParams()
+  const navigate = useNavigate()
   const [tags,setTags] = useState({})
   const [errors, setErrors] = useState(null)
   const [selectedTags, setSelectedTags] = useState([]);
@@ -94,6 +95,7 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
           setNotification(
             "Content has been created, Create a scene to finish up!"
             );
+            setLoading(false);
             setInterval(() => {
                 navigate('/dashboard/admin/posts')
              }, 4000);
@@ -242,7 +244,7 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
             padding: "1rem",
             border: "2px solid purple",
           }}
-
+            required
         />
         <br />
         <br />
