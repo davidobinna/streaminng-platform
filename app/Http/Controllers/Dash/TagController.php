@@ -36,7 +36,7 @@ class TagController extends Controller
         $this->authorize(UserPolicy::INDEXTAGS, User::class);
         return TaglistResource::collection(
             Tag::query()->orderBy('id','desc')->get()
-        );               
+        );
     }
 
     /**
@@ -55,8 +55,10 @@ class TagController extends Controller
             'slug'  => Str::slug($request->name.'-'.now()->format('d-M-Y')),
             'description' => $request->description(),
         ]);
-        $image = $request->image();
-        SaveImageService::UploadImage($image, $tag, Tag::TABLE);
+        SaveImageService::UploadImage(
+            $request->image(),
+             $tag,
+              Tag::TABLE);
         $tag->save();
         return response(new TagResource($tag),201);
     }

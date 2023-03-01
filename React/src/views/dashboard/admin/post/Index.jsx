@@ -10,6 +10,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Link } from "react-router-dom";
+import { EditButton } from "../../../../Layouts/components/Icons";
 
 
 const Posts = () => {
@@ -61,13 +62,13 @@ const count ={
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Post ID </TableCell>
-            <TableCell>Title</TableCell>
-            <TableCell>Excerpt</TableCell>
-            <TableCell>Author</TableCell>
-            <TableCell>Date Created</TableCell>
-            <TableCell>Date Published</TableCell>
-            <TableCell>Actions</TableCell>
+            <TableCell><b>Post ID</b></TableCell>
+            <TableCell><b>Title</b></TableCell>
+            <TableCell><b>Excerpt</b></TableCell>
+            <TableCell><b>Author</b></TableCell>
+            <TableCell><b>Date Created</b></TableCell>
+            <TableCell><b>Date Published</b></TableCell>
+            <TableCell><b>Actions</b></TableCell>
           </TableRow>
         </TableHead>
         {loading && <TableBody>
@@ -92,7 +93,11 @@ const count ={
               <TableCell>
               {posts[item].created_at}</TableCell>
               <TableCell>{posts[item].published_at}</TableCell>
-              <TableCell>Action</TableCell>
+              <TableCell>
+                <div key={item.toString()} style={{display: 'flex', alignItems: "center"}}>
+                    <EditButton to={`/dashboard/admin/posts/${posts[item].id}`}/>
+                </div>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

@@ -64,6 +64,11 @@ class Post extends Model implements CommentAble
        return $this->body;
     }
 
+    public function type():string 
+    {
+        return $this->type;
+    }
+
     public function excerpt(int $limit = 250):string
     {
         return Str::limit(strip_tags($this->body(), $limit));
@@ -72,6 +77,11 @@ class Post extends Model implements CommentAble
     public function coverimage(): string
     {
         return $this->image;
+    }
+
+    public function isCommentable(): bool
+    {
+        return $this->is_commentable;
     }
 
     public function delete()
@@ -83,5 +93,10 @@ class Post extends Model implements CommentAble
     public function commentAbleTitle(): string
     {
         return $this->title();
+    }
+
+    public function getRouteKeyName()
+    {
+      return 'slug';
     }
 }

@@ -86,9 +86,9 @@ public function indexposts(User $user)
 
 }
 
-public function showPosts(User $user, Tag $tag)
+public function showPosts(User $user)
 {
-
+    return $user->isAdmin() || $user->isSuperAdmin() || $user->isWriter();
 }
 
 public function createPosts(User $user)
