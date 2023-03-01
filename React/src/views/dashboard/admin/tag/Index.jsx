@@ -91,11 +91,11 @@ if (!window.confirm("Are you sure you want to delete this Tag?")) {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell> ID </TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Slug</TableCell>
-            <TableCell>Date Created</TableCell>
-            <TableCell>Actions</TableCell>
+            <TableCell> <b>ID</b> </TableCell>
+            <TableCell><b>Name</b></TableCell>
+            <TableCell><b>Slug</b></TableCell>
+            <TableCell><b>Date Created</b></TableCell>
+            <TableCell><b>Actions</b></TableCell>
           </TableRow>
         </TableHead>
         {loading && <TableBody>

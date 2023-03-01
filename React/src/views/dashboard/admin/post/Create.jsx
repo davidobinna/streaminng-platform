@@ -10,9 +10,10 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
 
 
 
-  export default function CreatePosts() {
+  export default function CreatePosts(prop) {
   let {id}  = useParams()
   const navigate = useNavigate()
+  const [sel, setSel]  = useState("standard")
   const [tags,setTags] = useState({})
   const [errors, setErrors] = useState(null)
   const [selectedTags, setSelectedTags] = useState([]);
@@ -24,27 +25,46 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
     id: null,
     title: '',
     body: '',
-    tags: [],
+    tags: 'none',
+    tag_name: [], 
     type: 'standard',
     cover_image: '',
     published_at: '',
     comments: false,
     photo_credit_text: '',
     photo_credit_link: '',
+    postselectedtags: '',
   })
 
 
 
   useEffect(() => {
-     axiosClient.get('/taglist')
-     .then((res) =>{
-        setTags(res.data.data);
-     }).catch((error)=> {
-        setNotification(error);
-     });
+    if (id && prop.value != 'update') {
+          axiosClient.get(`/posts/${id}`)
+          .then((res) => {
+            setLoading(false)
+          setPost({...post, 
+             id: res.data.id,
+             title: res.data.title,
+             body: res.data.body,
+             tag_name: res.data.tag_name,
+             type: res.data.type,
+             comments:res.data.is_commentable
+            })
+          }).catch((error) => {
+            setLoading(false)
+            setErrors(error.errors)
+          });
+    }
+    axiosClient.get('/taglist')
+    .then((res) =>{
+       setTags(res.data.data);
+    }).catch((error)=> {
+       setNotification(error);
+    });
      setPost({...post, tags: selectedTags})
   }, [selectedTags])
-
+  
 
   function toggleCommentable() {
     setIsCommentable(!isCommentable);
@@ -54,6 +74,7 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
   function selectTags() {
     const options = event.target.selectedOptions;
     const values = Array.from(options).map((option) => option.value);
+    const webValues = Array.from(options).map((option) => setPost({...post, tag_name: option.textContent.split(',')}));
     setSelectedTags(values);
  }
 
@@ -66,6 +87,7 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
   {
        e.preventDefault();
        if(post.id){
+        console.log(post)
        } else {
        setLoading(true)
        const formData = new FormData();
@@ -159,6 +181,8 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
               ))}
             </div>
           }
+
+        {id ? (''):(<div>
             <div>
         <label>Cover Image</label>
        </div>
@@ -176,10 +200,10 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
             padding: "1rem",
             border: "2px solid purple",
           }}
-
         />
         <br />
         <br />
+        </div>)}
 
         <div>
         <label>Title</label>
@@ -198,20 +222,24 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
             padding: "1rem",
             border: "2px solid purple",
           }}
+
           placeholder="Give This Scene A Title!"
           value= { post.title ? post.title : null }
         />
         <br />
         <br />
 
+
+
         <div>
         <label>Content</label>
        </div>
-       <input
+       <textarea
        onChange = {(e) => setPost({...post, body: e.target.value })}
           type="text"
           id="body"
           name="body"
+          cols="30" rows="10"
           style={{
             width: "800px",
             height: "150px",
@@ -223,11 +251,13 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
           }}
           placeholder="What Is On Your Mind?"
           value= { post.body ? post.body : null }
-        />
+         ></textarea>
         <br />
         <br />
 
-        <div>
+
+         {id ? (''):(<div>
+            <div>
         <label>Date Published</label>
        </div>
        <input
@@ -248,9 +278,10 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
         />
         <br />
         <br />
+         </div>)}
 
         <div>
-        <label>Visibilty Type</label>
+        <label>Visibilty Type: {post.type} $</label>
         <p style={{
             color: "grey",
           }}>(only subscribers can see premium scene)</p>
@@ -272,10 +303,12 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
         <br />
         <br />
 
-        <div>
-        <label>Tags (multiple selection)</label>
-       </div>
 
+            <div>
+        <label>Select Tags: {post.tag_name.length != 0 ? (post.tag_name.map(value => 
+          <span key={value.toString()}>{value+', '}</span>
+        )):('none')}</label>
+       </div>
          <select
         onChange = {selectTags}
          style={{
@@ -292,10 +325,10 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
              )))
              :(<option value="0">No tags</option>)}
          </select>
-        <br />
+         <br />
         <br />
 
-        <div>
+        {id ? (''):(<div> <div>
         <label>Photo Credit Name</label>
        </div>
        <input
@@ -340,6 +373,8 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
         />
         <br />
         <br />
+ </div> ) }
+
 
         <div>
         <label>Disable Comments</label>

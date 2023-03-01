@@ -6,10 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
+use App\Models\Tag;
 use App\Models\User;
 use App\Policies\UserPolicy;
-use App\Traits\GetApiUser;
 use App\Services\SaveImageService;
+use App\Traits\GetApiUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -72,7 +73,18 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $this->authorize(UserPolicy::SHOWPOSTS, User::class);
+        $post = Post::findOrfail($id);
+        $tagName = '';
+        return response()->json([
+            'id'             => $post->id(),
+            'title'          => $post->title(),
+            'body'           => $post->body(),
+            'type'           => $post->type(),
+            'is_commentable' => $post->isCommentable(),
+            'tag_name'       => $post->tags()->pluck('name'),
+            'postselectedtags'   => $post->tags()->pluck('id'),
+        ]);
     }
 
     /**

@@ -145,7 +145,7 @@ function uploadToServer(e){
             </div>
           }
           <br />
-       {id ? (''):(   <div>
+       {id ? (''):( <div>
           <div>
         <label>Upload a Photo </label>
        </div>
