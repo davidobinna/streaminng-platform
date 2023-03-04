@@ -84,12 +84,6 @@ class Post extends Model implements CommentAble
         return $this->is_commentable;
     }
 
-    public function delete()
-    {
-        $this->removeTags();
-        parent::delete();
-    }
-
     public function commentAbleTitle(): string
     {
         return $this->title();

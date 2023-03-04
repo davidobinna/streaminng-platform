@@ -1,10 +1,10 @@
-<?php 
+<?php
 namespace App\Traits;
 
 use App\Models\Tag;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
-trait HasTags 
+trait HasTags
 {
     public function tags()
     {
@@ -16,17 +16,17 @@ trait HasTags
         return $this->morphToMany(Tag::class,'taggable')->withTimestamps();
     }
 
-    public function syncTags(array $tags) 
+    public function syncTags(array $tags)
     {
          $this->save();
          $this->tagsRelation()->sync($tags);
          $this->unsetRelation('tagsRelation');
     }
 
-    public function removeTags()
+    public function removeTags($value)
     {
-        $this->tagsRelation()->detach();
-        $this->unsetRelation('tagsRelation');
+         $this->tagsRelation()->detach($value);
+         $this->unsetRelation('tagsRelation');
     }
 }
 

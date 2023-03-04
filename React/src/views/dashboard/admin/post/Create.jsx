@@ -26,33 +26,31 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
     title: '',
     body: '',
     tags: 'none',
-    tag_name: [], 
+    tag_name: [],
     type: 'standard',
     cover_image: '',
     published_at: '',
-    comments: false,
+    comments: true,
     photo_credit_text: '',
     photo_credit_link: '',
-    postselectedtags: '',
   })
 
-
-
+//NOTE1 : Fix the Delete Tgas button by creating a delete tag relationship from backend and clear the array tags from frontend
   useEffect(() => {
-    if (id && prop.value != 'update') {
+    if (id && prop.value != 'create') {
           axiosClient.get(`/posts/${id}`)
           .then((res) => {
-            setLoading(false)
-          setPost({...post, 
+          setPost({...post,
              id: res.data.id,
              title: res.data.title,
              body: res.data.body,
              tag_name: res.data.tag_name,
              type: res.data.type,
-             comments:res.data.is_commentable
-            })
+             tags: res.data.postselectedtags,
+             comments: res.data.is_commentable ? true : false,
+            });
+            setIsCommentable(res.data.is_commentable);
           }).catch((error) => {
-            setLoading(false)
             setErrors(error.errors)
           });
     }
@@ -64,17 +62,24 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
     });
      setPost({...post, tags: selectedTags})
   }, [selectedTags])
-  
+
+  useEffect(()  => {
+    setPost({...post, comments: isCommentable ? true : false})
+  },[isCommentable])
 
   function toggleCommentable() {
-    setIsCommentable(!isCommentable);
-    setPost({...post, comments: isCommentable})
+        setIsCommentable(!isCommentable);
   }
 
   function selectTags() {
     const options = event.target.selectedOptions;
     const values = Array.from(options).map((option) => option.value);
-    const webValues = Array.from(options).map((option) => setPost({...post, tag_name: option.textContent.split(',')}));
+    const webVal = Array.from(options).map((option) => option.textContent);
+
+    if (!id) {
+      setPost({...post, tag_name: webVal })
+    }
+
     setSelectedTags(values);
  }
 
@@ -83,13 +88,38 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
     setSelectImage((e.target.files[0]))
   }
 
+
   const uploadToServer = (e) =>
   {
        e.preventDefault();
+       const loopedtags = [];
        if(post.id){
-        console.log(post)
+        setLoading(true)
+        setSelectedTags([])
+        const testing = "2";
+        selectedTags.forEach((tag) => {
+            loopedtags.push(parseInt(tag))
+          })
+         const finaltagloop = post.tags.concat(loopedtags)
+
+         axiosClient.put(`/posts/${post.id}`, {
+            title: post.title, body:post.body,
+            tags: finaltagloop, type: post.type,
+            comments: post.comments,
+         }).then((res)  => {
+               setNotification(
+                "Your scene has been updated!"
+                );
+                setLoading(false)
+                setInterval(() => {
+                    navigate('/dashboard/admin/posts')
+                 }, 4000);
+         }).catch((error) =>  {
+            setLoading(false)
+            setErrors(error.errors)
+        });
        } else {
-       setLoading(true)
+        setLoading(true)
        const formData = new FormData();
         formData.append('title',post.title)
         formData.append('body', post.body)
@@ -102,7 +132,7 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
         formData.append('comments', post.comments)
         formData.append('photo_credit_text', post.photo_credit_text )
         formData.append('photo_credit_link', post.photo_credit_link)
-       sendData(formData)
+        sendData(formData)
        }
   }
 
@@ -144,7 +174,7 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
           >
 
             <Typography component="h1" variant="h5">
-              {id ? ('Update scene'):('Publish a new scene')}
+              {id ? ('Update scene'):('Publish new scene')}
             </Typography>
             <div
       style={{
@@ -184,7 +214,7 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
 
         {id ? (''):(<div>
             <div>
-        <label>Cover Image</label>
+        <label>Thumbnail</label>
        </div>
        <input
        onChange={handleImage}
@@ -258,7 +288,7 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
 
          {id ? (''):(<div>
             <div>
-        <label>Date Published</label>
+        <label>Set Date</label>
        </div>
        <input
        onChange = {(e) => setPost({...post, published_at: e.target.value })}
@@ -281,7 +311,7 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
          </div>)}
 
         <div>
-        <label>Visibilty Type: {post.type} $</label>
+        <label>Visibilty: {post.type} $</label>
         <p style={{
             color: "grey",
           }}>(only subscribers can see premium scene)</p>
@@ -305,10 +335,16 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
 
 
             <div>
-        <label>Select Tags: {post.tag_name.length != 0 ? (post.tag_name.map(value => 
-          <span key={value.toString()}>{value+', '}</span>
+        <label>My Tags: {post.tag_name.length != 0 ? (post.tag_name.map(value =>
+          <button disabled key={value.toString()}>{value+', '}</button>
         )):('none')}</label>
        </div>
+        {id ? (<button disabled  className="category-btn" style={{
+          background: "grey",
+          color: "white"}}> delete tags</button>):(<div>  <button onClick={(e) => setPost({...post, tags: [], tag_name: []})}
+        className="category-btn" style={{
+          background: "grey",
+          color: "white"}}> clear tags</button> </div>)}
          <select
         onChange = {selectTags}
          style={{
@@ -346,7 +382,7 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
             border: "2px solid purple",
           }}
           value={ post.photo_credit_text ? post.photo_credit_text : null }
-          placeholder="photo credit name (optional)"
+          placeholder="(optional)"
         />
         <br />
         <br />
@@ -369,7 +405,7 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
             border: "2px solid purple",
           }}
           value = {post.photo_credit_link ? post.photo_credit_link : null }
-          placeholder="photo credit social link (optional)"
+          placeholder="(optional)"
         />
         <br />
         <br />
@@ -377,7 +413,7 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
 
 
         <div>
-        <label>Disable Comments</label>
+        <label>Enable Comments</label>
        </div>
        <input
           onChange = {toggleCommentable}
@@ -396,7 +432,7 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
           }}
           checked={isCommentable}
         />
-        <p> {isCommentable ? ('Comments are turned OFF'):('Comments are turned ON') } </p>
+        <p> {isCommentable ? ('Comments are turned ON'):('Comments are turned OFF') } </p>
         <br />
         <br />
         <button type="submit" className='btn'>

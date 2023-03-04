@@ -96,15 +96,15 @@ public function createPosts(User $user)
     return $user->isAdmin() || $user->isSuperAdmin() || $user->isWriter();
 }
 
-public function updatePosts(User $user, Post $post)
+public function updatePosts(User $user)
 {
-    return $user->isAdmin() || $user->isSuperAdmin() || $post->isAuthoredBy($user);
+    return $user->isAdmin() || $user->isSuperAdmin() || $user->isWriter();
 
 }
 
-public function deletePosts(User $user, Post $post)
+public function deletePosts(User $user)
 {
-    return $user->isAdmin() || $user->isSuperAdmin() || $post->isAuthoredBy($user);
+    return $user->isAdmin() || $user->isSuperAdmin() || $user->isWriter();
 
 }
 

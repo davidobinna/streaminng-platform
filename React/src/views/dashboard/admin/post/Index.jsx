@@ -10,7 +10,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Link } from "react-router-dom";
-import { EditButton } from "../../../../Layouts/components/Icons";
+import { DeleteButton, EditButton } from "../../../../Layouts/components/Icons";
 
 
 const Posts = () => {
@@ -36,6 +36,32 @@ const count ={
             setNotification(error)
         }
     }
+  
+    const deletePost = (e, id) => {
+        e.preventDefault()
+    if (!window.confirm("Are you sure you want to delete this Scene?")) {
+       return
+    }
+        setLoading(true)
+         axiosClient.delete(`/posts/${id}`)
+            .then((res) => {
+                if (!res.data.errors) {
+                    setNotification(
+                        "Scene was successfully deleted!"
+                        );
+                         setInterval(() => {
+                              setLoading(false)
+                              getPosts()
+                         }, 4000);
+                } else {
+                    setLoading(false)
+                    setNotification("Something went Wrong! "+res.data.message);
+                }
+            }).catch((error) => {
+                setLoading(false)
+                setNotification(error)
+            });
+     }
 
     const nextLink = async (link) => {
         const url = link.substring(25)
@@ -96,6 +122,9 @@ const count ={
               <TableCell>
                 <div key={item.toString()} style={{display: 'flex', alignItems: "center"}}>
                     <EditButton to={`/dashboard/admin/posts/${posts[item].id}`}/>
+                    <button className="category-btn" onClick={(e) =>  deletePost(e, posts[item].id)}>
+                   <DeleteButton/>
+                </button>
                 </div>
               </TableCell>
             </TableRow>
