@@ -20,7 +20,7 @@ trait HasAuthor
         return $this->belongsTo(User::class,'author_id')->withDefault([
             'name' => 'David Obinna',
         ]);
-    }
+    } 
 
     public function isAuthoredBy(User $user): bool
     {

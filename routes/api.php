@@ -61,4 +61,4 @@ Route::apiResource('/tags', Dash\TagController::class)->only([
 Route::apiResource('/writers', Dash\WriterController::class)->only([
     'index'])->middleware(['json.response','auth:api']);
 
-Route::get('taglist', [TagController::class,'taglist'])->middleware(['json.response','auth:api']);
+Route::get('/taglist', [TagController::class,'taglist'])->middleware(['json.response','auth:api']);

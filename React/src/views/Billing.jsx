@@ -3,10 +3,10 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { useStateContext } from "../contexts/ContextProvider";
-import "../components/SignupStyles.css";
 import { useEffect, useState } from "react";
 import axiosClient from "../axios-client";
-import { Helmet } from "react-helmet"
+import { Helmet } from "react-helmet";
+import "../components/SignupStyles.css";
 
 const Billing = () => {
     let {id}  = useParams();
