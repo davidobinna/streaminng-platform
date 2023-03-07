@@ -58,11 +58,11 @@ const [admin, _setAdmin] = useState(localStorage.getItem('ACCESS_ADMIN'));
      }
 }
 
-  const setNotification = message => {
+  const setNotification = (message, out = 5000 )=> {
         _setNotification(message)
         setTimeout(()=>{
           _setNotification('')
-        }, 5000)
+        }, out)
  }
 
     return (

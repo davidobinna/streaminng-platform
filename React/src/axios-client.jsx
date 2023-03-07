@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 const serverUrl = 'http://localhost:8000'
 const axiosClient = axios.create({
   baseURL: `${serverUrl}/api`

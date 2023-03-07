@@ -22,13 +22,15 @@ class PostFactory extends Factory
      */
     public function definition()
     {
+        $title = $this->faker->sentence();
+
         return [
             //
-            'title'          => $this->faker->text(20),
-            'slug'           => $this->faker->unique()->slug,
+            'title'          => $title,
+            'slug'           => Str::slug($title.'-'. now()->getPreciseTimestamp(4)),
             'body'           => $this->faker->unique()->slug,
             'author_id'      => $attribute['author_id'] ?? User::factory(),
-            'image'          => $this->faker->url(),
+            'image'          => 'public/posts/stock-'.$this->faker->randomElement(['one','two','three','four','five']).'.jpg',
             'published_at'   => now(),
             'type'           => $this->faker->randomElement(['standard','premium']),
             'is_commentable' => rand(0,1)

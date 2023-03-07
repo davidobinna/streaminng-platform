@@ -80,7 +80,7 @@ const count ={
       <div style={{display: 'flex', justifyContent: "space-between", alignItems: "center"}}>
         <h4>All Posts</h4>
         <Link to="/dashboard/admin/posts/new" className="category-btn" style={{
-          background: "#FC1503",
+          background: "#9c02e4",
           color: "white"}} >Add new Posts</Link>
       </div>
       <div className="card animated fadeInDown">

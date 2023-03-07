@@ -82,7 +82,7 @@ if (!window.confirm("Are you sure you want to delete this Tag?")) {
       <div style={{display: 'flex', justifyContent: "space-between", alignItems: "center"}}>
         <h4>All Tags</h4>
         <Link to="/dashboard/admin/tags/new" className="category-btn" style={{
-          background: "#FC1503",
+          background: "#9c02e4",
           color: "white"}} >Add a new tag</Link>
       </div>
       <div className="card animated fadeInDown">
