@@ -47,6 +47,7 @@ class User extends Authenticatable
         'state',
         'country',
         'postal_code',
+        'profile_photo_path',
     ];
 
     protected $with = [

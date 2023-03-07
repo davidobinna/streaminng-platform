@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Dash\TagController;
+use App\Http\Controllers\Feed\FeedController;
 use App\Http\Controllers\Pages\MembershipController;
 use App\Http\Controllers\Stripe\PaymentController;
 use Illuminate\Http\Request;
@@ -48,7 +49,6 @@ Route::group(['middleware' => ['json.response','auth:api']], function(){
 Route::apiResource('/users', Dash\ResourceController::class)->only([
     'index','store','show','update','destroy'])->middleware(['json.response','auth:api']);
 
-
 //......All Post Resource Endpoint Goes Here.......//
 Route::apiResource('/posts', Dash\PostController::class)->only([
     'index','store','show','update','destroy'])->middleware(['json.response','auth:api']);
@@ -61,4 +61,12 @@ Route::apiResource('/tags', Dash\TagController::class)->only([
 Route::apiResource('/writers', Dash\WriterController::class)->only([
     'index'])->middleware(['json.response','auth:api']);
 
+
+//.........All feed Resource Endpoint Goes Here--------//
+Route::apiResource('/feed', Feed\FeedController::class)->only([
+    'index','show'
+])->middleware(['json.response']);
+
+
 Route::get('/taglist', [TagController::class,'taglist'])->middleware(['json.response','auth:api']);
+Route::get('/loadmore/{id}', [FeedController::class,'loadmore'])->middleware(['json.response']);

@@ -146,7 +146,7 @@ class PostController extends Controller
                 'errors' => true,
                 'message' => $e->getMessage(),
             ]);
-        } 
+        }
     }
 
           /*      $tags = DB::table('taggables')
@@ -158,7 +158,7 @@ class PostController extends Controller
                 $final = [];
                   $tags->each(function($object) use ($final){
                     array_push($final, $object->tag_id);
-                   
+
                  });
                 return $final;
             }

@@ -16,5 +16,8 @@ class PostTableSeeder extends Seeder
     {
         Post::factory()->count(5)->create(['author_id' => 1]);
         Post::factory()->count(5)->create(['author_id' => 2]);
+        Post::factory()->count(5)->create(['author_id' => 3]);
+        Post::factory()->count(5)->create(['author_id' => 4]);
+        Post::factory()->count(5)->create(['author_id' => 5]);
     }
 }

@@ -46,7 +46,7 @@ h1,h4, p,a {
   }
 
   .category-btn:hover {
-    background-color: #FC1503 !important;
+    background-color: rgba(150, 5, 194, 0.922) !important;
     color: white !important;
   }
 
@@ -93,18 +93,18 @@ ul {
   text-transform: uppercase;
   background: transparent;
   color: rgb(254, 238, 238);
-  border: 1px solid rgb(255, 19, 19);
+  border: 1px solid rgba(150, 5, 194, 0.922);
   cursor: pointer;
 }
 
 
 
 .btn-light {
-    background: rgba(219, 99, 99, 0.2);
+    background: rgba(215, 96, 226, 0.2);
 }
 
 .btn:hover {
-    background: rgba(236, 24, 24, 0.922);
+    background: rgba(150, 5, 194, 0.922);
     color: rgb(255, 255, 255);
 }
 
@@ -114,7 +114,7 @@ ul {
     bottom: 1rem;
     z-index: 100;
     padding: 1rem 1.5rem;
-    background-color: rgb(255,255,255, .2);;
+    background-color: rgba(150, 5, 194, 0.922);
     color: rgb(255, 255, 255);
     border-radius: 0.5rem;
     font-size: 1rem;

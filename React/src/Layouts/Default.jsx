@@ -4,10 +4,18 @@ import { useStateContext } from "../contexts/ContextProvider";
 import { Navbar } from "./components";
 
 function Default() {
+    const {notification} = useStateContext()
 
     return (
         <Box sx={{ backgroundColor: '#000' }}>
         <Navbar/>
+        <div>
+         {notification &&
+          <div className="notification" >
+          {notification}
+          </div>
+        }
+        </div>
         <Outlet/>
         </Box>
     )

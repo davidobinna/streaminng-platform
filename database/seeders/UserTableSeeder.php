@@ -17,33 +17,68 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
+
+      //--------------Admins-------------\\
     User::factory()->create([
-        'name'     => 'Admin User',
+        'name'     => 'Administrator',
         'email'    => 'admin@example.com',
         'password' => Hash::make('password'),
         'type'     => User::ADMIN,
      ])->profile()->save(Profile::factory()->make());
 
+     //--------------Writers-------------\\
      User::factory()->create([
-        'name'     => 'Writer User',
-        'email'    => 'writer@example.com',
+        'name'     => 'David Obi',
+        'email'    => 'davidobi@example.com',
         'password' => Hash::make('password'),
         'type'     => User::WRITER
      ])->profile()->save(Profile::factory()->make());
 
      User::factory()->create([
-        'name'     => 'MOD User',
+        'name'     => 'Joy Obi',
+        'email'    => 'joyobi@example.com',
+        'password' => Hash::make('password'),
+        'type'     => User::WRITER
+     ])->profile()->save(Profile::factory()->make());
+
+     User::factory()->create([
+        'name'     => 'Mike Obi',
+        'email'    => 'mikeobi@example.com',
+        'password' => Hash::make('password'),
+        'type'     => User::WRITER
+     ])->profile()->save(Profile::factory()->make());
+
+     User::factory()->create([
+        'name'     => 'Chika Obi',
+        'email'    => 'chikaobi@example.com',
+        'password' => Hash::make('password'),
+        'type'     => User::WRITER
+     ])->profile()->save(Profile::factory()->make());
+
+     //---------------Moderator--------------\\
+     User::factory()->create([
+        'name'     => 'Moderator',
         'email'    => 'mod@example.com',
         'password' => Hash::make('password'),
         'type'     => User::MODERATOR,
      ])->profile()->save(Profile::factory()->make());
 
+
+     //--------------Default Users----------------\\
      User::factory()->create([
-        'name'     => 'David Obinna',
-        'email'    => 'david@example.com',
+        'name'     => 'User One',
+        'email'    => 'userone@example.com',
         'password' => Hash::make('password'),
         'type'     => User::DEFAULT,
      ])->profile()->save(Profile::factory()->make());
+
+     User::factory()->create([
+        'name'     => 'User Two',
+        'email'    => 'usertwo@example.com',
+        'password' => Hash::make('password'),
+        'type'     => User::DEFAULT,
+     ])->profile()->save(Profile::factory()->make());
+
 
      User::factory(10)->create()->each(function($user){
        $user->profile()->save(Profile::factory()->make());

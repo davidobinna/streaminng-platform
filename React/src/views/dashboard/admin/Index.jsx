@@ -6,7 +6,7 @@ import { Sidebar } from "../../../Layouts/components";
 
 
 const AdminIndex = () => {
-    const [selectedCategory, setSelectedCategory] = useState("New");
+    const [selectedCategory, setSelectedCategory] = useState("Latest");
     const {admin, notification} = useStateContext()
   if (!admin) {
         return <Navigate to="/home"/>
@@ -30,7 +30,7 @@ const AdminIndex = () => {
            </Box>
            <Box p={2} sx={{ overflowY: "auto", height: "90vh", flex: 2 }}>
               <Typography variant="h5" fontWeight="bold" mb={2} sx={{ color: "white" }}> Admin
-                 <span style={{ color: "#FC1503" }}> {selectedCategory}</span>
+                 <span style={{ color: "#9c02e4" }}> {selectedCategory} </span>
                </Typography>
                <Outlet/>
            </Box>

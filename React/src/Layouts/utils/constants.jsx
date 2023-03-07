@@ -15,7 +15,7 @@ import DeveloperModeIcon from '@mui/icons-material/DeveloperMode';
 export const logo = 'https://i.ibb.co/s9Qys2j/logo.png';
 
 export const categories = [
-  { name: 'New', icon: <HomeIcon />, },
+  { name: 'Latest', icon: <HomeIcon />, },
   { name: 'JS Mastery', icon: <CodeIcon />, },
   { name: 'Coding', icon: <CodeIcon />, },
   { name: 'ReactJS', icon: <CodeIcon />, },
@@ -35,7 +35,7 @@ export const categories = [
 ];
 
 export const admincategories = [
-    { name: 'Home', link:'/home', icon: <HomeIcon />, },
+    { name: 'Latest', link:'/feed', icon: <HomeIcon />, },
     { name: 'Profile',link:'/', icon: <MusicNoteIcon /> },
     { name: 'Users', link:'/dashboard/admin/users', icon: <SchoolIcon />, },
     { name: 'Create User', link:'/dashboard/admin/users/new',  icon: <GraphicEqIcon />, },
@@ -48,7 +48,7 @@ export const admincategories = [
   ];
 
   export const writercategories = [
-    { name: 'Home', icon: <HomeIcon />, },
+    { name: 'Latest', icon: <HomeIcon />, },
     { name: 'Podcast', icon: <GraphicEqIcon />, },
     { name: 'Movie', icon: <OndemandVideoIcon />, },
     { name: 'Gaming', icon: <SportsEsportsIcon />, },
@@ -62,7 +62,7 @@ export const admincategories = [
   ];
 
 
-
+export const serverAddress   = 'http://localhost:8000' ;
 export const demoThumbnailUrl = 'https://i.ibb.co/G2L2Gwp/API-Course.png';
 export const demoChannelUrl = '/channel/UCmXmlB4-HJytD7wek0Uo97A';
 export const demoVideoUrl = '/video/GDa8kZLNhJ4';

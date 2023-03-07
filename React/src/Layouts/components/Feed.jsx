@@ -1,18 +1,57 @@
 import { Box, Stack, Typography } from "@mui/material";
-import { Sidebar, Videos } from "./";
-import { fetchFromAPI } from "../utils/fetchFromAPI"
+import { Loader, Sidebar, Videos } from "./";
 import { useEffect, useState } from "react";
+import axiosClient from "../../axios-client";
+import { useStateContext } from "../../contexts/ContextProvider";
+
+
+var INCREATMENT = 0 ;
 
 const Feed = () => {
-    const [selectedCategory, setSelectedCategory] = useState("New");
+    const [selectedCategory, setSelectedCategory] = useState("Latest");
     const [videos, setVideos] = useState(null);
-
+    const {setNotification} = useStateContext()
+    const [loading, setloading] = useState(false)
+    const [morePages, setMorePages] = useState(true)
   /**  useEffect(() => {
         setVideos(null);
 
         fetchFromAPI(`search?part=snippet&q=${selectedCategory}`)
           .then((data) => setVideos(data.items))
         }, [selectedCategory]); **/
+
+ useEffect(() => {
+    setVideos(null)
+    axiosClient.get('/feed')
+    .then((res) => {
+        console.log(res.data)
+          setVideos(res.data.posts)
+          setMorePages(res.data.morepages)
+    }).catch((error)=>{
+        setNotification(error)
+    });
+ },[selectedCategory])
+
+
+
+ function multiply(){
+    return INCREATMENT += 8
+   }
+
+   const loadMore = async (e) => {
+    e.preventDefault()
+    setloading(true)
+    setNotification("Fetchig data, please wait...",2000)
+    try {
+        const res = await axiosClient.get(`/loadmore/${multiply()}`)
+        setloading(false)
+        console.log(res.data)
+         setVideos(res.data.posts)
+         setMorePages(res.data.morepages)
+    } catch (error) {
+        setNotification(error)
+    }
+   }
 
     return (
          <Stack sx={{ flexDirection: { sx: "column", md: "row" } }}>
@@ -25,9 +64,11 @@ const Feed = () => {
                </Typography>
            </Box>
            <Box p={2} sx={{ overflowY: "auto", height: "90vh", flex: 2 }}>
-              <Typography variant="h4" fontWeight="bold" mb={2} sx={{ color: "white" }}> {selectedCategory}
-                 <span style={{ color: "#FC1503" }}> Videos</span>
-               </Typography>  
+              <Typography variant="h5" fontWeight="bold" mb={2} sx={{ color: "white" }}> {selectedCategory}
+                 <span style={{ color: "#9c02e4" }}> Scene</span>
+               </Typography>
+               {loading ? (<Loader />):(<Videos videos={videos}/>)}
+            {morePages && <button onClick={loadMore}>Load more</button>}
            </Box>
          </Stack>
     )

@@ -7,7 +7,7 @@ const DefaultIndex = () => {
     const {defaultUser} = useStateContext()
   if (!defaultUser) {
         return <Navigate to="/home"/>
-}
+  }
 
     return (
         <div>

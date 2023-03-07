@@ -64,7 +64,7 @@ class Post extends Model implements CommentAble
        return $this->body;
     }
 
-    public function type():string 
+    public function type():string
     {
         return $this->type;
     }
@@ -93,4 +93,5 @@ class Post extends Model implements CommentAble
     {
       return 'slug';
     }
+
 }
