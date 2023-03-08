@@ -45,14 +45,16 @@ class FeedController extends Controller
                     'title' => $data->title(),
                     'slug'  => $data->getRouteKeyName(),
                     'image' => $data->coverimage(),
-                    'published_at' => $data->published_at->format('d-M-Y'),
+                    'published_at' => $data->published_at->format('d F Y'),
                     'author_id'  => $data->authorRelation->id,
                     'author_name'  => $data->authorRelation->name,
                     'author_image' => $data->authorRelation->profile_photo_path
                 ];
 
             })
-       , 'morepages' => loadlatest(session()->get('loadmore'))->hasMorePages() ], 201);
+       , 'morepages' => loadlatest(session()
+                            ->get('loadmore'))
+                            ->hasMorePages() ], 201);
 
         // return response(['posts' => loadlatest(session()->get('loadmore'))->hasMorePages()], 201);
 
@@ -71,7 +73,7 @@ class FeedController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -82,8 +84,22 @@ class FeedController extends Controller
      */
     public function show($id)
     {
-        //
+         $data  = Post::findOrfail($id);
+
+         return response()->json([
+            'id'        => $data->id(),
+            'image'     => $data->coverimage(),
+            'tag_name'  => $data->tags()->pluck('name'),
+            'title'     => $data->title(),
+            'author_image' => $data->author()->profile_photo_path,
+            'author_name'  => $data->author()->name,
+            'published_at' => $data->published_at->format('d F Y'),
+            'body_content' => $data->body(),
+            'body_excerpt' => $data->excerpt()
+         ]);
     }
+
+    
 
     /**
      * Update the specified resource in storage.

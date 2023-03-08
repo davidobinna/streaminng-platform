@@ -35,7 +35,7 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
     photo_credit_link: '',
   })
 
-//NOTE1 : Fix the Delete Tgas button by creating a delete tag relationship from backend and clear the array tags from frontend
+//NOTE1 : Fix the Delete Tags button by creating a delete tag relationship from backend and clear the array tags from frontend
   useEffect(() => {
     if (id && prop.value != 'create') {
           axiosClient.get(`/posts/${id}`)
@@ -336,7 +336,7 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
 
             <div>
         <label>My Tags: {post.tag_name.length != 0 ? (post.tag_name.map(value =>
-          <button disabled key={value.toString()}>{value+', '}</button>
+          <button disabled key={value.toString()}>{value+'.'}</button>
         )):('none')}</label>
        </div>
         {id ? (<button disabled  className="category-btn" style={{
