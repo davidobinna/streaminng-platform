@@ -88,7 +88,7 @@ const router = createBrowserRouter([
                 element: <Feed />
             },
             {
-                path: '/video/:id',
+                path: '/feed/:id',
                 element: <VideoDetail />
             },
             {
@@ -154,7 +154,7 @@ const router = createBrowserRouter([
                     },
                     {
                         path: '/dashboard/admin/tags/new',
-                        element:    <CreateTags value="create"/>                 
+                        element:    <CreateTags value="create"/>
                     },
                     {
                         path: '/dashboard/admin/tags/:id',

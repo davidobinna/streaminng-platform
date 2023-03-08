@@ -60,6 +60,12 @@
 #LARAVEL BACKEND STAGE 55:
 #LARAVEL BACKEND STAGE 56:
 #LARAVEL BACKEND STAGE 57:
+#LARAVEL BACKEND STAGE 58:
+#LARAVEL BACKEND STAGE 59:
+#LARAVEL BACKEND STAGE 60:
+#LARAVEL BACKEND STAGE 61:
+#LARAVEL BACKEND STAGE 62: not complete, Create a social shear for post FeedController Facebook,  twitter, whatsapp, telegram, and then add  social meta tags on React frontend for facebook and twitter.
+#LARAVEL BACKEND STAGE 63: not complete, add meta tags to the feed show view in React frontend.
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 

@@ -22,12 +22,12 @@ const VideoCard = (scene) => (
       <Link to={scene ? `/feed/${scene.value.id}` : `/home` } >
         <Typography variant="subtitle1" fontWeight="bold" color="#FFF" gap={2} style={{ fontSize: "12px", display: 'flex', alignItems: "center"}}>
         {!getUser().id ? (<Avatar sx={{ width:45, height:45, bgcolor: deepPurple[500] }}>MV</Avatar>):(<Avatar alt="profile" src="" sx={{width:45, height:45}} />) }
-          {scene?.value.title.slice(0, 60) || demoVideoTitle.slice(0, 60)} 3D Imagination to Meta Verse
+          {scene?.value.title.slice(0, 30) || demoVideoTitle.slice(0, 60)} 3D Imagination to Meta Verse
         </Typography>
       </Link>
       <Link to={scene?.value.author_id ? `/writers/${scene?.value.author_id}` : demoChannelUrl} >
         <Typography  variant="subtitle2" color="gray" sx={{ fontSize: "12px", color: "grey", mt: "6px", display: 'flex', alignItems: "center"}} >
-          {scene?.value.author_name.slice(0, 8) || demoChannelTitle}vx: verified creator
+          {scene?.value.author_name.slice(0, 4) || demoChannelTitle}vx: verified creator
           <CheckCircleIcon sx={{ fontSize: "12px", color: "#9c02e4", ml: "5px" }} />
           <p style={{ marginLeft: "48px", color: "grey" }}> {scene?.value.published_at} </p>
         </Typography>

@@ -64,8 +64,12 @@ Route::apiResource('/writers', Dash\WriterController::class)->only([
 
 //.........All feed Resource Endpoint Goes Here--------//
 Route::apiResource('/feed', Feed\FeedController::class)->only([
-    'index','show'
+    'index'
 ])->middleware(['json.response']);
+
+Route::group(['middleware' => ['json.response','auth:api']],function(){
+    Route::get('/feed/{id}',[FeedController::class,'show'])->name('feed.show');
+});
 
 
 Route::get('/taglist', [TagController::class,'taglist'])->middleware(['json.response','auth:api']);

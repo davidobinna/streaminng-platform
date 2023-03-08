@@ -13,18 +13,14 @@ const Feed = () => {
     const {setNotification} = useStateContext()
     const [loading, setloading] = useState(false)
     const [morePages, setMorePages] = useState(true)
-  /**  useEffect(() => {
-        setVideos(null);
 
-        fetchFromAPI(`search?part=snippet&q=${selectedCategory}`)
-          .then((data) => setVideos(data.items))
-        }, [selectedCategory]); **/
 
  useEffect(() => {
     setVideos(null)
+    setloading(true)
     axiosClient.get('/feed')
     .then((res) => {
-        console.log(res.data)
+        setloading(false)
           setVideos(res.data.posts)
           setMorePages(res.data.morepages)
     }).catch((error)=>{
