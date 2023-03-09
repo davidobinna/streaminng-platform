@@ -29,7 +29,7 @@ class PostFactory extends Factory
             //
             'title'          => $title,
             'slug'           => Str::slug($title.'-'. now()->getPreciseTimestamp(4)),
-            'body'           => $this->faker->unique()->slug,
+            'body'           => $this->faker->text,
             'author_id'      => $attribute['author_id'] ?? User::factory(),
             'image'          => 'public/posts/stock-'.$this->faker->randomElement(['one','two','three','four','five']).'.jpg',
             'published_at'   => now(),
