@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\Comment;
 use App\Models\Post;
+use App\Models\Comment;
 use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -38,7 +38,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Relation::morphMap([
             Post::TABLE    => Post::class,
-            Comment::TABLE => comment::class,
+            Comment::TABLE => Comment::class,
             User::TABLE    => User::class,
             Tag::TABLE     => Tag::class,
         ]);

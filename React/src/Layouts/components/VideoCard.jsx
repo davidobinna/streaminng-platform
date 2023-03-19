@@ -6,10 +6,13 @@ import { demoThumbnailUrl, demoVideoUrl, demoVideoTitle, demoChannelUrl, demoCha
 import { useStateContext } from '../../contexts/ContextProvider';
 import { deepPurple } from '@mui/material/colors';
 
+
+
 const getUser = () => {
     const {user} = useStateContext()
     return user
 }
+
 
 const VideoCard = (scene) => (
   <Card sx={{ width: { xs: '100%', sm: '358px', md: "320px", }, boxShadow: "none", borderRadius: 0 }}>
@@ -27,8 +30,7 @@ const VideoCard = (scene) => (
       </Link>
       <Link to={scene?.value.author_id ? `/writers/${scene?.value.author_id}` : demoChannelUrl} >
         <Typography  variant="subtitle2" color="gray" sx={{ fontSize: "12px", color: "grey", mt: "6px", display: 'flex', alignItems: "center"}} >
-          {scene?.value.author_name.slice(0, 4) || demoChannelTitle}vx: verified creator
-          <CheckCircleIcon sx={{ fontSize: "12px", color: "#9c02e4", ml: "5px" }} />
+         {scene?.value.author_name.slice(0, 6) || demoChannelTitle}: {scene.value.type.toString() + " user"} {scene.value.type.toString() === "premium" && <CheckCircleIcon sx={{ fontSize: "12px", color: "#9c02e4", ml: "5px" }} />}
           <p style={{ marginLeft: "48px", color: "grey" }}> {scene?.value.published_at} </p>
         </Typography>
       </Link>

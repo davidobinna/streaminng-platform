@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class MembershipResource extends JsonResource
 {
-    use HasSubscribe;
+    use HasSubscribe; 
     /**
      * Transform the resource into an array.
      *

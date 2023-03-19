@@ -52,7 +52,9 @@ class PostController extends Controller
         $post = new Post([
         'title'                => $request->title(),
         'body'                 => $request->body(),
-        'slug'                 => Str::slug($request->title.'-'.now()->format('d-M-Y')),
+        'slug'                 => Str::slug(
+                                   $request->title.'-'.now()
+                                   ->format('d-M-Y')),
         'published_at'         => $request->publishedAt(),
         'type'                 => $request->type(),
         'photo_credit_text'    => $request->photoCreditText(),

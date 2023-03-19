@@ -13,8 +13,9 @@ trait GetApiUser
 {
     public function getAuthUser()
     {
-        $apiUser = Auth::guard('api')->user();
-        $user    = User::where('email',$apiUser->email)->first();
+        $user    = User::where('email',Auth::guard('api')
+                        ->user()->email)
+                        ->first();
         return $user;
     }
 

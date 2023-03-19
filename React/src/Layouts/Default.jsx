@@ -4,7 +4,7 @@ import { useStateContext } from "../contexts/ContextProvider";
 import { Navbar } from "./components";
 
 function Default() {
-    const {notification} = useStateContext()
+const {notification} = useStateContext()
 
     return (
         <Box sx={{ backgroundColor: '#000' }}>

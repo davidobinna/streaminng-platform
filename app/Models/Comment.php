@@ -1,9 +1,10 @@
 <?php
-
 namespace App\Models;
 
-use App\Contracts\CommentAble;
+
 use App\Traits\HasAuthor;
+use App\Traits\HasCommentable;
+use App\Traits\HasReplies;
 use App\Traits\ModelHelpers;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +16,8 @@ class Comment extends Model
     use HasFactory;
     use HasAuthor;
     use ModelHelpers;
+    use HasCommentable;
+    use HasReplies;
 
     const TABLE = 'comments';
 
@@ -22,6 +25,13 @@ class Comment extends Model
 
     protected $fillable = [
         'body',
+        'parent_id',
+        'depth',
+    ];
+  
+    protected $with = [
+        'authorRelation',
+        'repliesRelation'
     ];
 
     public function id(): int
@@ -34,19 +44,14 @@ class Comment extends Model
         return $this->body;
     }
 
+    public function parentId():string
+    {
+        return $this->parent_id;
+    }
+
     public function excerpt(int $limit = 100): string
     {
         return Str::limit($this->body(), $limit);
-    }
-
-    public function commentAbleRelation():MorphTo
-    {
-      return $this->MorphTo('commentAbleRelation','commentable_id','commentable_type');
-    }
-
-    public function commentAble(): CommentAble
-    {
-        return $this->commentAbleRelation;
     }
 
 }

@@ -4,14 +4,19 @@ namespace App\Http\Controllers\Feed;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\FeedResource;
+use App\Models\Plan;
 use App\Models\Post;
-use Illuminate\Support\Str;
+use App\Traits\HasSubscribe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class FeedController extends Controller
 {
+
+    use HasSubscribe;
+
     public $count = 2 ;
 
     public function loadmore($id)
@@ -45,6 +50,7 @@ class FeedController extends Controller
                     'title' => $data->title(),
                     'slug'  => $data->getRouteKeyName(),
                     'image' => $data->coverimage(),
+                    'type'   => $data->type(),
                     'published_at' => $data->published_at->format('d F Y'),
                     'author_id'  => $data->authorRelation->id,
                     'author_name'  => $data->authorRelation->name,
@@ -56,14 +62,13 @@ class FeedController extends Controller
                             ->get('loadmore'))
                             ->hasMorePages() ], 201);
 
-        // return response(['posts' => loadlatest(session()->get('loadmore'))->hasMorePages()], 201);
-
     }
 
        public function setLoadSession($count)
        {
             session()->put('loadmore',$count);
        }
+
 
     /**
      * Store a newly created resource in storage.
@@ -91,15 +96,23 @@ class FeedController extends Controller
             'image'     => $data->coverimage(),
             'tag_name'  => $data->tags()->pluck('name'),
             'title'     => $data->title(),
+            'type'   => $data->type(),
             'author_image' => $data->author()->profile_photo_path,
             'author_name'  => $data->author()->name,
             'published_at' => $data->published_at->format('d F Y'),
             'body_content' => $data->body(),
-            'body_excerpt' => $data->excerpt()
+            'body_excerpt' => $data->excerpt(),
+            'is_commnetable' => $data->isCommentable(),
+            'plan'         => [
+                'subscribed' => $this->isSubscribed(
+                                $this->getAuthUser()),
+                'notsubscribed' => $this->isNotsubscribed(
+                                $this->getAuthUser())
+            ]
          ]);
     }
 
-    
+
 
     /**
      * Update the specified resource in storage.

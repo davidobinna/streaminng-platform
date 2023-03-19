@@ -42,7 +42,6 @@ export const admincategories = [
     { name: 'Posts', link:'/dashboard/admin/posts', icon: <OndemandVideoIcon />, },
     { name: 'Create Post', link:'/dashboard/admin/posts/new', icon: <SportsEsportsIcon />, },
     { name: 'Writers', link:'/dashboard/admin/writers', icon: <LiveTvIcon />, },
-    { name: 'Create Writer', link:'/dashboard/admin/writers/new', icon: <FitnessCenterIcon />, },
     { name: 'Tags', link:'/dashboard/admin/tags', icon: <CheckroomIcon />, },
     { name: 'Create Tag', link:'/dashboard/admin/tags/new', icon: <FaceRetouchingNaturalIcon />, },
   ];

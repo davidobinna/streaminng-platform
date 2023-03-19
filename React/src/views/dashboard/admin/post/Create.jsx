@@ -96,7 +96,6 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
        if(post.id){
         setLoading(true)
         setSelectedTags([])
-        const testing = "2";
         selectedTags.forEach((tag) => {
             loopedtags.push(parseInt(tag))
           })
@@ -336,7 +335,7 @@ import { useStateContext } from '../../../../contexts/ContextProvider';
 
             <div>
         <label>My Tags: {post.tag_name.length != 0 ? (post.tag_name.map(value =>
-          <button disabled key={value.toString()}>{value+'.'}</button>
+          <button disabled key={value.toString()}>{value}</button>
         )):('none')}</label>
        </div>
         {id ? (<button disabled  className="category-btn" style={{

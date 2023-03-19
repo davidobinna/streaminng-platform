@@ -85,7 +85,7 @@ const Billing = () => {
           document.body.removeChild(script);
         };
 
-    },[])
+    },[]) 
 
     const getPaymentDetails = async () => {
         try {

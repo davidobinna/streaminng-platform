@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Dash\TagController;
+use App\Http\Controllers\Feed\CommentController;
 use App\Http\Controllers\Feed\FeedController;
 use App\Http\Controllers\Pages\MembershipController;
 use App\Http\Controllers\Stripe\PaymentController;
@@ -72,5 +73,12 @@ Route::group(['middleware' => ['json.response','auth:api']],function(){
 });
 
 
+//.........All Comments Resource Endpoint Goes Here--------//
+Route::apiResource('/comment',Feed\CommentController::class)->only([
+    'index','store','show','update','destroy'
+]);
+
+
 Route::get('/taglist', [TagController::class,'taglist'])->middleware(['json.response','auth:api']);
 Route::get('/loadmore/{id}', [FeedController::class,'loadmore'])->middleware(['json.response']);
+Route::get('/subscription',[FeedController::class, 'subscription'])->middleware(['json.response']);

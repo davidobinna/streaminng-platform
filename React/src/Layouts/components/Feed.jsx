@@ -41,7 +41,6 @@ const Feed = () => {
     try {
         const res = await axiosClient.get(`/loadmore/${multiply()}`)
         setloading(false)
-        console.log(res.data)
          setVideos(res.data.posts)
          setMorePages(res.data.morepages)
     } catch (error) {

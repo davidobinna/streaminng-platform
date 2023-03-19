@@ -15,7 +15,7 @@ class CommentFactory extends Factory
      * @var string
      */
     protected $model = Comment::class;
-
+    
     /**
      * Define the model's default state.
      *
@@ -29,6 +29,7 @@ class CommentFactory extends Factory
             'author_id'        => User::factory(),
             'commentable_id'   => Post::factory(),
             'commentable_type' => Post::TABLE,
+            'depth'            => (integer) 3,
         ];
     }
 }

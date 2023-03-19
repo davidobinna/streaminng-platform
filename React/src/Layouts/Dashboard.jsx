@@ -19,10 +19,10 @@ useEffect(()=> {
 const getUser = async () => {
    try {
          const res = await axiosClient.get('/user')
-           setUser(res.data)
+         setUser(res.data)
    } catch (error) {
     setNotification(error);
-    setToken(null);
+        setToken(null);
              setUser({});
    }
 }
