@@ -164,15 +164,7 @@ const router = createBrowserRouter([
                     {
                         path: '/dashboard/admin/writers',
                         element: <Writers/>
-                    },
-                    {
-                        path: '/dashboard/admin/writers/new',
-                        element: <CreateWriters key="create"/>
-                    },
-                    {
-                        path: '/dashboard/admin/writers/:id',
-                        element: <CreateWriters key="update"/>
-                    },
+                    }
                 ]
             },
             {

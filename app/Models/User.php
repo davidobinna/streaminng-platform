@@ -168,7 +168,7 @@ class User extends Authenticatable
 
     public function joinedDate()
     {
-        return $this->created_at->format('d/m/Y');
+        return $this->created_at->format('d-F-Y');
     }
 
     public function posts()

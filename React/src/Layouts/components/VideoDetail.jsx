@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import ReactPlayer from "react-player";
 import { Typography, Box, Stack, Avatar } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -7,16 +7,22 @@ import { Videos, Loader } from "./";
 import axiosClient from "../../axios-client";
 import { useStateContext } from "../../contexts/ContextProvider";
 import { deepPurple } from '@mui/material/colors';
+import Comments from "./Comments";
 
 var INCREATMENT = 0 ;
+var MODELNAME = 'posts';
+
 
 const VideoDetail = () => {
   const [videoDetail, setVideoDetail] = useState(null);
   const [videos, setVideos] = useState(null);
   const [loading, setloading] = useState(false)
-  const {user,setNotification} = useStateContext()
+  const {user,setUser,setNotification, token} = useStateContext()
   const [morePages, setMorePages] = useState(true)
+  const [isSubscribed, setIsSubscribed] = useState(null)
+  const [allowComment, setAllowComment] = useState(null)
   const { id } = useParams();
+  const navigate = useNavigate()
 
   /**useEffect(() => {
     fetchFromAPI(`videos?part=snippet,statistics&id=${id}`)
@@ -27,16 +33,30 @@ const VideoDetail = () => {
   }, [id]);  **/
 
 useEffect(() => {
+     axiosClient.get('/user')
+      .then((res) => {
+       setUser(res.data)
+      })
+      .catch((error) => {
+          console.log(error)
+      });
+},[])
+
+useEffect(() => {
     axiosClient.get(`/feed/${id}`)
     .then((res) => {
         setNotification(
             "Fetchig data, please wait...",
             2000)
-        console.log(res.data)
         setVideoDetail(res.data)
+        setIsSubscribed(res.data.plan.subscribed)
+        setAllowComment(res.data.is_commnetable)
     })
     .catch((error) => {
         setNotification(error)
+          if(!token){
+           navigate('/login')
+       }
     })
 },[id])
 
@@ -59,16 +79,22 @@ useEffect(() => {
    const loadMore = async (e) => {
     e.preventDefault()
     setloading(true)
-    setNotification("Fetchig data, please wait...",2000)
     try {
         const res = await axiosClient.get(`/loadmore/${multiply()}`)
         setloading(false)
-        console.log(res.data)
          setVideos(res.data.posts)
          setMorePages(res.data.morepages)
     } catch (error) {
         setNotification(error)
     }
+   }
+
+   const subscribed = (type) => {
+       if(type === "premium" && isSubscribed != true ){
+         return true
+       } else {
+        return false
+       }
    }
 
   if(!videoDetail) return <Loader />;
@@ -80,7 +106,17 @@ useEffect(() => {
       <Stack direction={{ xs: "column", md: "row" }}>
         <Box flex={1}>
           <Box sx={{ width: "100%", position: "sticky", top: "86px" }}>
-            <ReactPlayer url={`https://www.youtube.com/watch?v=${5}`} className="react-player" controls />
+               {!subscribed(videoDetail.type.toString()) ? (<ReactPlayer url={`https://www.youtube.com/watch?v=${5}`} className="react-player" controls />):(
+               <h2
+                style={{
+                width: "100%",
+                height: "100%",
+                borderRadius: "5px",
+                color: "grey",
+                backgroundColor: "black",
+                padding: "1rem",
+                border: "2px solid purple",
+              }}>Oop! This scene is only available for premium users only, please subscribe to get access</h2>) }
             <Typography color="#fff" variant="h5" fontWeight="bold" p={2}>
               { videoDetail.title }
               <Typography variant="body1" sx={{ opacity: 0.7 }}>
@@ -91,8 +127,7 @@ useEffect(() => {
               <Link to={`/channel`}>
                 <Typography variant={{ sm: "subtitle1", md: 'h6' }} gap={2} sx={{ fontSize: "15px", display: 'flex', alignItems: "center" }}  color="#fff" >
                 {!user.id ? (<Avatar sx={{ width:45, height:45, bgcolor: deepPurple[500] }}>MV</Avatar>):(<Avatar alt="profile" src={videoDetail?.author_name || ""  } sx={{width:45, height:45}} />) }
-                      { videoDetail.author_name } : creator
-                  <CheckCircleIcon sx={{ fontSize: "15px", color: "#9c02e4", ml: "5px" }} />
+                      { videoDetail.author_name } : {videoDetail.type.toString() + ' user'} {videoDetail.type.toString() === "premium" && <CheckCircleIcon sx={{ fontSize: "15px", color: "#9c02e4", ml: "5px" }} /> }
                 </Typography>
               </Link>
               <Stack direction="row" gap="20px" alignItems="center">
@@ -106,14 +141,14 @@ useEffect(() => {
             </Stack>
             <Stack direction="row" justifyContent="space-between" sx={{ color: "#fff" }} py={1} px={2}>
             <Typography variant={{ sm: "subtitle1", md: 'h6' }} gap={2} sx={{ fontSize: "15px", display: 'flex', alignItems: "center" }}  color="#fff" >
-                     Tags : { videoDetail.tag_name.length != 0 ? (videoDetail.tag_name.map(item => 
+                     Tags : { videoDetail.tag_name.length != 0 ? (videoDetail.tag_name.map(item =>
                         <button style={{ ml: "2px" }} disabled key={item.toString()}>{item}</button>
                         )):('No Tags')  }
                 </Typography>
             </Stack>
             <Stack direction="row" justifyContent="space-between" sx={{ color: "#fff" }} py={1} px={2}>
             <Typography variant={{ sm: "subtitle1", md: 'h6' }} gap={2} sx={{ fontSize: "15px", display: 'flex', alignItems: "center" }} color="#fff" >
-                     <p            
+                     <p
                 style={{
                 width: "100%",
                 height: "100%",
@@ -121,7 +156,6 @@ useEffect(() => {
                 color: "white",
                 backgroundColor: "black",
                 padding: "1rem",
-                border: "2px solid purple",
               }} > {videoDetail?.body_content || null} Load moreLoad moreLoad moreLoad moreLoad moreLoad moreLoad moreLoad moreLoad more
               Load moreLoad moreLoad moreLoad moreLoad moreLoad moreLoad moreLoad moreLoad moreLoad moreLoad moreLoad moreLoad moreLoad moreLoad moreLoad moreLoad moreLoad more
               Load moreLoad moreLoad moreLoad moreLoad moreLoad moreLoad moreLoad moreLoad moreLoad moreLoad moreLoad moreLoad more
@@ -130,6 +164,20 @@ useEffect(() => {
               Load moreLoad moreLoad moreLoad moreLoad moreLoad moreLoad moreLoad more </p>
                 </Typography>
             </Stack>
+            <Stack direction="row" justifyContent="space-between" sx={{ color: "#fff" }} py={1} px={2}>
+            <Typography variant={{ sm: "subtitle1", md: 'h6' }} gap={2} sx={{ fontSize: "15px", display: 'flex', alignItems: "center", mt: "60px" }} color="#fff" >
+             <span style={{
+            borderRadius: "9px",
+            padding: "12px 20px",
+            fontSize: "1.2rem",
+            background: "#9c02e4",
+            color:"#fff",
+            border: "1px solid rgba(150, 5, 194, 0.922)",
+            cursor: "pointer",
+             }}>Comments </span>
+            </Typography>
+            </Stack>
+           <Comments value={allowComment} id={id} model_name={MODELNAME}/>
           </Box>
         </Box>
         <Box px={2} py={{ md: 1, xs: 5 }} justifyContent="center" alignItems="center" >

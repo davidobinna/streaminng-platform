@@ -12,8 +12,8 @@ const Video = () => {
                 <source src={Hero} type='video/mp4' />
             </video>
             <div className='content'>
-                <h1>AIS .net</h1>
-                <p>Artificial Imagination Studio</p>
+                <h1>Arc</h1>
+                <p>AI Motion Architech</p>
             <div>
                 {!token &&
                 <Link to='/feed' className='btn'>Not Now</Link>

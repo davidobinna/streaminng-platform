@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Traits;
 
 use App\Models\Comment;
@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 
 /**
- * 
+ *
  */
 trait HasComments
 {
@@ -18,12 +18,14 @@ trait HasComments
 
    public function commentsRelation(): MorphMany
    {
-     return $this->MorphMany(Comment::class,'commentsRelation','commentable_id','commentable_type');
+     return $this->MorphMany(Comment::class,'commentsRelation','commentable_type','commentable_id');
    }
 
    public function latestComments(int $amount = 5)
    {
-    return $this->commentsRelation()->lastest()->limit($amount)->get();
+    return $this->commentsRelation()
+                ->lastest()->limit($amount)
+                ->get();
    }
 
    public function deleteComments()
@@ -35,6 +37,6 @@ trait HasComments
     $this->unsetRelation('commentsRelation');
   }
 }
-
+ 
 
 ?>

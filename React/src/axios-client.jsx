@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Navigate } from "react-router-dom";
 
 
 const serverUrl = 'http://localhost:8000'
@@ -21,6 +22,8 @@ axiosClient.interceptors.response.use((response) => {
 }, (error) => {
     if(error.response.status === 401){
         localStorage.removeItem('ACCESS_TOKEN')
+        localStorage.removeItem('ACCESS_ADMIN')
+        localStorage.removeItem('ACCESS_DEFAULT')
         throw error.response.statusText;
     }
     if(error.response.status === 404){

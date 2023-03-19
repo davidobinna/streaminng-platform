@@ -55,7 +55,7 @@ const nextLink = async (link) => {
 <div>
       <div style={{display: 'flex', justifyContent: "space-between", alignItems: "center"}}>
         <h4>All Writers</h4>
-        <Link to="/dashboard/admin/writers/new" className="category-btn" style={{
+        <Link to="/dashboard/admin/users/new" className="category-btn" style={{
           background: "#9c02e4",
           color: "white"}} >Add new Writer</Link>
       </div>
@@ -64,12 +64,11 @@ const nextLink = async (link) => {
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Writer ID </TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Email address</TableCell>
-            <TableCell>Role</TableCell>
-            <TableCell>Date Joined</TableCell>
-            <TableCell>Actions</TableCell>
+            <TableCell><b> Writer's ID </b></TableCell>
+            <TableCell><b>Name </b></TableCell>
+            <TableCell><b> Email address </b></TableCell>
+            <TableCell><b>Role </b></TableCell>
+            <TableCell><b>Date Joined </b></TableCell>
           </TableRow>
         </TableHead>
         {loading && <TableBody>
@@ -94,7 +93,6 @@ const nextLink = async (link) => {
               {writers[item].type === 3 ? ("Writer"):('') }
               </TableCell>
               <TableCell >{writers[item].joinedDate}</TableCell>
-              <TableCell>Action</TableCell>
             </TableRow>
           ))}
         </TableBody>
