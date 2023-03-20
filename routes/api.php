@@ -76,7 +76,7 @@ Route::group(['middleware' => ['json.response','auth:api']],function(){
 //.........All Comments Resource Endpoint Goes Here--------//
 Route::apiResource('/comment',Feed\CommentController::class)->only([
     'index','store','show','update','destroy'
-]);
+])->middleware(['auth:api','json.response']);
 
 
 Route::get('/taglist', [TagController::class,'taglist'])->middleware(['json.response','auth:api']);

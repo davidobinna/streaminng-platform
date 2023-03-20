@@ -7,10 +7,33 @@ import { Videos, Loader } from "./";
 import axiosClient from "../../axios-client";
 import { useStateContext } from "../../contexts/ContextProvider";
 import { deepPurple } from '@mui/material/colors';
-import Comments from "./Comments";
+import AddComments from "./AddComments";
+import CommentList from "./CommentList";
 
 var INCREATMENT = 0 ;
 var MODELNAME = 'posts';
+
+const comments = [
+    {
+      id: 1,
+      text: 'This is the first comment',
+      user: { name: 'John Doe' },
+      replies: [
+        {
+          id: 2,
+          text: 'This is a reply to the first comment',
+          user: { name: 'Jane Doe' },
+          replies: [],
+        },
+      ],
+    },
+    {
+      id: 3,
+      text: 'This is the second comment',
+      user: { name: 'Bob Smith' },
+      replies: [],
+    },
+  ];
 
 
 const VideoDetail = () => {
@@ -165,7 +188,7 @@ useEffect(() => {
                 </Typography>
             </Stack>
             <Stack direction="row" justifyContent="space-between" sx={{ color: "#fff" }} py={1} px={2}>
-            <Typography variant={{ sm: "subtitle1", md: 'h6' }} gap={2} sx={{ fontSize: "15px", display: 'flex', alignItems: "center", mt: "60px" }} color="#fff" >
+            <Typography variant={{ sm: "subtitle1", md: 'h6' }} gap={2} sx={{ fontSize: "15px", display: 'flex', alignItems: "center", mt: "20px" }} color="#fff" >
              <span style={{
             borderRadius: "9px",
             padding: "12px 20px",
@@ -177,7 +200,8 @@ useEffect(() => {
              }}>Comments </span>
             </Typography>
             </Stack>
-           <Comments value={allowComment} id={id} model_name={MODELNAME}/>
+            <CommentList comments={comments} />
+            <AddComments value={allowComment} id={id} model_name={MODELNAME}/>
           </Box>
         </Box>
         <Box px={2} py={{ md: 1, xs: 5 }} justifyContent="center" alignItems="center" >
@@ -192,7 +216,7 @@ useEffect(() => {
 export default VideoDetail;
 
 
-
+//           <Comments value={allowComment} id={id} model_name={MODELNAME}/>
 
 /*  return (
     <Box minHeightb="95vh">

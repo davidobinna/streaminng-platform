@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Navigate } from "react-router-dom";
 
 
 const serverUrl = 'http://localhost:8000'
