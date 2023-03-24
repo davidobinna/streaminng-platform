@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Dash\TagController;
 use App\Http\Controllers\Feed\CommentController;
 use App\Http\Controllers\Feed\FeedController;
+use App\Http\Controllers\Feed\TagsController;
 use App\Http\Controllers\Pages\MembershipController;
 use App\Http\Controllers\Stripe\PaymentController;
 use Illuminate\Http\Request;
@@ -45,7 +46,6 @@ Route::group(['middleware' => ['json.response','auth:api']], function(){
     Route::post('/payments', [PaymentController::class, 'store'])->name('payments.store');
 });
 
-
 //......All User Resource Endpoint Goes Here.......//
 Route::apiResource('/users', Dash\ResourceController::class)->only([
     'index','store','show','update','destroy'])->middleware(['json.response','auth:api']);
@@ -54,9 +54,11 @@ Route::apiResource('/users', Dash\ResourceController::class)->only([
 Route::apiResource('/posts', Dash\PostController::class)->only([
     'index','store','show','update','destroy'])->middleware(['json.response','auth:api']);
 
-//......All Tags Resource Endpoint Goes Here.......//
+//......All Tag Resource Endpoint Goes Here.......//
 Route::apiResource('/tags', Dash\TagController::class)->only([
     'index','store','show','update','destroy'])->middleware(['json.response','auth:api']);
+Route::get('/taglist', [TagController::class,'taglist'])->middleware(['json.response','auth:api']);
+
 
 //......All Writers Resource Endpoint Goes Here.......//
 Route::apiResource('/writers', Dash\WriterController::class)->only([
@@ -68,17 +70,13 @@ Route::apiResource('/feed', Feed\FeedController::class)->only([
     'index'
 ])->middleware(['json.response']);
 
-Route::group(['middleware' => ['json.response','auth:api']],function(){
-    Route::get('/feed/{id}',[FeedController::class,'show'])->name('feed.show');
-});
-
+Route::get('/feed/{id}',[FeedController::class,'show'])->middleware(['json.response','auth:api']);
+Route::get('/loadmore/{id}', [FeedController::class,'loadmore'])->middleware(['json.response']);
+Route::get('/alltags', [TagsController::class,'index'])->middleware(['json.response']);
+Route::get('/alltags/{id}', [TagsController::class,'show'])->middleware(['json.response']);
 
 //.........All Comments Resource Endpoint Goes Here--------//
 Route::apiResource('/comment',Feed\CommentController::class)->only([
     'index','store','show','update','destroy'
 ])->middleware(['auth:api','json.response']);
 
-
-Route::get('/taglist', [TagController::class,'taglist'])->middleware(['json.response','auth:api']);
-Route::get('/loadmore/{id}', [FeedController::class,'loadmore'])->middleware(['json.response']);
-Route::get('/subscription',[FeedController::class, 'subscription'])->middleware(['json.response']);
