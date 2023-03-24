@@ -21,5 +21,5 @@ trait HasCommentable
         return $this->commentAbleRelation()->associate($commentAble);
     }
 }
- 
+
 ?>

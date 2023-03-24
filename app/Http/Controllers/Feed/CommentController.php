@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Feed;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CommentRequest;
+use App\Models\Comment;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -27,7 +29,20 @@ class CommentController extends Controller
      */
     public function store(CommentRequest $request)
     {
-        return $request;
+
+        $comment = new Comment([
+            'body'      => $request->body(),
+            'parent_id' => $request->parent_id(),
+            'depth'     => $request->depth(),
+        ]);
+        $comment->authoredBy($request->author());
+       // return $request->commentable();
+        $comment->to($request->commentable());
+
+        $comment->save();
+        return response()->json([
+           'success' => true
+        ],201);
     }
 
     /**

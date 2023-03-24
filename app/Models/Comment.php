@@ -35,7 +35,7 @@ class Comment extends Model
     ];
 
     public function id(): int
-    {
+    { 
         return $this->id;
     }
 

@@ -5,11 +5,13 @@ namespace App\Http\Requests;
 use App\Contracts\CommentAble;
 use App\Models\Post;
 use App\Traits\GetApiUser;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CommentRequest extends FormRequest
 {
-    use GetApiUser;
+     use GetApiUser;
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -56,7 +58,7 @@ class CommentRequest extends FormRequest
         return $this->get('depth');
     }
 
-    public function commnetable(): CommentAble
+    public function commentable(): CommentAble
     {
         return $this->findCommentAble($this->get('commentable_id'), $this->get('commentable_type'));
     }
@@ -65,7 +67,7 @@ class CommentRequest extends FormRequest
     {
         switch ($type) {
             case Post::TABLE:
-                return Post::find(id);
+                return Post::findOrFail($id);
         }
         return 404;
     }

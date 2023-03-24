@@ -15,7 +15,7 @@ const getUser = () => {
 
 
 const VideoCard = (scene) => (
-  <Card sx={{ width: { xs: '100%', sm: '358px', md: "320px", }, boxShadow: "none", borderRadius: 0 }}>
+  <Card sx={{ width: { xs: '100%', sm: '358px', md: "320px", }, boxShadow: "none", borderRadius: 3 }}>
     <Link to={scene ? `/feed/${scene.value.id}` : `/home` }>
       <CardMedia image={ `${serverAddress}/storage/`+scene?.value.image.substring(7) || demoThumbnailUrl } alt={scene.title}
         sx={{ width: { xs: '100%', sm: '358px'}, height: 150 }}
