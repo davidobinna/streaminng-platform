@@ -12,8 +12,8 @@ const Video = () => {
                 <source src={Hero} type='video/mp4' />
             </video>
             <div className='content'>
-                <h1>Arc</h1>
-                <p>AI Motion Architech</p>
+                <h1>Arc Studio</h1>
+                <p>Imagination to Geometry</p>
             <div>
                 {!token &&
                 <Link to='/feed' className='btn'>Not Now</Link>
@@ -23,7 +23,7 @@ const Video = () => {
                 }
              {
                 token &&
-                <Link to='/dashboard' className='btn'>Go to Dashboard</Link>
+                <Link to='/dashboard' className='btn'>My Dashboard</Link>
              }
             </div>
            </div>

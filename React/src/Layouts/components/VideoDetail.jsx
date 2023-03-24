@@ -7,33 +7,10 @@ import { Videos, Loader } from "./";
 import axiosClient from "../../axios-client";
 import { useStateContext } from "../../contexts/ContextProvider";
 import { deepPurple } from '@mui/material/colors';
-import AddComments from "./AddComments";
-import CommentList from "./CommentList";
+import Core from "./comments/Core";
 
 var INCREATMENT = 0 ;
 var MODELNAME = 'posts';
-
-const comments = [
-    {
-      id: 1,
-      text: 'This is the first comment',
-      user: { name: 'John Doe' },
-      replies: [
-        {
-          id: 2,
-          text: 'This is a reply to the first comment',
-          user: { name: 'Jane Doe' },
-          replies: [],
-        },
-      ],
-    },
-    {
-      id: 3,
-      text: 'This is the second comment',
-      user: { name: 'Bob Smith' },
-      replies: [],
-    },
-  ];
 
 
 const VideoDetail = () => {
@@ -44,8 +21,8 @@ const VideoDetail = () => {
   const [morePages, setMorePages] = useState(true)
   const [isSubscribed, setIsSubscribed] = useState(null)
   const [allowComment, setAllowComment] = useState(null)
-  const { id } = useParams();
   const navigate = useNavigate()
+  const { id } = useParams();
 
   /**useEffect(() => {
     fetchFromAPI(`videos?part=snippet,statistics&id=${id}`)
@@ -80,8 +57,9 @@ useEffect(() => {
           if(!token){
            navigate('/login')
        }
+       debugger
     })
-},[id])
+},[])
 
 
 useEffect(() => {
@@ -149,8 +127,8 @@ useEffect(() => {
             <Stack direction="row" justifyContent="space-between" sx={{ color: "#fff" }} py={1} px={2} >
               <Link to={`/channel`}>
                 <Typography variant={{ sm: "subtitle1", md: 'h6' }} gap={2} sx={{ fontSize: "15px", display: 'flex', alignItems: "center" }}  color="#fff" >
-                {!user.id ? (<Avatar sx={{ width:45, height:45, bgcolor: deepPurple[500] }}>MV</Avatar>):(<Avatar alt="profile" src={videoDetail?.author_name || ""  } sx={{width:45, height:45}} />) }
-                      { videoDetail.author_name } : {videoDetail.type.toString() + ' user'} {videoDetail.type.toString() === "premium" && <CheckCircleIcon sx={{ fontSize: "15px", color: "#9c02e4", ml: "5px" }} /> }
+                {!user.id ? (<Avatar sx={{ width:45, height:45, bgcolor: deepPurple[500] }}>MV</Avatar>):(<Avatar alt="profile" src={videoDetail?.author_image || ""  } sx={{width:45, height:45}} />) }
+                      { videoDetail.author_name } : {videoDetail.type.toString() + ' plan'} {videoDetail.type.toString() === "premium" && <CheckCircleIcon sx={{ fontSize: "15px", color: "#9c02e4", ml: "5px" }} /> }
                 </Typography>
               </Link>
               <Stack direction="row" gap="20px" alignItems="center">
@@ -200,8 +178,9 @@ useEffect(() => {
              }}>Comments </span>
             </Typography>
             </Stack>
-            <CommentList comments={comments} />
-            <AddComments value={allowComment} id={id} model_name={MODELNAME}/>
+            <Stack direction="row" justifyContent="space-between" sx={{ color: "#000", pb:"5rem" }} py={1} px={2}>
+            <Core />
+            </Stack>
           </Box>
         </Box>
         <Box px={2} py={{ md: 1, xs: 5 }} justifyContent="center" alignItems="center" >
@@ -216,7 +195,9 @@ useEffect(() => {
 export default VideoDetail;
 
 
-//           <Comments value={allowComment} id={id} model_name={MODELNAME}/>
+
+//<CommentList comments={comments} />
+//<AddComments value={allowComment} id={id} model_name={MODELNAME}/>
 
 /*  return (
     <Box minHeightb="95vh">
