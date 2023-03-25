@@ -111,7 +111,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/index',
-                element: <Index/>
+                element: <Index/> 
             },
             {
                 path: '/',

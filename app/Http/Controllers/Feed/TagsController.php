@@ -12,7 +12,7 @@ class TagsController extends Controller
     public function index()
     {
        return TagResource::collection(
-           Tag::all()->orderBy('id','DESC')
+           Tag::all()
        );
     }
 

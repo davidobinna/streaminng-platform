@@ -59,7 +59,7 @@ const Feed = () => {
                </Typography>
            </Box>
            <Box p={2} sx={{ overflowY: "auto", height: "90vh", flex: 2 }}>
-              <Typography variant="h5" fontWeight="bold" mb={2} sx={{ color: "white" }}> {selectedCategory}
+              <Typography variant="h5" fontWeight="bold" mb={2} sx={{ color: "white" }}> {selectedCategory === "Home" ? ("Latest"):(selectedCategory) }
                  <span style={{ color: "#9c02e4" }}> Scene</span>
                </Typography>
                {loading ? (<Loader />):(<Videos videos={videos}/>)}
