@@ -1,17 +1,19 @@
 import { Stack } from "@mui/material";
 import { Link } from "react-router-dom";
-import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import HomeIcon from '@mui/icons-material/Home';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 import { categories, admincategories, writercategories } from "../utils/constants";
 import { useStateContext } from "../../contexts/ContextProvider";
 import axiosClient from "../../axios-client";
 import { useEffect, useState } from "react";
 
-const Sidebar = ({ selectedCategory, setSelectedCategory, admin, defaultuser, writer }) => {
+const Sidebar = ({ selectedCategory, setSelectedCategory, admin, defaultuser, writer, setRouteSlug }) => {
 
 const {user,setNotification,setUser,setAdmin,setDefaultUser,setToken} = useStateContext();
 
+const [backgroundColor, setBackgroundColor] = useState("#9c02e4");
 const [tags,setTags] = useState([])
 
 useEffect(()=>{
@@ -22,6 +24,11 @@ useEffect(()=>{
         .catch((error)  => {
             console.log(error)
         })
+        let timer = null
+        timer = setTimeout(() => {
+            setBackgroundColor("#6b0178")
+        }, 3000);
+        return () => clearTimeout(timer);
 },[])
 
 const onLogout= async (e) => {
@@ -48,10 +55,13 @@ return (
       flexDirection: { md: "column" },
     }}>
 
-      <button 
-      onClick={() => setSelectedCategory("Home")}
+     {!admin &&
+     <Link
+     to='/home'>
+     <button
        className="category-btn"
         style={{
+            width: "100%",
           color: "white",
         }}>
             <span style={{ color: "white", marginRight: "15px" }}>
@@ -61,33 +71,19 @@ return (
                 Home
             </span>
         </button>
+        </Link>}
 
-        {tags.length != 0 && Object.keys(tags).map(item => {
-               <button 
-                 key={tags[item].id.toString()}
-                   className="category-btn"
-                       style={{
-                        color: "white",
-                         }}>
-                            {console.log(tags[item].id)}
-                       <span style={{ color: "white", marginRight: "15px" }}>
-                       </span>
-                        <span style={{ opacity: "1" }} >
-                             hello
-                       </span>
-                    </button>
-        })}
-
-        {defaultuser &&
+    {defaultuser &&
       categories.map((category) => (
-        <button         className="category-btn"
+        <button         
+        className="category-btn"
         onClick={() => setSelectedCategory(category.name)}
         style={{
-          background: category.name === selectedCategory && "#9c02e4",
+          background: category.name === selectedCategory &&  backgroundColor,
           color: "white",
         }} key={category.name}>
-            <span style={{ color: category.name === selectedCategory ? "white" : "#9c02e4", marginRight: "5px", height:"25px"}}>
-                
+            <span style={{ color: category.name === selectedCategory ? "white" : "#9c02e4", marginRight: "15px"}}>
+                {category.icon}
             </span>
             <span style={{ opacity: category.name === selectedCategory ? "1" : "0.8" }} >
                 {category.name}
@@ -95,7 +91,7 @@ return (
         </button>
       )) }
 
-   
+
    {admin &&
       admincategories.map((category) => (
         <Link
@@ -103,7 +99,7 @@ return (
         <button         className="category-btn"
         onClick={() => setSelectedCategory(category.link)}
         style={{
-            width: "10rem",
+            width: "100%",
           background: category.name === selectedCategory && "#9c02e4",
           color: "white",
         }} key={category.name}>
@@ -116,6 +112,23 @@ return (
         </button>
         </Link>
       )) }
+
+     {tags.length !== 0 & admin !== true && Object.keys(tags).map(item => (
+               <button
+               onClick = {(e) => setRouteSlug(tags[item].name.toLowerCase())}
+                 key={tags[item].id.toString()}
+                   className="category-btn"
+                       style={{
+                        color: "white",
+                         }}>
+                       <span style={{ color: "white", marginRight: "15px" }}>
+                       <LocalOfferIcon />
+                       </span>
+                        <span style={{ opacity: "1" }} >
+                         {tags[item].name}
+                       </span>
+                    </button>
+        ))}
 
 {writer &&
       writercategories.map((category) => (
@@ -145,7 +158,7 @@ return (
           color: "white",
         }}>
             <span style={{ color: "white", marginRight: "15px" }}>
-            <FitnessCenterIcon />
+            <LogoutIcon />
             </span>
             <span style={{ opacity: "1" }} >
                 Logout
