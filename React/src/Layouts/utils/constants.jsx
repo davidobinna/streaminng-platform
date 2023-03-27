@@ -1,6 +1,6 @@
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import HomeIcon from '@mui/icons-material/Home';
-import CodeIcon from '@mui/icons-material/Code';
+import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
@@ -14,13 +14,15 @@ import DeveloperModeIcon from '@mui/icons-material/DeveloperMode';
 
 export const logo = 'https://i.ibb.co/s9Qys2j/logo.png';
 
+
+
 export const categories = [
-  { name: 'Latest', icon: <CodeIcon />, }
+  { name: 'Latest', link:'/feed', icon: <NewReleasesIcon />, }
 ];
 
 export const admincategories = [
-    { name: 'Latest', link:'/feed', icon: <HomeIcon />, },
-    { name: 'Profile',link:'/', icon: <MusicNoteIcon /> },
+    { name: 'Latest', link:'/feed', icon: <NewReleasesIcon />, },
+    { name: 'Profile',link:'/dashboard/admin/users', icon: <MusicNoteIcon /> },
     { name: 'Users', link:'/dashboard/admin/users', icon: <SchoolIcon />, },
     { name: 'Create User', link:'/dashboard/admin/users/new',  icon: <GraphicEqIcon />, },
     { name: 'Posts', link:'/dashboard/admin/posts', icon: <OndemandVideoIcon />, },

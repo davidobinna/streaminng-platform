@@ -57,7 +57,6 @@ useEffect(() => {
           if(!token){
            navigate('/login')
        }
-       debugger
     })
 },[])
 

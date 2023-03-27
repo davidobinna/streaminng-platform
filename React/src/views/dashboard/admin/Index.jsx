@@ -6,7 +6,7 @@ import { Sidebar } from "../../../Layouts/components";
 
 
 const AdminIndex = () => {
-    const [selectedCategory, setSelectedCategory] = useState("Home");
+    const [selectedCategory, setSelectedCategory] = useState("Profile");
     const {admin, notification} = useStateContext()
   if (!admin) {
         return <Navigate to="/home"/>

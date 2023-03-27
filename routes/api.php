@@ -73,7 +73,9 @@ Route::apiResource('/feed', Feed\FeedController::class)->only([
 Route::get('/feed/{id}',[FeedController::class,'show'])->middleware(['json.response','auth:api']);
 Route::get('/loadmore/{id}', [FeedController::class,'loadmore'])->middleware(['json.response']);
 Route::get('/alltags', [TagsController::class,'index'])->middleware(['json.response']);
-Route::get('/alltags/{id}', [TagsController::class,'show'])->middleware(['json.response']);
+Route::get('/tagspost/{slug?}', [TagsController::class,'show'])->middleware(['json.response']);
+Route::get('/loadmoretagpost/{id}/{slug}', [TagsController::class,'loadmorepost'])->middleware(['json.response']);
+
 
 //.........All Comments Resource Endpoint Goes Here--------//
 Route::apiResource('/comment',Feed\CommentController::class)->only([

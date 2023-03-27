@@ -22,7 +22,7 @@ class TagTableSeeder extends Seeder
             $this->createTag('Environment','environment','public/tags/environment.jpg'),
             $this->createTag('Fitness','fitness','public/tags/fitness.jpg'),
             $this->createTag('Family','family','public/tags/family.jpg'),
-            $this->createTag('Decor','Decor','public/tags/decor.jpg'),
+            $this->createTag('Decor','decor','public/tags/decor.jpg'),
             $this->createTag('Beauty','beauty', 'public/tags/beauty.jpg'),
             $this->createTag('Diy','d-i-y','public/tags/diy.jpg'),
         ]);
