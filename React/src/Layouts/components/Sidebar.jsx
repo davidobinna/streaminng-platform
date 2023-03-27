@@ -9,12 +9,14 @@ import { useStateContext } from "../../contexts/ContextProvider";
 import axiosClient from "../../axios-client";
 import { useEffect, useState } from "react";
 
+
 const Sidebar = ({ selectedCategory, setSelectedCategory, admin, defaultuser, writer, setRouteSlug }) => {
 
 const {user,setNotification,setUser,setAdmin,setDefaultUser,setToken} = useStateContext();
 
 const [backgroundColor, setBackgroundColor] = useState("#9c02e4");
 const [tags,setTags] = useState([])
+
 
 useEffect(()=>{
      axiosClient.get('/alltags')
@@ -26,7 +28,7 @@ useEffect(()=>{
         })
         let timer = null
         timer = setTimeout(() => {
-            setBackgroundColor("#6b0178")
+            setBackgroundColor("#000")
         }, 3000);
         return () => clearTimeout(timer);
 },[])
@@ -46,6 +48,12 @@ const onLogout= async (e) => {
        setNotification(error);
     }
 }
+
+
+const handleRefreshClick = () => {
+    window.location.reload();
+  };
+
 
 return (
     <Stack direction="row"
@@ -75,9 +83,9 @@ return (
 
     {defaultuser &&
       categories.map((category) => (
-        <button         
+        <button
         className="category-btn"
-        onClick={() => setSelectedCategory(category.name)}
+        onClick={handleRefreshClick}
         style={{
           background: category.name === selectedCategory &&  backgroundColor,
           color: "white",

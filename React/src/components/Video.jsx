@@ -13,7 +13,7 @@ const Video = () => {
             </video>
             <div className='content'>
                 <h1>Mind Verse</h1>
-                <p>Imagination to 3D Geometry</p>
+                <p>Text to metaVerse</p>
             <div>
                 {!token &&
                 <Link to='/feed' className='btn'>Not Now</Link>
