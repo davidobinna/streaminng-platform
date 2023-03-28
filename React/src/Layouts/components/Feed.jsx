@@ -6,6 +6,7 @@ import { useStateContext } from "../../contexts/ContextProvider";
 
 
 var INCREATMENT = 0 ;
+var INCREATMENTSLUG = 0 ;
 
 const Feed = () => {
     const [routeSlug, setRouteSlug] = useState('')
@@ -47,15 +48,21 @@ const Feed = () => {
     return INCREATMENT += 8
    }
 
+ function multiplyslug(){
+    return INCREATMENTSLUG += 8
+ }
+
    const loadMore = async (e) => {
     e.preventDefault()
     setloading(true)
     setNotification("Fetchig data, please wait...",2000)
     try {
-        const res = await axiosClient.get(`/loadmore/${multiply()}`)
+        const res = await axiosClient.get(!routeSlug ?
+                                       `/loadmore/${multiply()}`
+                                       : `/loadmoretagpost/${multiplyslug()}/${routeSlug}` )
         setloading(false)
-         setVideos(res.data.posts)
-         setMorePages(res.data.morepages)
+           setVideos(res.data.posts)
+          setMorePages(res.data.morepages)
     } catch (error) {
         setNotification(error)
     }
@@ -77,7 +84,7 @@ const Feed = () => {
                  <span style={{ color: "#9c02e4" }}> Assets</span>
                </Typography>
                {loading ? (<Loader />):(<Videos videos={videos}/>)}
-            {morePages && <button onClick={loadMore}>Load more</button>}
+            {morePages && <button onClick={loadMore}>more..</button>}
            </Box>
          </Stack>
     )
