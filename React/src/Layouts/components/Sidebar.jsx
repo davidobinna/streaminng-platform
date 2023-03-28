@@ -17,7 +17,6 @@ const {user,setNotification,setUser,setAdmin,setDefaultUser,setToken} = useState
 const [backgroundColor, setBackgroundColor] = useState("#9c02e4");
 const [tags,setTags] = useState([])
 
-
 useEffect(()=>{
      axiosClient.get('/alltags')
         .then((res) =>{
@@ -51,7 +50,8 @@ const onLogout= async (e) => {
 
 
 const handleRefreshClick = () => {
-    window.location.reload();
+    window.location.reload(false);
+
   };
 
 

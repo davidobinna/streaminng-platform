@@ -42,7 +42,8 @@ class TagsController extends Controller
         ]);
             } else {
               try {
-                return response()->json([
+
+                 return response()->json([
                     'tags' => Tag::whereSlug($slug)->firstOrFail(),
                     'posts' => loadTagPost(session()
                                     ->get('loadmorepost'),$slug)
@@ -61,7 +62,7 @@ class TagsController extends Controller
                                     }),
                     'morepages' => loadTagPost(session()->get('loadmorepost'),$slug)
                                   ->hasMorePages()
-                 ], 201);
+                 ], 201); 
               } catch (\Throwable $e) {
                  return response()->json([
                    'error' => $e->getMessage()
