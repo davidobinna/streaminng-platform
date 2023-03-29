@@ -108,7 +108,7 @@ return (
         onClick={() => setSelectedCategory(category.link)}
         style={{
             width: "100%",
-          background: category.name === selectedCategory && "#9c02e4",
+          background: category.name === selectedCategory && backgroundColor,
           color: "white",
         }} key={category.name}>
             <span style={{ color: category.name === selectedCategory ? "white" : "#9c02e4", marginRight: "15px" }}>

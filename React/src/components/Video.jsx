@@ -12,8 +12,8 @@ const Video = () => {
                 <source src={Hero} type='video/mp4' />
             </video>
             <div className='content'>
-                <h1>Mind Verse</h1>
-                <p>Text to metaVerse</p>
+                <h1>multi-verse.ai</h1>
+                <p>Text to AR</p>
             <div>
                 {!token &&
                 <Link to='/feed' className='btn'>Not Now</Link>
