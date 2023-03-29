@@ -103,6 +103,7 @@ class FeedController extends Controller
             'body_content' => $data->body(),
             'body_excerpt' => $data->excerpt(),
             'is_commnetable' => $data->isCommentable(),
+            'read_time'   => $data->readTime(),
             'plan'         => [
                 'subscribed' => $this->isSubscribed(
                                 $this->getAuthUser()),

@@ -145,6 +145,11 @@ useEffect(() => {
                         <button style={{ ml: "2px" }} disabled key={item.toString()}>{item}</button>
                         )):('No Tags')  }
                 </Typography>
+                <Stack direction="row" gap="20px" alignItems="center">
+                <Typography variant="body1" sx={{ opacity: 0.7 }}>
+                  {videoDetail.read_time} read
+                </Typography>
+              </Stack>
             </Stack>
             <Stack direction="row" justifyContent="space-between" sx={{ color: "#fff" }} py={1} px={2}>
             <Typography variant={{ sm: "subtitle1", md: 'h6' }} gap={2} sx={{ fontSize: "15px", display: 'flex', alignItems: "center" }} color="#fff" >
@@ -178,7 +183,17 @@ useEffect(() => {
             </Typography>
             </Stack>
             <Stack direction="row" justifyContent="space-between" sx={{ color: "#000", pb:"5rem" }} py={1} px={2}>
-            <Core />
+            {!allowComment? (
+            <h2
+                style={{
+                width: "100%",
+                height: "100%",
+                borderRadius: "5px",
+                color: "grey",
+                backgroundColor: "black",
+                padding: "1rem",
+                border: "2px solid purple",
+              }}>Comments are turned off</h2>):(<Core />)}
             </Stack>
           </Box>
         </Box>
