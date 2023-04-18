@@ -58,7 +58,7 @@ useEffect(() => {
            navigate('/login')
        }
     })
-},[])
+},[id])
 
 
 useEffect(() => {

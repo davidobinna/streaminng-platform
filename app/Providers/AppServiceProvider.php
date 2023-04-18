@@ -43,4 +43,5 @@ class AppServiceProvider extends ServiceProvider
             Tag::TABLE     => Tag::class,
         ]);
     }
+
 }

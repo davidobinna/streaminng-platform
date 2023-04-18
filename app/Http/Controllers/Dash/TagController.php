@@ -56,10 +56,8 @@ class TagController extends Controller
             'description' => $request->description(),
         ]);
         SaveImageService::UploadImage(
-            $request->image(),
-             $tag,
-              Tag::TABLE);
-        $tag->save();
+            $request->image(), $tag, Tag::TABLE);
+            $tag->save();
         return response(new TagResource($tag),201);
     }
 
