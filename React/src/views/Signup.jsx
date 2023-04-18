@@ -66,7 +66,7 @@ const signUp = async (payload) => {
             setErrors({
                 name:res.data.errors.name,
                 email:res.data.errors.email,
-                password:res.data.errors.password,
+                password:res.data.errors.password,  
             })
             setLoading(false)
           }

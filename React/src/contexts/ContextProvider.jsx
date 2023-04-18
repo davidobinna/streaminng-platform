@@ -23,7 +23,7 @@ const StateContext = createContext({
     setDefaultUser: () => {},
     addComment: () => {},
     deleteComment: () => {},
-})
+}) 
 
 const IMGOBJ = { amyrobson, maxblagun, ramsesmiron, juliusomo };
 const { comments, currentUser } = data;
