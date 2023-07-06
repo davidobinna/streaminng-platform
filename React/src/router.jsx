@@ -111,7 +111,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/index',
-                element: <Index/> 
+                element: <Index/>
             },
             {
                 path: '/',
@@ -142,7 +142,7 @@ const router = createBrowserRouter([
                     {
                         path: '/dashboard/admin/posts/new',
                         element:  <CreatePosts key="create"/>
-                    },
+                    }, 
                     {
                         path: '/dashboard/admin/posts/:id',
                         element:  <CreatePosts key="update"/>

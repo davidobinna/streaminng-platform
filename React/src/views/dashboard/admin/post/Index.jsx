@@ -36,7 +36,7 @@ const count ={
             setNotification(error)
         }
     }
-  
+
     const deletePost = (e, id) => {
         e.preventDefault()
     if (!window.confirm("Are you sure you want to delete this Scene?")) {
@@ -125,7 +125,7 @@ const count ={
                     <button className="category-btn" onClick={(e) =>  deletePost(e, posts[item].id)}>
                    <DeleteButton/>
                 </button>
-                </div>
+                </div> 
               </TableCell>
             </TableRow>
           ))}

@@ -8,7 +8,7 @@ import { Loader } from "../../../../Layouts/components";
 import axiosClient from '../../../../axios-client';
 import { useStateContext } from '../../../../contexts/ContextProvider';
 
-
+ 
 
   export default function CreatePosts(prop) {
   let {id}  = useParams()

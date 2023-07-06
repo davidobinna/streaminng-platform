@@ -83,7 +83,7 @@ const Feed = () => {
               <Typography variant="h5" fontWeight="bold" mb={2} sx={{ color: "white" }}> {selectedCategory === "Home" ? ("Latest"):(routeSlug === ''? selectedCategory : routeSlug ) }
                  <span style={{ color: "#9c02e4" }}> Assets</span>
                </Typography>
-               {loading ? (<Loader />):(<Videos videos={videos}/>)}
+               {loading ? (<Loader />):(<Videos videos={videos} />)}
             {morePages && <button onClick={loadMore}>more..</button>}
            </Box>
          </Stack>
